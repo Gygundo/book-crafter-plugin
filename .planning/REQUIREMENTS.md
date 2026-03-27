@@ -112,7 +112,7 @@ Explicitly excluded. Documented to prevent scope creep.
 | Automated publishing pipeline | Publishing (ISBN, pricing, distribution) is outside the writing domain |
 | Plagiarism / AI detection | Unreliable tools. Voice fidelity is the actual solution. |
 | Auto-research from internet | Hallucination risk too high for theological content. User provides or verifies sources. |
-| Chapter-by-chapter streaming | Creates pressure to approve incomplete work. Book is a system — present as a whole. |
+| Chapter-by-chapter streaming | Creates pressure to approve incomplete work. Book is a system -- present as a whole. |
 | Citation management (Zotero/EndNote) | Non-fiction teaching books use informal references, not academic citation formats |
 
 ## Traceability
@@ -121,66 +121,66 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FOUND-01 | Pending | Pending |
-| FOUND-02 | Pending | Pending |
-| FOUND-03 | Pending | Pending |
-| FOUND-04 | Pending | Pending |
-| FOUND-05 | Pending | Pending |
-| FOUND-06 | Pending | Pending |
-| VOICE-01 | Pending | Pending |
-| VOICE-02 | Pending | Pending |
-| VOICE-03 | Pending | Pending |
-| VOICE-04 | Pending | Pending |
-| VOICE-05 | Pending | Pending |
-| VOICE-06 | Pending | Pending |
-| OUTL-01 | Pending | Pending |
-| OUTL-02 | Pending | Pending |
-| OUTL-03 | Pending | Pending |
-| OUTL-04 | Pending | Pending |
-| OUTL-05 | Pending | Pending |
-| OUTL-06 | Pending | Pending |
-| RSRCH-01 | Pending | Pending |
-| RSRCH-02 | Pending | Pending |
-| RSRCH-03 | Pending | Pending |
-| RSRCH-04 | Pending | Pending |
-| WRITE-01 | Pending | Pending |
-| WRITE-02 | Pending | Pending |
-| WRITE-03 | Pending | Pending |
-| WRITE-04 | Pending | Pending |
-| WRITE-05 | Pending | Pending |
-| WRITE-06 | Pending | Pending |
-| WRITE-07 | Pending | Pending |
-| EDIT-01 | Pending | Pending |
-| EDIT-02 | Pending | Pending |
-| EDIT-03 | Pending | Pending |
-| EDIT-04 | Pending | Pending |
-| EDIT-05 | Pending | Pending |
-| EDIT-06 | Pending | Pending |
-| FMT-01 | Pending | Pending |
-| FMT-02 | Pending | Pending |
-| FMT-03 | Pending | Pending |
-| FMT-04 | Pending | Pending |
-| FMT-05 | Pending | Pending |
-| FMT-06 | Pending | Pending |
-| FMT-07 | Pending | Pending |
-| FMT-08 | Pending | Pending |
-| ENH-01 | Pending | Pending |
-| ENH-02 | Pending | Pending |
-| ENH-03 | Pending | Pending |
-| ENH-04 | Pending | Pending |
-| ENH-05 | Pending | Pending |
-| ENH-06 | Pending | Pending |
-| ITER-01 | Pending | Pending |
-| ITER-02 | Pending | Pending |
-| ITER-03 | Pending | Pending |
-| ITER-04 | Pending | Pending |
-| ITER-05 | Pending | Pending |
+| FOUND-01 | Phase 1 | Pending |
+| FOUND-02 | Phase 1 | Pending |
+| FOUND-03 | Phase 1 | Pending |
+| FOUND-04 | Phase 1 | Pending |
+| FOUND-05 | Phase 1 | Pending |
+| FOUND-06 | Phase 1 | Pending |
+| VOICE-01 | Phase 2 | Pending |
+| VOICE-02 | Phase 2 | Pending |
+| VOICE-03 | Phase 2 | Pending |
+| VOICE-04 | Phase 2 | Pending |
+| VOICE-05 | Phase 2 | Pending |
+| VOICE-06 | Phase 2 | Pending |
+| OUTL-01 | Phase 2 | Pending |
+| OUTL-02 | Phase 2 | Pending |
+| OUTL-03 | Phase 2 | Pending |
+| OUTL-04 | Phase 2 | Pending |
+| OUTL-05 | Phase 2 | Pending |
+| OUTL-06 | Phase 2 | Pending |
+| RSRCH-01 | Phase 3 | Pending |
+| RSRCH-02 | Phase 3 | Pending |
+| RSRCH-03 | Phase 3 | Pending |
+| RSRCH-04 | Phase 3 | Pending |
+| WRITE-01 | Phase 3 | Pending |
+| WRITE-02 | Phase 3 | Pending |
+| WRITE-03 | Phase 3 | Pending |
+| WRITE-04 | Phase 3 | Pending |
+| WRITE-05 | Phase 3 | Pending |
+| WRITE-06 | Phase 3 | Pending |
+| WRITE-07 | Phase 3 | Pending |
+| EDIT-01 | Phase 4 | Pending |
+| EDIT-02 | Phase 4 | Pending |
+| EDIT-03 | Phase 4 | Pending |
+| EDIT-04 | Phase 4 | Pending |
+| EDIT-05 | Phase 4 | Pending |
+| EDIT-06 | Phase 4 | Pending |
+| FMT-01 | Phase 5 | Pending |
+| FMT-02 | Phase 5 | Pending |
+| FMT-03 | Phase 5 | Pending |
+| FMT-04 | Phase 5 | Pending |
+| FMT-05 | Phase 5 | Pending |
+| FMT-06 | Phase 5 | Pending |
+| FMT-07 | Phase 5 | Pending |
+| FMT-08 | Phase 5 | Pending |
+| ENH-01 | Phase 6 | Pending |
+| ENH-02 | Phase 6 | Pending |
+| ENH-03 | Phase 6 | Pending |
+| ENH-04 | Phase 6 | Pending |
+| ENH-05 | Phase 6 | Pending |
+| ENH-06 | Phase 6 | Pending |
+| ITER-01 | Phase 2 | Pending |
+| ITER-02 | Phase 4 | Pending |
+| ITER-03 | Phase 4 | Pending |
+| ITER-04 | Phase 4 | Pending |
+| ITER-05 | Phase 4 | Pending |
 
 **Coverage:**
 - v1 requirements: 49 total
-- Mapped to phases: 0
-- Unmapped: 49
+- Mapped to phases: 49
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-27*
-*Last updated: 2026-03-27 after initial definition*
+*Last updated: 2026-03-27 after roadmap creation*
