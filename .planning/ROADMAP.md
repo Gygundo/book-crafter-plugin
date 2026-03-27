@@ -33,7 +33,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 2 plans
 
 Plans:
-- [ ] 01-01-PLAN.md — Plugin scaffold: manifest, stub skills, subagent definitions, reference documents
+- [x] 01-01-PLAN.md — Plugin scaffold: manifest, stub skills, subagent definitions, reference documents
 - [ ] 01-02-PLAN.md — Master orchestrator skill with pipeline logic, state detection, and status dashboard
 
 ### Phase 2: Voice System + Book Outliner
@@ -124,7 +124,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Plugin Foundation + Orchestrator | 0/2 | Not started | - |
+| 1. Plugin Foundation + Orchestrator | 1/2 | In Progress|  |
 | 2. Voice System + Book Outliner | 0/3 | Not started | - |
 | 3. Research + Chapter Writing | 0/3 | Not started | - |
 | 4. Editor + Revision Workflow | 0/3 | Not started | - |

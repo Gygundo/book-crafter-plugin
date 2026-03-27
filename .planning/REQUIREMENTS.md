@@ -9,12 +9,12 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Plugin Foundation
 
-- [ ] **FOUND-01**: Plugin scaffold follows Claude Code conventions (.claude-plugin/plugin.json, skills/*/SKILL.md, references/*.md)
+- [x] **FOUND-01**: Plugin scaffold follows Claude Code conventions (.claude-plugin/plugin.json, skills/*/SKILL.md, references/*.md)
 - [ ] **FOUND-02**: Master orchestrator skill chains all pipeline stages automatically (outline → research → write → edit → format)
 - [ ] **FOUND-03**: Each book project gets its own directory with organised artefacts (outline, research, chapter drafts, revisions, final .docx)
 - [ ] **FOUND-04**: Pipeline state tracking persists progress across stages so interrupted work can resume
 - [ ] **FOUND-05**: Orchestrator detects which pipeline stage to resume from based on existing artefacts
-- [ ] **FOUND-06**: Plugin works across all Claude Code surfaces — CLI, desktop app, web app (claude.ai/code), and IDE extensions
+- [x] **FOUND-06**: Plugin works across all Claude Code surfaces — CLI, desktop app, web app (claude.ai/code), and IDE extensions
 
 ### Voice System
 
@@ -121,12 +121,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FOUND-01 | Phase 1 | Pending |
+| FOUND-01 | Phase 1 | Complete |
 | FOUND-02 | Phase 1 | Pending |
 | FOUND-03 | Phase 1 | Pending |
 | FOUND-04 | Phase 1 | Pending |
 | FOUND-05 | Phase 1 | Pending |
-| FOUND-06 | Phase 1 | Pending |
+| FOUND-06 | Phase 1 | Complete |
 | VOICE-01 | Phase 2 | Pending |
 | VOICE-02 | Phase 2 | Pending |
 | VOICE-03 | Phase 2 | Pending |
