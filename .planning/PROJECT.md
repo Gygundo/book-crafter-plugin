@@ -12,24 +12,23 @@ Every chapter must read like it was written by a bestselling author — hooks th
 
 ### Validated
 
-(None yet — ship to validate)
+- [x] Master orchestrator skill that chains all pipeline stages automatically — Validated in Phase 01
+- [x] Each book project gets its own directory with all artifacts (outline, research, drafts, revisions, final .docx) — Validated in Phase 01
+- [x] Swappable voice profile system: ship with spiritual/theological default, support custom .md profiles and inline voice descriptions — Validated in Phase 02
+- [x] Theological framework inherited from sermon-crafter as the default spiritual voice profile — Validated in Phase 02
+- [x] Book outliner skill that produces chapter-by-chapter structure with hooks, key arguments, and arc — Validated in Phase 02
+- [x] Two input paths: topic brief (generate from scratch) OR existing content (synthesize from sermons/notes/outlines) — Validated in Phase 02
+- [x] Three book size tiers: booklet (<100 pages), short (15-25k words), standard (40-60k words) — Validated in Phase 02
+- [x] Master context document that all agents read (voice, theology, outline, character arcs, key terms, recurring themes) — Validated in Phase 02 (Book DNA)
+- [x] Hybrid iteration workflow: outline approval → full draft generation → chapter-level revision cycles — Validated in Phase 02 (outline approval gate)
 
 ### Active
 
-- [ ] Master orchestrator skill that chains all pipeline stages automatically
-- [ ] Two input paths: topic brief (generate from scratch) OR existing content (synthesize from sermons/notes/outlines)
-- [ ] Book outliner skill that produces chapter-by-chapter structure with hooks, key arguments, and arc
 - [ ] Research skill that gathers supporting material per chapter (scripture, references, illustrations)
 - [ ] Writer skill that produces full chapter drafts in parallel, each with a compelling opening hook
 - [ ] Editor skill that ensures voice consistency, flow between chapters, and bestselling-author quality
 - [ ] Formatter skill that produces professional .docx output (TOC, foreword, chapter summaries, discussion questions, page numbers)
-- [ ] Three book size tiers: booklet (<100 pages), short (15-25k words), standard (40-60k words)
-- [ ] Hybrid iteration workflow: outline approval → full draft generation → chapter-level revision cycles
-- [ ] Swappable voice profile system: ship with spiritual/theological default, support custom .md profiles and inline voice descriptions
-- [ ] Master context document that all agents read (voice, theology, outline, character arcs, key terms, recurring themes)
-- [ ] Each book project gets its own directory with all artifacts (outline, research, drafts, revisions, final .docx)
 - [ ] Professional book structure: foreword, TOC, chapter summaries, discussion questions, about the author
-- [ ] Theological framework inherited from sermon-crafter as the default spiritual voice profile
 
 ### Out of Scope
 
@@ -85,4 +84,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-27 after initialization*
+*Last updated: 2026-03-27 after Phase 02 completion*
