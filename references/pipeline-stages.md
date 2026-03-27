@@ -61,15 +61,40 @@ Intermediate artefacts: `edited/ch[NN]-pass1.md`, `edited/ch[NN]-pass2.md` (kept
 
 ## Stage 5: Format (formatter skill)
 
-**Input:** All `edited/ch*-final.md` files + formatting guide
+**Input:** All `edited/ch*-final.md` files + `book-dna.md` + `voice-profile.md`
 **Output:** `output/[Book Title].docx`
 **Parallel:** No -- single document generation
 
-Produces professional .docx with:
-- Front matter (half title, full title page, copyright, dedication, TOC)
-- Chapter headings with page breaks
-- Page numbers (Page X of Y)
-- Back matter (about the author, scripture index, glossary)
+### Document Section Architecture
+
+The generated .docx contains multiple sections with different page numbering:
+
+1. **Half Title Page** -- centred title only, no headers/footers
+2. **Full Title Page** -- title, subtitle, author name, no headers/footers
+3. **Copyright Page** -- copyright notice, scripture permission, ISBN placeholder
+4. **Dedication Page** -- placeholder for user-supplied dedication
+5. **Table of Contents** -- auto-generated from chapter headings (HeadingLevel.HEADING_1), roman numeral page numbers
+6. **Body (all chapters)** -- single section, chapters separated by pageBreakBefore, arabic page numbers restart at 1, header with book title, footer with "Page X of Y"
+7. **About the Author** -- author bio or placeholder
+8. **Scripture Index** -- auto-extracted from chapter content and METADATA blocks, sorted by canonical Bible book order
+9. **Glossary** -- from Book DNA Key Terms table
+
+### Typography
+
+- Font: Georgia throughout
+- Body: 12pt, 1.5 line spacing
+- Chapter headings: 24pt bold, page break before
+- Page size: US Letter (12240 x 15840 DXA)
+- Margins: 1.5" top/bottom, 1" sides
+
+### Auto-Extraction
+
+- **Scripture Index:** Extracted from edited chapter METADATA `scriptures_used` fields + regex scan of chapter body. Deduplicated and sorted by canonical Bible book order (Genesis through Revelation). Omitted entirely for non-theological books (determined by voice profile).
+- **Glossary:** Extracted from Book DNA Key Terms and Jargon table. Formatted as a two-column table (Term | Definition). Omitted if no Key Terms are defined.
+
+### Completion Detection
+
+Stage 5 is complete when `output/` directory contains a `.docx` file.
 
 ## Stage Completion Detection
 
