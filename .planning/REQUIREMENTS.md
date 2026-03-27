@@ -43,13 +43,13 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Chapter Writing
 
-- [ ] **WRITE-01**: Chapter writer agent produces complete chapter drafts (2,000-4,000 words for standard books, scaled for other sizes)
-- [ ] **WRITE-02**: Parallel chapter generation using wave batching (4-6 concurrent agents)
-- [ ] **WRITE-03**: Every chapter opens with a compelling hook (bold declaration, rhetorical question, counter-intuitive claim, tension-creating observation)
-- [ ] **WRITE-04**: Each chapter agent reads the full Book DNA master context to maintain voice and narrative consistency
-- [ ] **WRITE-05**: Chapter drafts are written in markdown as intermediate format, not directly as .docx
-- [ ] **WRITE-06**: Word count targeting per chapter based on book size tier and outline specifications
-- [ ] **WRITE-07**: Revelation-driven depth: cross-references across books, Greek/Hebrew word studies woven naturally, types and shadows, scripture interpreting scripture (for theological voice)
+- [x] **WRITE-01**: Chapter writer agent produces complete chapter drafts (2,000-4,000 words for standard books, scaled for other sizes)
+- [x] **WRITE-02**: Parallel chapter generation using wave batching (4-6 concurrent agents)
+- [x] **WRITE-03**: Every chapter opens with a compelling hook (bold declaration, rhetorical question, counter-intuitive claim, tension-creating observation)
+- [x] **WRITE-04**: Each chapter agent reads the full Book DNA master context to maintain voice and narrative consistency
+- [x] **WRITE-05**: Chapter drafts are written in markdown as intermediate format, not directly as .docx
+- [x] **WRITE-06**: Word count targeting per chapter based on book size tier and outline specifications
+- [x] **WRITE-07**: Revelation-driven depth: cross-references across books, Greek/Hebrew word studies woven naturally, types and shadows, scripture interpreting scripture (for theological voice)
 
 ### Editing
 
@@ -143,13 +143,13 @@ Which phases cover which requirements. Updated during roadmap creation.
 | RSRCH-02 | Phase 3 | Complete |
 | RSRCH-03 | Phase 3 | Complete |
 | RSRCH-04 | Phase 3 | Complete |
-| WRITE-01 | Phase 3 | Pending |
-| WRITE-02 | Phase 3 | Pending |
-| WRITE-03 | Phase 3 | Pending |
-| WRITE-04 | Phase 3 | Pending |
-| WRITE-05 | Phase 3 | Pending |
-| WRITE-06 | Phase 3 | Pending |
-| WRITE-07 | Phase 3 | Pending |
+| WRITE-01 | Phase 3 | Complete |
+| WRITE-02 | Phase 3 | Complete |
+| WRITE-03 | Phase 3 | Complete |
+| WRITE-04 | Phase 3 | Complete |
+| WRITE-05 | Phase 3 | Complete |
+| WRITE-06 | Phase 3 | Complete |
+| WRITE-07 | Phase 3 | Complete |
 | EDIT-01 | Phase 4 | Pending |
 | EDIT-02 | Phase 4 | Pending |
 | EDIT-03 | Phase 4 | Pending |

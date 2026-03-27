@@ -66,7 +66,7 @@ Plans:
 
 Plans:
 - [x] 03-01-PLAN.md — Researcher skill: structured per-chapter research artefacts with scripture, word studies, cross-references, and orchestrator Stage 2 wiring
-- [ ] 03-02-PLAN.md — Writer skill: chapter drafting with hooks, voice consistency, momentum pacing, theological depth, and orchestrator Stage 3 wave batching
+- [x] 03-02-PLAN.md — Writer skill: chapter drafting with hooks, voice consistency, momentum pacing, theological depth, and orchestrator Stage 3 wave batching
 
 ### Phase 4: Editor + Revision Workflow
 **Goal**: The manuscript reads as one voice with seamless chapter transitions, all cross-references validated, and users can request targeted chapter revisions
