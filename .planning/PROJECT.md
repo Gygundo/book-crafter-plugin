@@ -23,10 +23,12 @@ Every chapter must read like it was written by a bestselling author — hooks th
 - [x] Hybrid iteration workflow: outline approval → full draft generation → chapter-level revision cycles — Validated in Phase 02 (outline approval gate)
 - [x] Research skill that gathers supporting material per chapter (scripture, references, illustrations) — Validated in Phase 03
 - [x] Writer skill that produces full chapter drafts in parallel, each with a compelling opening hook — Validated in Phase 03
+- [x] Editor skill that ensures voice consistency, flow between chapters, and bestselling-author quality — Validated in Phase 04
+- [x] Three-pass editing pipeline (voice+theological, flow/transitions, cross-chapter validation) with rolling window for large books — Validated in Phase 04
+- [x] Review gate with approve/revise/read options, chapter-level revision workflow with one-hop adjacency checks, version management — Validated in Phase 04
 
 ### Active
 
-- [ ] Editor skill that ensures voice consistency, flow between chapters, and bestselling-author quality
 - [ ] Formatter skill that produces professional .docx output (TOC, foreword, chapter summaries, discussion questions, page numbers)
 - [ ] Professional book structure: foreword, TOC, chapter summaries, discussion questions, about the author
 
