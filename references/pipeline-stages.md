@@ -2,6 +2,24 @@
 
 Reference document describing the five stages of the book-writing pipeline. The orchestrator uses this to guide the user through the process and to determine which stage to execute next.
 
+## Stage 0.5: Sermon Adaptation (sermon-adapter skill) [CONDITIONAL]
+
+**Input:** Source files in `sources/` directory that contain sermon-format content
+**Output:** `sources-adapted/` directory with transformed source files
+**Conditional:** Only runs when sermon-format source material is detected (ALL CAPS headings, audience pronouns, verbal cues, temporal/spatial references) AND user confirms
+**Parallel:** No -- processes files sequentially
+
+The sermon adapter transforms spoken-rhythm content into written-rhythm prose:
+- Spoken fragments -> complete sentences
+- Audience-specific references -> universal references
+- Verbal cues ("Watch this") -> written transitions
+- Repetition-for-emphasis -> revelation-for-emphasis (deeper single treatment instead of repeated restatement)
+- ALL CAPS numbered points -> flowing narrative prose
+- Block-quoted scripture with commentary -> woven narrative integration
+- Exclamation/formatting emphasis -> prose-based emphasis
+
+After adaptation, the outliner's Source Ingestion Mode reads from `sources-adapted/` instead of `sources/`.
+
 ## Stage 1: Outline (outliner skill)
 
 **Input:** Topic brief (topic, key themes, target audience, optional scriptures) OR existing content (sermon transcripts, notes, blog posts)
@@ -100,6 +118,7 @@ Stage 5 is complete when `output/` directory contains a `.docx` file.
 
 | Stage | Complete When | Key Artefact |
 |-------|---------------|--------------|
+| Sermon Adapt. | `sources-adapted/` dir has files matching `sources/` count AND each contains `<!-- SERMON ADAPTED` marker | `sources-adapted/*.md` |
 | Outline | `chapter-outline.md` exists AND contains `<!-- APPROVED -->` marker | `chapter-outline.md` |
 | Research | `research/` dir has `ch*-research.md` files matching outline chapter count | `research/ch01-research.md` |
 | Write | `drafts/` dir has `ch*-draft.md` files matching outline chapter count | `drafts/ch01-draft.md` |

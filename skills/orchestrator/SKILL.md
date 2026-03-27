@@ -16,6 +16,10 @@ USER INPUT (topic brief OR existing content)
     v
 [ORCHESTRATOR] -- Main thread, controls entire pipeline
     |
+    |-- Stage 0.5: SERMON ADAPTATION (sermon-adapter skill) [CONDITIONAL]
+    |   Only runs when sermon-format sources detected
+    |   Output: sources-adapted/
+    |
     |-- Stage 1: OUTLINE (outliner skill)
     |   Output: chapter-outline.md, book-dna.md
     |   GATE: User approves outline before proceeding
@@ -118,6 +122,17 @@ Determine which voice input mode the user specified and process accordingly:
 
 5. **Confirm creation:** Show the user the created directory structure and the populated book-dna.md metadata, then proceed to the status dashboard.
 
+6. **Detect sermon format (conditional):** After source files are saved, scan the source files for sermon format indicators:
+   - ALL CAPS headings
+   - Audience-directed pronouns ("we", "us", "you" as congregation address)
+   - Verbal cues ("Let me tell you", "Watch this", "Here's where it gets good")
+   - Temporal references ("this morning", "last Sunday")
+   - Spatial references ("here in this room", "in our church")
+   If 3+ indicators found across all source files, ask the user:
+   "These source files appear to be sermon transcripts. Should I adapt them from spoken to written rhythm before generating the outline?"
+   If confirmed, flag the project for Stage 0.5 execution.
+   If the user explicitly stated the source is a sermon series (e.g., "convert my sermons to a book"), skip detection and flag directly.
+
 ### Detecting an Existing Project
 
 If a project directory already exists, scan for pipeline state using the detection algorithm in section 3.
@@ -155,7 +170,11 @@ Work backwards from the most advanced stage:
 6. Check for chapter-outline.md without <!-- APPROVED --> marker
    -> Stage 1 IN PROGRESS (outline exists but needs user approval)
 
-7. None of the above
+7. Check for sources-adapted/ directory with files
+   -> If exists AND sources/ also exists: Stage 0.5 COMPLETE (proceed to Stage 1 using sources-adapted/)
+   -> If sources/ exists with sermon indicators but no sources-adapted/: Stage 0.5 NEEDED
+
+8. None of the above
    -> Pipeline NOT STARTED (proceed to Stage 1)
 ```
 
@@ -189,6 +208,9 @@ Display the current pipeline status using this format:
 Directory: ~/Documents/Books/[Book Title]/
 
 ### Pipeline Status
+
+[ ] Stage 0.5: Sermon Adaptation (sermon-adapter) [only shown when sources/ contains sermon-format content]
+    Adapted: [date] | Source files: [N]
 
 [x] Stage 1: Outline (outliner)
     Generated: [date] | Chapters: [n] | Approved: Yes/No
@@ -266,6 +288,38 @@ After a stage completes:
 
 ### Stage-Specific Orchestration Notes
 
+#### Stage 0.5: Sermon Adaptation (Conditional)
+
+This stage only runs when the project has source files flagged as sermon format (either by auto-detection or explicit user indication).
+
+**Step 1: Verify sermon adaptation is needed**
+
+Check if `sources-adapted/` already exists with files:
+- If exists and file count matches `sources/`: Stage 0.5 already complete, skip to Stage 1
+- If not: proceed with adaptation
+
+**Step 2: Invoke the sermon adapter**
+
+Invoke the `book-crafter:sermon-adapter` skill with argument:
+- Project directory path: `[project_directory]`
+
+The sermon adapter will read all `.md` files from `sources/`, apply spoken-to-written transformations, and write adapted files to `sources-adapted/`.
+
+**Step 3: Verify adaptation output**
+
+1. Check that `sources-adapted/` directory exists: `ls [project_directory]/sources-adapted/ 2>/dev/null`
+2. Count adapted files and compare to source file count
+3. Verify each adapted file contains the `<!-- SERMON ADAPTED` metadata marker
+4. Display: "Stage 0.5 complete: [N] sermon source files adapted for book format"
+
+**Step 4: Update outliner source path**
+
+When proceeding to Stage 1, the outliner's Source Ingestion Mode will auto-detect `sources/`. However, when `sources-adapted/` exists, the orchestrator must tell the outliner to read from `sources-adapted/` instead. Pass this as an additional argument to the outliner invocation:
+- Source directory override: `[project_directory]/sources-adapted/`
+
+Update the Stage 1 outliner invocation to include:
+"Source material is in `sources-adapted/` (sermon-adapted versions). Use these files instead of the raw `sources/` directory."
+
 #### Stage 1: Outline
 
 **Step 1: Invoke the outliner**
@@ -274,6 +328,9 @@ Invoke the `book-crafter:outliner` skill with the project directory path. The ou
 - Read book-dna.md metadata and voice-profile.md from the project directory
 - Auto-detect mode (Topic Brief if no sources/ directory, Source Ingestion if sources/ exists)
 - Generate chapter-outline.md with structured per-chapter metadata
+
+If `sources-adapted/` exists in the project directory, include in the outliner invocation:
+"Source material has been adapted from sermon format. Read from sources-adapted/ instead of sources/."
 
 **Step 2: Present outline for review**
 
@@ -618,7 +675,8 @@ Voice profiles dir:  ${CLAUDE_PLUGIN_ROOT}/references/voice-profiles/
 Default voice:       ${CLAUDE_PLUGIN_ROOT}/references/voice-profiles/spiritual-default.md
 Subagent defs:       ${CLAUDE_PLUGIN_ROOT}/agents/chapter-writer.md
                      ${CLAUDE_PLUGIN_ROOT}/agents/chapter-editor.md
-Stage skills:        ${CLAUDE_PLUGIN_ROOT}/skills/outliner/SKILL.md
+Stage skills:        ${CLAUDE_PLUGIN_ROOT}/skills/sermon-adapter/SKILL.md
+                     ${CLAUDE_PLUGIN_ROOT}/skills/outliner/SKILL.md
                      ${CLAUDE_PLUGIN_ROOT}/skills/researcher/SKILL.md
                      ${CLAUDE_PLUGIN_ROOT}/skills/writer/SKILL.md
                      ${CLAUDE_PLUGIN_ROOT}/skills/editor/SKILL.md
