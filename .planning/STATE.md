@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 04-01-PLAN.md
-last_updated: "2026-03-27T20:19:06.264Z"
+stopped_at: Completed 04-02-PLAN.md
+last_updated: "2026-03-27T20:23:44.349Z"
 last_activity: 2026-03-27
 progress:
   total_phases: 6
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 8
-  completed_plans: 7
+  completed_plans: 8
   percent: 0
 ---
 
@@ -26,9 +26,9 @@ See: .planning/PROJECT.md (updated 2026-03-27)
 ## Current Position
 
 Phase: 04 (editor-revision-workflow) — EXECUTING
-Plan: 1 of 2
-Status: Executing Phase 04
-Last activity: 2026-03-27 -- Phase 04 execution started
+Plan: 2 of 2
+Status: Ready to execute
+Last activity: 2026-03-27
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -59,6 +59,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 03 P01 | 2min | 2 tasks | 2 files |
 | Phase 03 P02 | 3min | 2 tasks | 3 files |
 | Phase 04 P01 | 3min | 2 tasks | 2 files |
+| Phase 04 P02 | 1min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -88,6 +89,9 @@ Recent decisions affecting current work:
 - [Phase 03]: Chapter body uses continuous narrative with no sub-headings for seamless reading
 - [Phase 04]: Theological guardrails integrated into Pass 1 (not separate pass) since theological framework is part of voice profile
 - [Phase 04]: Pass 3 findings flagged for user decision rather than auto-fixed (except unambiguous capitalisation drift)
+- [Phase 04]: Review gate presents three options: approve, revise chapters, read full draft
+- [Phase 04]: Revision marker in consistency-report.md (not separate state file) following filesystem-as-state pattern
+- [Phase 04]: One-hop adjacency limit: revised chapter + immediate neighbours only, no recursive cascade
 
 ### Pending Todos
 
@@ -99,6 +103,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-27T20:19:06.261Z
-Stopped at: Completed 04-01-PLAN.md
+Last session: 2026-03-27T20:23:44.346Z
+Stopped at: Completed 04-02-PLAN.md
 Resume file: None

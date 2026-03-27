@@ -82,7 +82,7 @@ Plans:
 
 Plans:
 - [x] 04-01-PLAN.md — Editor skill: three-pass pipeline (voice consistency, flow/transitions, cross-chapter validation), rolling window for large books, chapter-editor subagent
-- [ ] 04-02-PLAN.md — Orchestrator Stage 4 detail, review gate, chapter-level revision workflow with adjacency checks and version history
+- [x] 04-02-PLAN.md — Orchestrator Stage 4 detail, review gate, chapter-level revision workflow with adjacency checks and version history
 
 ### Phase 5: Formatter + .docx Output
 **Goal**: The edited manuscript becomes a professionally formatted .docx file ready for hand-off to layout tools or direct reading

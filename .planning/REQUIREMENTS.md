@@ -83,10 +83,10 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Iteration
 
 - [x] **ITER-01**: Outline approval gate — user reviews outline before any drafting begins
-- [ ] **ITER-02**: Full draft review — complete book presented for holistic feedback before final formatting
-- [ ] **ITER-03**: Chapter-level revision — user can request rewrite of specific chapters with targeted feedback
-- [ ] **ITER-04**: Revised chapters trigger flow-check on adjacent chapters (transitions may break)
-- [ ] **ITER-05**: Revision history preserved in project directory (drafts are not overwritten)
+- [x] **ITER-02**: Full draft review — complete book presented for holistic feedback before final formatting
+- [x] **ITER-03**: Chapter-level revision — user can request rewrite of specific chapters with targeted feedback
+- [x] **ITER-04**: Revised chapters trigger flow-check on adjacent chapters (transitions may break)
+- [x] **ITER-05**: Revision history preserved in project directory (drafts are not overwritten)
 
 ## v2 Requirements
 
@@ -171,10 +171,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | ENH-05 | Phase 6 | Pending |
 | ENH-06 | Phase 6 | Pending |
 | ITER-01 | Phase 2 | Complete |
-| ITER-02 | Phase 4 | Pending |
-| ITER-03 | Phase 4 | Pending |
-| ITER-04 | Phase 4 | Pending |
-| ITER-05 | Phase 4 | Pending |
+| ITER-02 | Phase 4 | Complete |
+| ITER-03 | Phase 4 | Complete |
+| ITER-04 | Phase 4 | Complete |
+| ITER-05 | Phase 4 | Complete |
 
 **Coverage:**
 - v1 requirements: 49 total
