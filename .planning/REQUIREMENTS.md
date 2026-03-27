@@ -73,8 +73,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Content Enhancements
 
-- [ ] **ENH-01**: Sermon-to-book input path — converts sermon series into book chapters, adapting spoken rhythm to written rhythm
-- [ ] **ENH-02**: Sermon adaptation transforms: spoken fragments to complete sentences, audience-specific to universal references, verbal cues to written transitions, repetition-for-emphasis to revelation-for-emphasis
+- [x] **ENH-01**: Sermon-to-book input path — converts sermon series into book chapters, adapting spoken rhythm to written rhythm
+- [x] **ENH-02**: Sermon adaptation transforms: spoken fragments to complete sentences, audience-specific to universal references, verbal cues to written transitions, repetition-for-emphasis to revelation-for-emphasis
 - [ ] **ENH-03**: Discussion questions per chapter — specific to the chapter's unique arguments, passes the cliche test
 - [ ] **ENH-04**: Chapter summaries — concise recap of key points for each chapter
 - [ ] **ENH-05**: Prayer points per chapter (for theological books) — connected to the chapter's revelation, not generic prayers
@@ -164,8 +164,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | FMT-06 | Phase 5 | Complete |
 | FMT-07 | Phase 5 | Complete |
 | FMT-08 | Phase 5 | Complete |
-| ENH-01 | Phase 6 | Pending |
-| ENH-02 | Phase 6 | Pending |
+| ENH-01 | Phase 6 | Complete |
+| ENH-02 | Phase 6 | Complete |
 | ENH-03 | Phase 6 | Pending |
 | ENH-04 | Phase 6 | Pending |
 | ENH-05 | Phase 6 | Pending |

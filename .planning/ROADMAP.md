@@ -111,7 +111,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 06-01-PLAN.md — Sermon-adapter skill with 7 transformation rules and orchestrator Stage 0.5 wiring
+- [x] 06-01-PLAN.md — Sermon-adapter skill with 7 transformation rules and orchestrator Stage 0.5 wiring
 - [ ] 06-02-PLAN.md — Enricher skill (discussion questions, summaries, prayer points, foreword), orchestrator Stage 4.5 wiring, and formatter enrichment rendering
 
 ## Progress
@@ -126,4 +126,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 3. Research + Chapter Writing | 0/2 | Not started | - |
 | 4. Editor + Revision Workflow | 0/2 | Not started | - |
 | 5. Formatter + .docx Output | 0/2 | Not started | - |
-| 6. Content Enhancements | 0/2 | Not started | - |
+| 6. Content Enhancements | 1/2 | In Progress|  |
