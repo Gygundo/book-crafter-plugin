@@ -46,12 +46,11 @@ Plans:
   3. User can review, modify, and approve the outline before any drafting begins -- drafting does not proceed without approval
   4. Book DNA master context document is auto-generated from the approved outline + voice profile + theological framework, and is marked READ-ONLY during downstream stages
   5. User can supply a custom .md voice profile or inline voice description, and the system uses it instead of the default theological voice
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 02-01: TBD
-- [ ] 02-02: TBD
-- [ ] 02-03: TBD
+- [ ] 02-01-PLAN.md — Voice profile system: spec document, default profile validation, orchestrator voice selection with 4 input modes
+- [ ] 02-02-PLAN.md — Complete outliner skill with two-mode generation, structured output, narrative arc, Book DNA generation, and orchestrator wiring
 
 ### Phase 3: Research + Chapter Writing
 **Goal**: The pipeline produces complete chapter drafts -- researched, voice-consistent, and written in parallel -- for an approved outline
@@ -125,7 +124,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Plugin Foundation + Orchestrator | 2/2 | Complete   | 2026-03-27 |
-| 2. Voice System + Book Outliner | 0/3 | Not started | - |
+| 2. Voice System + Book Outliner | 0/2 | Not started | - |
 | 3. Research + Chapter Writing | 0/3 | Not started | - |
 | 4. Editor + Revision Workflow | 0/3 | Not started | - |
 | 5. Formatter + .docx Output | 0/2 | Not started | - |
