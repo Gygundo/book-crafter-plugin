@@ -112,7 +112,7 @@ Plans:
 
 Plans:
 - [x] 06-01-PLAN.md — Sermon-adapter skill with 7 transformation rules and orchestrator Stage 0.5 wiring
-- [ ] 06-02-PLAN.md — Enricher skill (discussion questions, summaries, prayer points, foreword), orchestrator Stage 4.5 wiring, and formatter enrichment rendering
+- [x] 06-02-PLAN.md — Enricher skill (discussion questions, summaries, prayer points, foreword), orchestrator Stage 4.5 wiring, and formatter enrichment rendering
 
 ## Progress
 

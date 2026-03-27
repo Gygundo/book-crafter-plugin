@@ -75,10 +75,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **ENH-01**: Sermon-to-book input path — converts sermon series into book chapters, adapting spoken rhythm to written rhythm
 - [x] **ENH-02**: Sermon adaptation transforms: spoken fragments to complete sentences, audience-specific to universal references, verbal cues to written transitions, repetition-for-emphasis to revelation-for-emphasis
-- [ ] **ENH-03**: Discussion questions per chapter — specific to the chapter's unique arguments, passes the cliche test
-- [ ] **ENH-04**: Chapter summaries — concise recap of key points for each chapter
-- [ ] **ENH-05**: Prayer points per chapter (for theological books) — connected to the chapter's revelation, not generic prayers
-- [ ] **ENH-06**: Foreword generation — frames the book's purpose, written in author voice or as a draft for an endorser
+- [x] **ENH-03**: Discussion questions per chapter — specific to the chapter's unique arguments, passes the cliche test
+- [x] **ENH-04**: Chapter summaries — concise recap of key points for each chapter
+- [x] **ENH-05**: Prayer points per chapter (for theological books) — connected to the chapter's revelation, not generic prayers
+- [x] **ENH-06**: Foreword generation — frames the book's purpose, written in author voice or as a draft for an endorser
 
 ### Iteration
 
@@ -166,10 +166,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | FMT-08 | Phase 5 | Complete |
 | ENH-01 | Phase 6 | Complete |
 | ENH-02 | Phase 6 | Complete |
-| ENH-03 | Phase 6 | Pending |
-| ENH-04 | Phase 6 | Pending |
-| ENH-05 | Phase 6 | Pending |
-| ENH-06 | Phase 6 | Pending |
+| ENH-03 | Phase 6 | Complete |
+| ENH-04 | Phase 6 | Complete |
+| ENH-05 | Phase 6 | Complete |
+| ENH-06 | Phase 6 | Complete |
 | ITER-01 | Phase 2 | Complete |
 | ITER-02 | Phase 4 | Complete |
 | ITER-03 | Phase 4 | Complete |
