@@ -66,6 +66,7 @@ When creating a new project:
 ~/Documents/Books/[Book Title]/
 ├── book-dna.md              # Copied from ${CLAUDE_PLUGIN_ROOT}/references/book-dna-template.md
 ├── voice-profile.md         # Copied from selected voice profile
+├── sources/               # User-provided source material (sermons, notes, blog posts)
 ├── research/                # Empty, populated in Stage 2
 ├── drafts/                  # Empty, populated in Stage 3
 ├── edited/                  # Empty, populated in Stage 4
@@ -113,7 +114,9 @@ Determine which voice input mode the user specified and process accordingly:
 2. Copy to `[project]/voice-profile.md`
 3. Inform the user: "Using the default spiritual/theological voice profile. You can change this later by providing a different voice profile."
 
-4. **Confirm creation:** Show the user the created directory structure and the populated book-dna.md metadata, then proceed to the status dashboard.
+4. **Handle source material:** If the user provides source content (file paths, sermon transcripts, notes), copy or save them to `[project]/sources/`. If the user provides file paths, copy the files. If the user provides inline content, save each piece as a numbered file (source-01.md, source-02.md, etc.). The outliner will auto-detect source files and switch to Source Ingestion Mode.
+
+5. **Confirm creation:** Show the user the created directory structure and the populated book-dna.md metadata, then proceed to the status dashboard.
 
 ### Detecting an Existing Project
 
@@ -253,14 +256,41 @@ After a stage completes:
 
 #### Stage 1: Outline
 
+**Step 1: Invoke the outliner**
+
+Invoke the `book-crafter:outliner` skill with the project directory path. The outliner will:
+- Read book-dna.md metadata and voice-profile.md from the project directory
+- Auto-detect mode (Topic Brief if no sources/ directory, Source Ingestion if sources/ exists)
+- Generate chapter-outline.md with structured per-chapter metadata
+
+**Step 2: Present outline for review**
+
 After the outliner produces `chapter-outline.md`:
 
-1. Present the full outline to the user for review
-2. Ask explicitly: "Does this outline look good? I'll proceed to research once you approve."
-3. On **approval**: Add `<!-- APPROVED -->` marker to the top of `chapter-outline.md` and proceed
-4. On **rejection**: Ask for specific feedback and re-invoke the outliner with the feedback
+1. Present the full outline to the user, highlighting:
+   - Book arc (the narrative progression)
+   - Size tier and calculated word targets
+   - Chapter count and momentum position distribution
+   - Any cross-chapter connections
+2. Ask explicitly: "Does this outline look good? I can adjust specific chapters, change the structure, or regenerate entirely. Once approved, I'll generate the Book DNA and proceed to research."
 
-The outline approval gate prevents wasting time and tokens generating content from a flawed structure.
+**Step 3: Approval gate**
+
+3. On **approval**:
+   a. Add `<!-- APPROVED -->` marker to the top of `chapter-outline.md`
+   b. Re-invoke the outliner for Book DNA generation (the outliner's Section 6 handles this)
+   c. Verify `book-dna.md` has been populated (check that Chapter Map table has rows)
+   d. Proceed to Stage 2
+4. On **rejection with feedback**:
+   a. Pass the user's specific feedback to the outliner
+   b. The outliner revises the outline (it reads the existing chapter-outline.md and applies changes)
+   c. Return to Step 2 to present the revised outline
+5. On **request to modify specific chapters**:
+   a. The user may ask to change specific chapters without regenerating the entire outline
+   b. Pass the modification request to the outliner
+   c. Return to Step 2
+
+The outline approval gate prevents wasting time and tokens generating content from a flawed structure. This gate is NEVER skipped, even in Full Pipeline mode.
 
 #### Stage 3: Write (Parallel Chapter Writing)
 
