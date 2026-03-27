@@ -325,20 +325,37 @@ After all chapters are processed:
 
 #### Stage 3: Write (Parallel Chapter Writing)
 
-Spawn chapter-writer subagents in parallel using the Agent tool. Each agent receives:
+Spawn chapter-writer subagents in parallel using the Agent tool.
 
-- **Book DNA path:** `[project]/book-dna.md`
-- **Voice profile path:** `[project]/voice-profile.md`
-- **Chapter assignment:** chapter number, title, and outline section from `chapter-outline.md`
-- **Research path:** `[project]/research/ch[NN]-research.md`
-- **Output path:** `[project]/drafts/ch[NN]-draft.md`
+**Batching strategy by book size:**
+- **Booklet (5-8 chapters):** Single wave, all chapters at once
+- **Short (8-12 chapters):** Two waves of 4-6 chapters each
+- **Standard (12-20 chapters):** Three to four waves of 4-6 chapters each
 
-**Batching:** For books with more chapters than the parallelism cap (~10), batch into waves:
-- Wave 1: Chapters 1-10 (spawn 10 agents simultaneously)
-- Wave 2: Chapters 11-20 (spawn after Wave 1 completes)
-- Continue until all chapters are assigned
+Wave 1: First 4-6 chapters (spawn agents simultaneously)
+Wave 2: Next batch after Wave 1 completes
+Continue until all chapters are written.
+
+**Agent invocation:** Each chapter-writer subagent receives this prompt:
+
+```
+Write Chapter [N] of "[Book Title]"
+
+Project directory: [project_directory]
+Book DNA: [project_directory]/book-dna.md
+Voice profile: [project_directory]/voice-profile.md
+Chapter outline section: [paste the specific ## Chapter N section from chapter-outline.md]
+Research notes: [project_directory]/research/ch[NN]-research.md
+Output path: [project_directory]/drafts/ch[NN]-draft.md
+Target word count: ~[N] words
+Momentum position: [Foundation/Building/Accelerating/Climax/Landing]
+```
 
 Each chapter-writer agent uses the `chapter-writer` subagent definition from `${CLAUDE_PLUGIN_ROOT}/agents/chapter-writer.md`, which preloads the `book-crafter:writer` skill.
+
+**Post-wave verification:** After each wave completes, verify all expected `drafts/ch[NN]-draft.md` files exist and contain the `<!-- METADATA` block. Report any missing chapters and retry them before starting the next wave.
+
+**Completion check:** After all waves, count draft files and confirm they match the outline chapter count. Display: "Stage 3 complete: [N]/[N] chapters drafted. Proceeding to Stage 4."
 
 **Critical:** Book DNA is READ-ONLY during parallel writing. No agent updates shared files. Updates happen between stages only.
 
