@@ -36,10 +36,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Research
 
-- [ ] **RSRCH-01**: Research skill gathers supporting material per chapter (scripture references, cross-references, word studies, illustrations)
-- [ ] **RSRCH-02**: Scripture references use actual Bible text (NKJV default) — no fabricated references
-- [ ] **RSRCH-03**: Research artefacts stored per chapter in the project directory for writer agents to consume
-- [ ] **RSRCH-04**: For theological books, research includes Greek/Hebrew word studies and cross-testament connections
+- [x] **RSRCH-01**: Research skill gathers supporting material per chapter (scripture references, cross-references, word studies, illustrations)
+- [x] **RSRCH-02**: Scripture references use actual Bible text (NKJV default) — no fabricated references
+- [x] **RSRCH-03**: Research artefacts stored per chapter in the project directory for writer agents to consume
+- [x] **RSRCH-04**: For theological books, research includes Greek/Hebrew word studies and cross-testament connections
 
 ### Chapter Writing
 
@@ -139,10 +139,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | OUTL-04 | Phase 2 | Complete |
 | OUTL-05 | Phase 2 | Complete |
 | OUTL-06 | Phase 2 | Complete |
-| RSRCH-01 | Phase 3 | Pending |
-| RSRCH-02 | Phase 3 | Pending |
-| RSRCH-03 | Phase 3 | Pending |
-| RSRCH-04 | Phase 3 | Pending |
+| RSRCH-01 | Phase 3 | Complete |
+| RSRCH-02 | Phase 3 | Complete |
+| RSRCH-03 | Phase 3 | Complete |
+| RSRCH-04 | Phase 3 | Complete |
 | WRITE-01 | Phase 3 | Pending |
 | WRITE-02 | Phase 3 | Pending |
 | WRITE-03 | Phase 3 | Pending |
