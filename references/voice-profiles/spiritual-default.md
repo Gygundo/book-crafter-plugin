@@ -2,6 +2,8 @@
 
 > Default voice profile for theological and spiritual books. Derived from the sermon-crafter theological framework and David's preaching style. Swap this file for a different voice profile to change the book's voice.
 
+<!-- Validated against voice-profile-spec.md. All required sections (1-5) present. Optional sections (6-7) present. -->
+
 ## Tone
 
 Bold, direct, revelation-driven. Speaks with authority, not academic hedging. Conversational but weighty -- like a preacher who has spent hours in the Word and can't wait to share what they found. Never stiff, never apologetic about theological claims.
