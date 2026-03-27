@@ -62,12 +62,11 @@ Plans:
   3. Every chapter opens with a compelling hook (bold declaration, rhetorical question, counter-intuitive claim, or tension-creating observation)
   4. Chapter word counts match the book size tier (booklet/short/standard) and each draft is written in markdown as intermediate format
   5. Theological depth is present: Greek/Hebrew word studies woven naturally, cross-references across books, types and shadows, scripture interpreting scripture
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 03-01: TBD
-- [ ] 03-02: TBD
-- [ ] 03-03: TBD
+- [ ] 03-01-PLAN.md — Researcher skill: structured per-chapter research artefacts with scripture, word studies, cross-references, and orchestrator Stage 2 wiring
+- [ ] 03-02-PLAN.md — Writer skill: chapter drafting with hooks, voice consistency, momentum pacing, theological depth, and orchestrator Stage 3 wave batching
 
 ### Phase 4: Editor + Revision Workflow
 **Goal**: The manuscript reads as one voice with seamless chapter transitions, all cross-references validated, and users can request targeted chapter revisions
@@ -125,7 +124,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 |-------|----------------|--------|-----------|
 | 1. Plugin Foundation + Orchestrator | 2/2 | Complete   | 2026-03-27 |
 | 2. Voice System + Book Outliner | 0/2 | Not started | - |
-| 3. Research + Chapter Writing | 0/3 | Not started | - |
+| 3. Research + Chapter Writing | 0/2 | Not started | - |
 | 4. Editor + Revision Workflow | 0/3 | Not started | - |
 | 5. Formatter + .docx Output | 0/2 | Not started | - |
 | 6. Content Enhancements | 0/2 | Not started | - |
