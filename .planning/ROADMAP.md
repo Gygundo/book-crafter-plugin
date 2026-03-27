@@ -93,11 +93,11 @@ Plans:
   2. Front matter is present and correctly ordered: half title, full title page, copyright page, dedication, table of contents
   3. Back matter is present: about the author section, auto-extracted scripture index, glossary of key terms
   4. .docx generation uses docx-js patterns inherited from the existing docx skill
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 05-01: TBD
-- [ ] 05-02: TBD
+- [ ] 05-01-PLAN.md — Complete formatter skill: document assembly pipeline with front matter, body chapters, back matter, TOC, page numbers, scripture index
+- [ ] 05-02-PLAN.md — Orchestrator Stage 5 wiring and pipeline-stages.md documentation update
 
 ### Phase 6: Content Enhancements
 **Goal**: The pipeline supports sermon-to-book conversion and generates reader engagement elements (discussion questions, summaries, prayer points, foreword)
