@@ -55,6 +55,7 @@ Every chapter must read like it was written by a bestselling author — hooks th
 - **Voice consistency**: All chapter agents must produce output that reads as one voice — this is the hardest technical challenge
 - **Context window**: Individual chapter agents have limited context; the master context document must be comprehensive but concise enough to fit
 - **Theological accuracy**: Default spiritual profile must maintain the same theological framework as the sermon-crafter (grace-based, New Covenant, supernatural-affirming)
+- **Cross-surface compatibility**: Must work across all Claude Code surfaces — CLI, desktop app, web app (claude.ai/code), and IDE extensions. No CLI-only dependencies.
 
 ## Key Decisions
 
