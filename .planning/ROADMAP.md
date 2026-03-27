@@ -108,11 +108,11 @@ Plans:
   2. Each chapter has specific discussion questions that pass the cliche test (not generic, tied to the chapter's unique arguments)
   3. Each chapter has a concise summary of key points and (for theological books) prayer points connected to the chapter's revelation
   4. A foreword is generated that frames the book's purpose, written in author voice or as a draft for an endorser
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 06-01: TBD
-- [ ] 06-02: TBD
+- [ ] 06-01-PLAN.md — Sermon-adapter skill with 7 transformation rules and orchestrator Stage 0.5 wiring
+- [ ] 06-02-PLAN.md — Enricher skill (discussion questions, summaries, prayer points, foreword), orchestrator Stage 4.5 wiring, and formatter enrichment rendering
 
 ## Progress
 
