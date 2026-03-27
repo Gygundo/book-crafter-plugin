@@ -135,7 +135,10 @@ Work backwards from the most advanced stage:
    -> If exists: pipeline is COMPLETE
 
 2. Check for edited/ch*-final.md
-   -> If count matches outline chapter count: Stage 4 COMPLETE
+   -> If count matches outline chapter count:
+      -> Check reports/consistency-report.md for <!-- REVISION IN PROGRESS --> marker:
+         -> If marker present: Stage 4 IN REVIEW (revisions in progress)
+         -> If no marker: Stage 4 COMPLETE
    -> If count > 0 but less than expected: Stage 4 PARTIALLY COMPLETE
 
 3. Check for drafts/ch*-draft.md
@@ -202,6 +205,15 @@ Directory: ~/Documents/Books/[Book Title]/
     [ ] Voice consistency pass
     [ ] Flow/transition pass
     [ ] Cross-chapter validation
+    [ ] Review gate
+
+When Stage 4 is in review (revisions requested), display:
+
+[~] Stage 4: Editing (editor) -- IN REVIEW
+    [x] Voice consistency pass
+    [x] Flow/transition pass
+    [x] Cross-chapter validation
+    [~] Revision requested: Ch 3, Ch 7
 
 [ ] Stage 5: Formatting (formatter)
     [ ] .docx generation
@@ -359,15 +371,82 @@ Each chapter-writer agent uses the `chapter-writer` subagent definition from `${
 
 **Critical:** Book DNA is READ-ONLY during parallel writing. No agent updates shared files. Updates happen between stages only.
 
-#### Stage 4: Edit (Voice Consistency + Flow)
+#### Stage 4: Edit (Voice Consistency + Flow + Validation + Review)
 
-The editor reads all drafted chapters and performs three passes:
+**Step 1: Invoke the editor**
 
-1. **Voice consistency** -- normalise tone, rhythm, vocabulary across all chapters
-2. **Flow/transitions** -- ensure chapter endings connect to next chapter openings
-3. **Cross-chapter validation** -- terminology, theological consistency, reference consistency
+Invoke the `book-crafter:editor` skill with arguments:
+- Project directory path
+- Edit mode: "full"
 
-For books with more than 15 chapters, use the `chapter-editor` subagent from `${CLAUDE_PLUGIN_ROOT}/agents/chapter-editor.md` with a rolling window approach: each editing subagent receives the current chapter plus one chapter of overlap on each side for continuity checking.
+The editor performs three sequential passes:
+1. Pass 1: Voice consistency + theological guardrails (each chapter audited against voice profile)
+2. Pass 2: Flow/transitions (sequential chapter-pair analysis, only modifies endings/openings)
+3. Pass 3: Cross-chapter validation (term index, reference validation, scripture consistency, theme tracking)
+
+For books with 16+ chapters, the editor uses chapter-editor subagents with rolling window for Pass 1. Passes 2 and 3 are always handled by the main editor skill.
+
+**Step 2: Verify editing output**
+
+After the editor returns:
+1. Verify `edited/ch[NN]-final.md` files exist for all chapters (count matches outline)
+2. Verify `reports/consistency-report.md` exists
+3. Read the editor's return summary for the overview metrics
+
+**Step 3: Review gate (ITER-02)**
+
+Present the draft review to the user:
+
+```
+## Draft Review: [Book Title]
+
+Your manuscript is ready for review.
+
+### Summary
+- **Chapters:** [N]
+- **Total words:** [sum of word counts from METADATA blocks in edited files]
+- **Voice consistency:** [Clean/Minor/Significant] ([X] issues found, [Y] auto-resolved)
+- **Transitions:** [X]/[N-1] transitions smooth
+- **Cross-references:** [X] validated, [Y] flagged
+
+### Consistency Report
+See: [project_directory]/reports/consistency-report.md
+
+### Options
+1. **Approve** -- proceed to formatting (Stage 5)
+2. **Revise chapters** -- tell me which chapters need rewriting and what to change
+3. **Read full draft** -- I'll compile all chapters for you to read through
+
+Which would you like?
+```
+
+**On Option 1 (Approve):** Proceed to Stage 5.
+
+**On Option 2 (Revise chapters -- ITER-03, ITER-04, ITER-05):**
+
+For each chapter the user wants revised:
+
+a. **Version backup (ITER-05):** Before overwriting, copy the current draft to `revisions/`:
+   - Scan `revisions/` for existing `ch[NN]-v*-draft.md` files using `ls revisions/ch[NN]-v*-draft.md 2>/dev/null | sort -V | tail -1`
+   - If no existing versions, this is v01. If highest is v02, next is v03.
+   - Copy `drafts/ch[NN]-draft.md` to `revisions/ch[NN]-v[VV]-draft.md`
+
+b. **Re-invoke writer:** Spawn a chapter-writer subagent with the user's feedback appended to the standard arguments. The writer produces a new `drafts/ch[NN]-draft.md`.
+
+c. **Re-invoke editor in revision mode:** Invoke `book-crafter:editor` with:
+   - Project directory path
+   - Edit mode: "revision"
+   - Chapters to edit: [the revised chapter number]
+   The editor runs Pass 1 on the revised chapter, Pass 2 on the revised chapter + its immediate neighbours (one hop only -- ITER-04), and targeted Pass 3 validation.
+
+d. **Update consistency report:** The editor updates `reports/consistency-report.md` with revision results.
+
+e. **Add revision marker:** If revisions are in progress, add `<!-- REVISION IN PROGRESS -->` to the top of `reports/consistency-report.md`. Remove the marker when all requested revisions are complete.
+
+f. **Return to review gate:** After all requested revisions complete, present the updated review summary. The user can approve, request more revisions, or read the full draft.
+
+**On Option 3 (Read full draft):**
+Compile all `edited/ch[NN]-final.md` files into a single markdown document and present it to the user (or tell them the file paths to read). Then return to the review gate.
 
 ## 6. Execution Modes
 
@@ -412,6 +491,21 @@ Show the dashboard only. Do not execute anything.
 2. Display the full status dashboard
 3. Report the next action that would be taken if the user chooses to continue
 
+### Mode 5: Revision ("revise chapter 3", "rewrite chapters 5 and 7")
+
+Triggered when the user requests revision of specific chapters on an existing project:
+
+1. Detect pipeline state -- verify Stage 4 is COMPLETE or IN REVIEW
+2. Parse chapter numbers from the user's request (e.g., "revise chapter 3" -> [3], "rewrite chapters 5 and 7" -> [5, 7])
+3. Gather the user's feedback for each chapter (what to change, what's wrong, what they want instead)
+4. Execute the revision workflow for each chapter:
+   a. Version backup: copy current `drafts/ch[NN]-draft.md` to `revisions/ch[NN]-v[VV]-draft.md`
+   b. Re-invoke writer: spawn chapter-writer subagent with user feedback appended to standard arguments
+   c. Re-invoke editor in revision mode: `book-crafter:editor` with mode "revision" and the revised chapter numbers
+   d. Editor runs Pass 1 on revised chapters, Pass 2 on revised chapters + immediate neighbours (one hop), targeted Pass 3
+   e. Update `reports/consistency-report.md` with revision results
+5. Return to the review gate (present updated summary with approve/revise/read options)
+
 ## 7. Error Handling
 
 Handle these common situations gracefully:
@@ -439,6 +533,11 @@ If a stage's expected input files are missing (e.g., trying to write without res
 > - Missing: [list of missing files]
 >
 > You may need to re-run Stage [N-1] first."
+
+### Revision Without Editing
+If the user requests revision but Stage 4 has not yet run:
+
+> "The manuscript hasn't been edited yet. Let me run the editing passes first, and then you can review and request revisions."
 
 ### No Books Directory
 If `~/Documents/Books/` does not exist, create it when the user starts a new project. Do not require the user to create it manually.
