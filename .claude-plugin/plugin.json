@@ -1,0 +1,10 @@
+{
+  "name": "book-crafter",
+  "version": "1.0.0",
+  "description": "Write complete books from topic brief to professional .docx. Pipeline architecture: outline, research, write, edit, format. Ships with theological voice profile, supports custom voices.",
+  "author": {
+    "name": "David",
+    "email": "david@encounterchurch.co.za"
+  },
+  "keywords": ["book", "writing", "publishing", "theology", "docx", "multi-agent"]
+}
