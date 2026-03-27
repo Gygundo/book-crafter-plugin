@@ -12,7 +12,7 @@ The Book Crafter plugin delivers a complete book-writing pipeline through six se
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Plugin Foundation + Orchestrator** - Plugin scaffold, master orchestrator, project directory structure, pipeline state tracking
+- [x] **Phase 1: Plugin Foundation + Orchestrator** - Plugin scaffold, master orchestrator, project directory structure, pipeline state tracking (completed 2026-03-27)
 - [ ] **Phase 2: Voice System + Book Outliner** - Voice profiles, Book DNA master context, chapter-by-chapter outline generation with approval gate
 - [ ] **Phase 3: Research + Chapter Writing** - Per-chapter research gathering, parallel chapter writer agents with wave batching
 - [ ] **Phase 4: Editor + Revision Workflow** - Voice consistency auditing, flow/transition editing, cross-chapter validation, chapter-level revision cycles
@@ -34,7 +34,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 Plans:
 - [x] 01-01-PLAN.md — Plugin scaffold: manifest, stub skills, subagent definitions, reference documents
-- [ ] 01-02-PLAN.md — Master orchestrator skill with pipeline logic, state detection, and status dashboard
+- [x] 01-02-PLAN.md — Master orchestrator skill with pipeline logic, state detection, and status dashboard
 
 ### Phase 2: Voice System + Book Outliner
 **Goal**: Users can define how the book sounds (voice profile) and what the book covers (outline), with an approval gate before any writing begins
@@ -124,7 +124,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Plugin Foundation + Orchestrator | 1/2 | In Progress|  |
+| 1. Plugin Foundation + Orchestrator | 2/2 | Complete   | 2026-03-27 |
 | 2. Voice System + Book Outliner | 0/3 | Not started | - |
 | 3. Research + Chapter Writing | 0/3 | Not started | - |
 | 4. Editor + Revision Workflow | 0/3 | Not started | - |
