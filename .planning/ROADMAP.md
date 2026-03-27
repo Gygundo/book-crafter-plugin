@@ -78,12 +78,11 @@ Plans:
   3. Cross-chapter validator catches inconsistencies: terminology drift, broken forward/backward references ("we will explore in chapter 7" and chapter 7 delivers), theological contradictions
   4. User can review the full draft holistically, then request rewrites of specific chapters with targeted feedback -- revised chapters trigger adjacency flow checks
   5. Consistency report is produced with specific flagged issues, and revision history is preserved (drafts are not overwritten)
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 04-01: TBD
-- [ ] 04-02: TBD
-- [ ] 04-03: TBD
+- [ ] 04-01-PLAN.md — Editor skill: three-pass pipeline (voice consistency, flow/transitions, cross-chapter validation), rolling window for large books, chapter-editor subagent
+- [ ] 04-02-PLAN.md — Orchestrator Stage 4 detail, review gate, chapter-level revision workflow with adjacency checks and version history
 
 ### Phase 5: Formatter + .docx Output
 **Goal**: The edited manuscript becomes a professionally formatted .docx file ready for hand-off to layout tools or direct reading
@@ -125,6 +124,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 1. Plugin Foundation + Orchestrator | 2/2 | Complete   | 2026-03-27 |
 | 2. Voice System + Book Outliner | 0/2 | Not started | - |
 | 3. Research + Chapter Writing | 0/2 | Not started | - |
-| 4. Editor + Revision Workflow | 0/3 | Not started | - |
+| 4. Editor + Revision Workflow | 0/2 | Not started | - |
 | 5. Formatter + .docx Output | 0/2 | Not started | - |
 | 6. Content Enhancements | 0/2 | Not started | - |
