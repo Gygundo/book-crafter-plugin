@@ -238,7 +238,7 @@ Do not attempt to execute a stub skill. Report which stage is blocking and what 
 For implemented stages, invoke the appropriate skill with the project directory path as context:
 
 - **Stage 1 (Outline):** Invoke the outliner skill with the topic brief and voice profile
-- **Stage 2 (Research):** Invoke the researcher skill with the approved outline
+- **Stage 2 (Research):** Loop through chapters sequentially, invoking the researcher skill per chapter (see Stage 2 notes below)
 - **Stage 3 (Write):** Spawn chapter-writer subagents in parallel (see below)
 - **Stage 4 (Edit):** Invoke the editor skill with all drafted chapters
 - **Stage 5 (Format):** Invoke the formatter skill with all edited chapters
@@ -291,6 +291,37 @@ After the outliner produces `chapter-outline.md`:
    c. Return to Step 2
 
 The outline approval gate prevents wasting time and tokens generating content from a flawed structure. This gate is NEVER skipped, even in Full Pipeline mode.
+
+#### Stage 2: Research (Sequential Per-Chapter)
+
+Research runs sequentially -- one chapter at a time -- because each chapter's research is fast (Claude generating from knowledge, not fetching from external APIs). Sequential execution is simpler and avoids race conditions.
+
+**Step 1: Read the approved outline**
+
+Read `chapter-outline.md` and extract the chapter count and per-chapter metadata. Verify the `<!-- APPROVED -->` marker is present.
+
+**Step 2: Identify chapters needing research**
+
+Check `research/` directory for existing `ch[NN]-research.md` files. If resuming a partial run, only process chapters without existing research files.
+
+**Step 3: Loop through each chapter sequentially**
+
+For each chapter that needs research:
+
+1. Invoke the `book-crafter:researcher` skill with arguments:
+   - Project directory path
+   - Chapter number
+2. Verify the output file exists at `research/ch[NN]-research.md`
+3. Verify the file contains the `<!-- RESEARCH COMPLETE: Chapter [N] -->` marker
+4. Report progress: "Research complete: [current]/[total] chapters"
+
+**Step 4: Verify research completeness**
+
+After all chapters are processed:
+1. Count `research/ch[NN]-research.md` files
+2. Confirm count matches the chapter count from the outline
+3. Display: "Stage 2 complete: Research gathered for all [N] chapters"
+4. Proceed to Stage 3 (or show dashboard in Guided mode)
 
 #### Stage 3: Write (Parallel Chapter Writing)
 
