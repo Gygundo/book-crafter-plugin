@@ -33,6 +33,9 @@ USER INPUT (topic brief OR existing content)
     |-- Stage 4: EDIT (editor skill + chapter-editor agents for large books)
     |   Output: edited/ch01-final.md, edited/ch02-final.md, ...
     |
+    |-- Stage 4.5: ENRICH (enricher skill)
+    |   Output: enrichments/ch01-enrichments.md, ..., front-matter/foreword.md
+    |
     |-- Stage 5: FORMAT (formatter skill)
     |   Output: output/[Book Title].docx
 ```
@@ -149,6 +152,11 @@ Work backwards from the most advanced stage:
 1. Check for output/*.docx
    -> If exists: pipeline is COMPLETE
 
+1.5. Check for enrichments/ch*-enrichments.md AND front-matter/foreword.md
+   -> If enrichment file count matches chapter count AND foreword.md exists: Stage 4.5 COMPLETE
+   -> If enrichment count > 0 but less than chapter count: Stage 4.5 PARTIALLY COMPLETE
+   -> If no enrichments but edited files exist with no revision marker: Stage 4.5 NOT STARTED (proceed to Stage 4.5)
+
 2. Check for edited/ch*-final.md
    -> If count matches outline chapter count:
       -> Check reports/consistency-report.md for <!-- REVISION IN PROGRESS --> marker:
@@ -236,6 +244,12 @@ When Stage 4 is in review (revisions requested), display:
     [x] Flow/transition pass
     [x] Cross-chapter validation
     [~] Revision requested: Ch 3, Ch 7
+
+[ ] Stage 4.5: Content Enrichment (enricher)
+    [ ] Discussion questions: 0/[N] chapters
+    [ ] Chapter summaries: 0/[N] chapters
+    [ ] Prayer points: 0/[N] chapters [or "N/A -- non-theological"]
+    [ ] Foreword: pending
 
 [ ] Stage 5: Formatting (formatter)
     [ ] .docx generation
@@ -477,7 +491,7 @@ See: [project_directory]/reports/consistency-report.md
 Which would you like?
 ```
 
-**On Option 1 (Approve):** Proceed to Stage 5.
+**On Option 1 (Approve):** Proceed to Stage 4.5 (Content Enrichment).
 
 **On Option 2 (Revise chapters -- ITER-03, ITER-04, ITER-05):**
 
@@ -505,6 +519,36 @@ f. **Return to review gate:** After all requested revisions complete, present th
 **On Option 3 (Read full draft):**
 Compile all `edited/ch[NN]-final.md` files into a single markdown document and present it to the user (or tell them the file paths to read). Then return to the review gate.
 
+#### Stage 4.5: Content Enrichment
+
+**Step 1: Verify readiness**
+
+1. Confirm Stage 4 is COMPLETE: all `edited/ch[NN]-final.md` files exist AND `reports/consistency-report.md` exists AND no `<!-- REVISION IN PROGRESS -->` marker
+2. Check if `enrichments/` already has all expected files (resume logic)
+
+**Step 2: Invoke the enricher**
+
+Invoke the `book-crafter:enricher` skill with argument:
+- Project directory path: `[project_directory]`
+
+The enricher will:
+1. Read all `edited/ch[NN]-final.md` files and `book-dna.md`
+2. Determine if the book is theological (from voice profile)
+3. Generate per-chapter enrichments (discussion questions, summaries, prayer points if theological)
+4. Generate a foreword in `front-matter/foreword.md`
+
+**Step 3: Verify enrichment output**
+
+After the enricher returns:
+1. Count `enrichments/ch[NN]-enrichments.md` files -- must match chapter count
+2. Verify each enrichment file contains the `<!-- ENRICHMENT METADATA` marker
+3. Verify `front-matter/foreword.md` exists and contains `<!-- FOREWORD METADATA` marker
+4. Display: "Stage 4.5 complete: [N] chapter enrichments + foreword generated"
+
+**Step 4: Proceed to Stage 5**
+
+Proceed to Stage 5 (Format). No approval gate for enrichments -- users can request revision through Mode 5 after reviewing the .docx.
+
 #### Stage 5: Format
 
 **Step 1: Verify readiness**
@@ -512,6 +556,7 @@ Compile all `edited/ch[NN]-final.md` files into a single markdown document and p
 1. Confirm Stage 4 is COMPLETE: all `edited/ch[NN]-final.md` files exist AND `reports/consistency-report.md` exists AND no `<!-- REVISION IN PROGRESS -->` marker
 2. Confirm `book-dna.md` exists in the project directory
 3. Create `output/` directory if it does not exist: `mkdir -p [project_directory]/output`
+4. Confirm Stage 4.5 is COMPLETE: `enrichments/` has files matching chapter count AND `front-matter/foreword.md` exists
 
 **Step 2: Invoke the formatter**
 
@@ -524,6 +569,8 @@ The formatter will:
 3. Read all `edited/ch[NN]-final.md` files
 4. Generate a Node.js script using docx-js that assembles the complete .docx
 5. Execute the script to produce `output/[Book Title].docx`
+6. Read all `enrichments/ch[NN]-enrichments.md` files for per-chapter discussion questions, summaries, and prayer points
+7. Read `front-matter/foreword.md` for the foreword
 
 **Step 3: Verify output**
 
@@ -545,7 +592,8 @@ Output: [project_directory]/output/[Book Title].docx
 Size: [file size]
 Chapters: [N]
 
-Front matter: Half title, Title page, Copyright, Dedication, Table of Contents
+Front matter: Half title, Title page, Copyright, Dedication, Foreword, Table of Contents
+Per chapter: Discussion Questions, Chapter Summary, Prayer Points (theological only)
 Back matter: About the Author, Scripture Index, Glossary
 
 Note: When you open the .docx in Word, you may see "Update fields?" -- click Yes to populate the Table of Contents.
@@ -680,6 +728,7 @@ Stage skills:        ${CLAUDE_PLUGIN_ROOT}/skills/sermon-adapter/SKILL.md
                      ${CLAUDE_PLUGIN_ROOT}/skills/researcher/SKILL.md
                      ${CLAUDE_PLUGIN_ROOT}/skills/writer/SKILL.md
                      ${CLAUDE_PLUGIN_ROOT}/skills/editor/SKILL.md
+                     ${CLAUDE_PLUGIN_ROOT}/skills/enricher/SKILL.md
                      ${CLAUDE_PLUGIN_ROOT}/skills/formatter/SKILL.md
 Default project dir: ~/Documents/Books/
 ```

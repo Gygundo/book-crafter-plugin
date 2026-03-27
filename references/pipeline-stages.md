@@ -77,9 +77,27 @@ Intermediate artefacts: `edited/ch[NN]-pass1.md`, `edited/ch[NN]-pass2.md` (kept
 
 **Rolling window:** For books with 16+ chapters, Pass 1 uses chapter-editor subagents. Each receives the current chapter plus 500 words overlap from adjacent chapters.
 
+## Stage 4.5: Content Enrichment (enricher skill)
+
+**Input:** All `edited/ch[NN]-final.md` files + `book-dna.md` + `voice-profile.md`
+**Output:** `enrichments/ch[NN]-enrichments.md` per chapter + `front-matter/foreword.md`
+**Parallel:** No -- processes chapters sequentially
+
+Per-chapter enrichments include:
+- **Discussion questions** (3-5) -- specific to the chapter's unique arguments, passes cliche test (no generic questions)
+- **Chapter summary** (3-5 sentences) -- captures core argument, key supporting points, contribution to book arc
+- **Prayer points** (2-4, theological books only) -- connected to specific chapter revelations, addressed to God in prayer format
+
+Foreword:
+- 500-800 words framing the book's purpose
+- Two modes: author voice (default) or endorser draft
+- Does NOT summarise chapters or spoil climax revelations
+
+The formatter renders enrichment sections inline after each chapter body in the .docx.
+
 ## Stage 5: Format (formatter skill)
 
-**Input:** All `edited/ch*-final.md` files + `book-dna.md` + `voice-profile.md`
+**Input:** All `edited/ch*-final.md` files + `book-dna.md` + `voice-profile.md` + `enrichments/ch*-enrichments.md` (if present) + `front-matter/foreword.md` (if present)
 **Output:** `output/[Book Title].docx`
 **Parallel:** No -- single document generation
 
@@ -91,11 +109,12 @@ The generated .docx contains multiple sections with different page numbering:
 2. **Full Title Page** -- title, subtitle, author name, no headers/footers
 3. **Copyright Page** -- copyright notice, scripture permission, ISBN placeholder
 4. **Dedication Page** -- placeholder for user-supplied dedication
-5. **Table of Contents** -- auto-generated from chapter headings (HeadingLevel.HEADING_1), roman numeral page numbers
-6. **Body (all chapters)** -- single section, chapters separated by pageBreakBefore, arabic page numbers restart at 1, header with book title, footer with "Page X of Y"
-7. **About the Author** -- author bio or placeholder
-8. **Scripture Index** -- auto-extracted from chapter content and METADATA blocks, sorted by canonical Bible book order
-9. **Glossary** -- from Book DNA Key Terms table
+5. **Foreword** -- (if has_foreword) read from front-matter/foreword.md, styled as body text with "Foreword" as Heading 1
+6. **Table of Contents** -- auto-generated from chapter headings (HeadingLevel.HEADING_1), roman numeral page numbers
+7. **Body (all chapters)** -- single section, chapters separated by pageBreakBefore, arabic page numbers restart at 1, header with book title, footer with "Page X of Y". After each chapter's body paragraphs (if has_enrichments): Discussion Questions (Heading 2, numbered list), Chapter Summary (Heading 2, italic text), Prayer Points (Heading 2, bulleted via LevelFormat.BULLET numbering -- theological only)
+8. **About the Author** -- author bio or placeholder
+9. **Scripture Index** -- auto-extracted from chapter content and METADATA blocks, sorted by canonical Bible book order
+10. **Glossary** -- from Book DNA Key Terms table
 
 ### Typography
 
@@ -123,4 +142,5 @@ Stage 5 is complete when `output/` directory contains a `.docx` file.
 | Research | `research/` dir has `ch*-research.md` files matching outline chapter count | `research/ch01-research.md` |
 | Write | `drafts/` dir has `ch*-draft.md` files matching outline chapter count | `drafts/ch01-draft.md` |
 | Edit | `edited/` dir has `ch*-final.md` files matching outline chapter count AND no `<!-- REVISION IN PROGRESS -->` marker in `reports/consistency-report.md` | `edited/ch01-final.md` + `reports/consistency-report.md` |
+| Enrichment | `enrichments/` dir has `ch*-enrichments.md` files matching chapter count AND `front-matter/foreword.md` exists | `enrichments/ch01-enrichments.md` + `front-matter/foreword.md` |
 | Format | `output/` dir contains `.docx` file | `output/[Title].docx` |

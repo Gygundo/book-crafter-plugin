@@ -7,7 +7,7 @@ allowed-tools: Read, Write, Bash, Glob, Grep
 
 # Book Formatter
 
-Converts all `edited/ch[NN]-final.md` files into a single professional .docx file with front matter (half title, full title, copyright, dedication, TOC), body chapters with consistent typography, and back matter (about the author, scripture index, glossary). Produces the final deliverable of the book pipeline.
+Converts all `edited/ch[NN]-final.md` files into a single professional .docx file with front matter (half title, full title, copyright, dedication, foreword, TOC), body chapters with consistent typography and enrichment content (discussion questions, summaries, prayer points), and back matter (about the author, scripture index, glossary). Produces the final deliverable of the book pipeline.
 
 ## 1. Overview
 
@@ -15,6 +15,7 @@ Converts all `edited/ch[NN]-final.md` files into a single professional .docx fil
 - **Input:** Project directory path (received from orchestrator via `$ARGUMENTS`)
 - **Output:** `[project_directory]/output/[Book Title].docx`
 - **Prerequisites:** All `edited/ch[NN]-final.md` files exist, `book-dna.md` exists in the project directory
+- **Optional inputs:** `enrichments/ch[NN]-enrichments.md` files (per-chapter discussion questions, summaries, prayer points) and `front-matter/foreword.md` (book foreword). If present, these are rendered inline after each chapter body and in the front matter respectively. If absent, the formatter proceeds without enrichments (backward compatible with pre-Phase 6 projects).
 
 ## 2. Pre-flight Checks
 
@@ -48,6 +49,15 @@ Verify the count matches the Book DNA chapter count. If mismatched, report an er
 **Step 4: Read voice profile**
 
 Read `[project_directory]/voice-profile.md` for spelling convention rules (British/US) and any scripture translation defaults. If the voice profile contains a "Theological Framework" or "Theological/Domain Framework" section, note that the book is theological (used to determine whether to include the scripture copyright notice and scripture index).
+
+**Step 5: Check for enrichment files**
+
+Check for `[project_directory]/enrichments/ch[NN]-enrichments.md` files. If enrichment files exist:
+- Set `has_enrichments = true`
+- For each enrichment file, parse: Discussion Questions section, Chapter Summary section, Prayer Points section (may be absent for non-theological)
+- Read `[project_directory]/front-matter/foreword.md` if it exists, set `has_foreword = true`
+
+If no enrichment files exist, set `has_enrichments = false` -- the formatter proceeds without enrichments (backward compatible with pre-Phase 6 projects).
 
 ## 3. Markdown Parsing
 
@@ -138,6 +148,123 @@ function parseChapterMarkdown(content) {
   }
 
   return { paragraphs, scripturesUsed };
+}
+```
+
+### parseEnrichmentMarkdown(content)
+
+Parses an enrichment file into structured data for .docx rendering:
+
+```javascript
+function parseEnrichmentMarkdown(content) {
+  const result = { questions: [], summary: '', prayerPoints: [] };
+
+  // Extract Discussion Questions (numbered lines after ## Discussion Questions)
+  const questionsMatch = content.match(/## Discussion Questions\n\n([\s\S]*?)(?=\n## |$)/);
+  if (questionsMatch) {
+    result.questions = questionsMatch[1].trim().split(/\n/).filter(l => /^\d+\./.test(l.trim())).map(l => l.replace(/^\d+\.\s*/, '').trim());
+  }
+
+  // Extract Chapter Summary (text after ## Chapter Summary)
+  const summaryMatch = content.match(/## Chapter Summary\n\n([\s\S]*?)(?=\n## |$)/);
+  if (summaryMatch) {
+    result.summary = summaryMatch[1].trim();
+  }
+
+  // Extract Prayer Points (bulleted lines after ## Prayer Points)
+  const prayerMatch = content.match(/## Prayer Points\n\n([\s\S]*?)(?=\n## |<!--|$)/);
+  if (prayerMatch) {
+    result.prayerPoints = prayerMatch[1].trim().split(/\n/).filter(l => /^-/.test(l.trim())).map(l => l.replace(/^-\s*/, '').trim());
+  }
+
+  return result;
+}
+```
+
+### Prayer Point Bullet Numbering Config
+
+**IMPORTANT:** Do NOT use Unicode bullet characters (e.g. `\u2022`) for prayer point list items. Per CLAUDE.md, Unicode bullet characters in docx-js create invalid Word documents. Instead, define a proper numbering config and apply it via the `numbering` property on each Paragraph.
+
+Add this numbering config to the Document's `numbering.config` array:
+
+```javascript
+// Add to the Document numbering.config array alongside any existing numbering definitions
+{
+  reference: "prayer-bullets",
+  levels: [
+    {
+      level: 0,
+      format: LevelFormat.BULLET,
+      text: "\u2022",  // This is safe INSIDE LevelFormat config -- docx-js handles it correctly here
+      alignment: AlignmentType.LEFT,
+      style: {
+        paragraph: {
+          indent: { left: convertInchesToTwip(0.5), hanging: convertInchesToTwip(0.25) },
+        },
+        run: { font: "Symbol", size: 24 },
+      },
+    },
+  ],
+}
+```
+
+### renderEnrichmentParagraphs(enrichment)
+
+Converts parsed enrichment data into an array of `Paragraph` objects to append after each chapter's body. Uses proper docx-js numbering for prayer point bullets (NOT Unicode bullet TextRun -- per CLAUDE.md that creates invalid Word documents).
+
+```javascript
+function renderEnrichmentParagraphs(enrichment) {
+  const paragraphs = [];
+
+  // Discussion Questions heading
+  paragraphs.push(new Paragraph({
+    heading: HeadingLevel.HEADING_2,
+    children: [new TextRun({ text: "Discussion Questions", font: "Georgia", size: 32, bold: true })],
+    spacing: { before: 480, after: 240 },
+  }));
+
+  // Numbered questions
+  for (let i = 0; i < enrichment.questions.length; i++) {
+    paragraphs.push(new Paragraph({
+      style: "Normal",
+      spacing: { line: 360, after: 120 },
+      children: [new TextRun({ text: `${i + 1}. `, bold: true, font: "Georgia", size: 24 }), ...parseInlineFormatting(enrichment.questions[i])],
+    }));
+  }
+
+  // Chapter Summary heading
+  paragraphs.push(new Paragraph({
+    heading: HeadingLevel.HEADING_2,
+    children: [new TextRun({ text: "Chapter Summary", font: "Georgia", size: 32, bold: true })],
+    spacing: { before: 480, after: 240 },
+  }));
+
+  // Summary text (italic)
+  paragraphs.push(new Paragraph({
+    style: "Normal",
+    spacing: { line: 360, after: 120 },
+    children: [new TextRun({ text: enrichment.summary, italics: true, font: "Georgia", size: 24 })],
+  }));
+
+  // Prayer Points (only if present)
+  if (enrichment.prayerPoints.length > 0) {
+    paragraphs.push(new Paragraph({
+      heading: HeadingLevel.HEADING_2,
+      children: [new TextRun({ text: "Prayer Points", font: "Georgia", size: 32, bold: true })],
+      spacing: { before: 480, after: 240 },
+    }));
+
+    // Use proper LevelFormat.BULLET numbering -- NOT Unicode bullet characters (per CLAUDE.md)
+    for (const point of enrichment.prayerPoints) {
+      paragraphs.push(new Paragraph({
+        spacing: { line: 360, after: 120 },
+        numbering: { reference: "prayer-bullets", level: 0 },
+        children: [...parseInlineFormatting(point)],
+      }));
+    }
+  }
+
+  return paragraphs;
 }
 ```
 
@@ -603,12 +730,29 @@ function buildGlossary(keyTerms) {
 
 Build the complete document:
 
-1. Construct all sections in order: Half Title (5a), Full Title (5b), Copyright (5c), Dedication (5d), TOC (5e), Body (5f), About the Author (5g), Scripture Index (5h -- if applicable), Glossary (5i -- if applicable)
+1. Construct all sections in order: Half Title (5a), Full Title (5b), Copyright (5c), Dedication (5d), Foreword (5d2 -- if has_foreword), TOC (5e), Body (5f -- with enrichments after each chapter if has_enrichments), About the Author (5g), Scripture Index (5h -- if applicable), Glossary (5i -- if applicable)
 2. Create the Document:
    ```javascript
    const doc = new Document({
      features: { updateFields: true }, // CRITICAL for TOC
      styles: bookStyles,
+     numbering: {
+       config: [
+         {
+           reference: "prayer-bullets",
+           levels: [{
+             level: 0,
+             format: LevelFormat.BULLET,
+             text: "\u2022",
+             alignment: AlignmentType.LEFT,
+             style: {
+               paragraph: { indent: { left: 720, hanging: 360 } },
+               run: { font: "Symbol", size: 24 },
+             },
+           }],
+         },
+       ],
+     },
      sections: allSections,
    });
    ```
@@ -636,7 +780,7 @@ const {
   Header, Footer,
   AlignmentType, HeadingLevel, NumberFormat, PageNumber,
   TableOfContents, BorderStyle, WidthType, ShadingType,
-  LevelFormat,
+  LevelFormat, convertInchesToTwip,
   PositionalTab, PositionalTabAlignment, PositionalTabRelativeTo, PositionalTabLeader,
 } = require('docx');
 
@@ -770,6 +914,65 @@ function extractScriptures(chapterFiles) {
   return scriptureMap;
 }
 
+// ---- Enrichment Markdown Parser ----
+function parseEnrichmentMarkdown(content) {
+  const result = { questions: [], summary: '', prayerPoints: [] };
+  const questionsMatch = content.match(/## Discussion Questions\n\n([\s\S]*?)(?=\n## |$)/);
+  if (questionsMatch) {
+    result.questions = questionsMatch[1].trim().split(/\n/).filter(l => /^\d+\./.test(l.trim())).map(l => l.replace(/^\d+\.\s*/, '').trim());
+  }
+  const summaryMatch = content.match(/## Chapter Summary\n\n([\s\S]*?)(?=\n## |$)/);
+  if (summaryMatch) {
+    result.summary = summaryMatch[1].trim();
+  }
+  const prayerMatch = content.match(/## Prayer Points\n\n([\s\S]*?)(?=\n## |<!--|$)/);
+  if (prayerMatch) {
+    result.prayerPoints = prayerMatch[1].trim().split(/\n/).filter(l => /^-/.test(l.trim())).map(l => l.replace(/^-\s*/, '').trim());
+  }
+  return result;
+}
+
+function renderEnrichmentParagraphs(enrichment) {
+  const paragraphs = [];
+  paragraphs.push(new Paragraph({
+    heading: HeadingLevel.HEADING_2,
+    children: [new TextRun({ text: "Discussion Questions", font: "Georgia", size: 32, bold: true })],
+    spacing: { before: 480, after: 240 },
+  }));
+  for (let i = 0; i < enrichment.questions.length; i++) {
+    paragraphs.push(new Paragraph({
+      style: "Normal",
+      spacing: { line: 360, after: 120 },
+      children: [new TextRun({ text: `${i + 1}. `, bold: true, font: "Georgia", size: 24 }), ...parseInlineFormatting(enrichment.questions[i])],
+    }));
+  }
+  paragraphs.push(new Paragraph({
+    heading: HeadingLevel.HEADING_2,
+    children: [new TextRun({ text: "Chapter Summary", font: "Georgia", size: 32, bold: true })],
+    spacing: { before: 480, after: 240 },
+  }));
+  paragraphs.push(new Paragraph({
+    style: "Normal",
+    spacing: { line: 360, after: 120 },
+    children: [new TextRun({ text: enrichment.summary, italics: true, font: "Georgia", size: 24 })],
+  }));
+  if (enrichment.prayerPoints.length > 0) {
+    paragraphs.push(new Paragraph({
+      heading: HeadingLevel.HEADING_2,
+      children: [new TextRun({ text: "Prayer Points", font: "Georgia", size: 32, bold: true })],
+      spacing: { before: 480, after: 240 },
+    }));
+    for (const point of enrichment.prayerPoints) {
+      paragraphs.push(new Paragraph({
+        spacing: { line: 360, after: 120 },
+        numbering: { reference: "prayer-bullets", level: 0 },
+        children: [...parseInlineFormatting(point)],
+      }));
+    }
+  }
+  return paragraphs;
+}
+
 // ---- Document Styles ----
 const bookStyles = {
   default: {
@@ -808,6 +1011,10 @@ async function main() {
 
   console.log(`Found ${chapterFiles.length} chapters`);
 
+  // Check for enrichments
+  const enrichmentsDir = path.join(PROJECT_DIR, 'enrichments');
+  const has_enrichments = fs.existsSync(enrichmentsDir) && fs.readdirSync(enrichmentsDir).some(f => /^ch\d+-enrichments\.md$/.test(f));
+
   // Build chapter content for body section
   const bodyChildren = [];
   for (let i = 0; i < chapterFiles.length; i++) {
@@ -819,6 +1026,17 @@ async function main() {
     }));
     const { paragraphs } = parseChapterMarkdown(content);
     bodyChildren.push(...paragraphs);
+
+    // Append enrichment content after chapter body (if enrichments exist)
+    if (has_enrichments) {
+      const chapterNum = (i + 1).toString().padStart(2, '0');
+      const enrichmentPath = path.join(enrichmentsDir, `ch${chapterNum}-enrichments.md`);
+      if (fs.existsSync(enrichmentPath)) {
+        const enrichmentContent = fs.readFileSync(enrichmentPath, 'utf-8');
+        const enrichment = parseEnrichmentMarkdown(enrichmentContent);
+        bodyChildren.push(...renderEnrichmentParagraphs(enrichment));
+      }
+    }
   }
 
   // Build scripture index
@@ -921,6 +1139,40 @@ async function main() {
       }),
     ],
   });
+
+  // 5d2: Foreword (if exists)
+  const forewordPath = path.join(PROJECT_DIR, 'front-matter', 'foreword.md');
+  const has_foreword = fs.existsSync(forewordPath);
+  if (has_foreword) {
+    let forewordContent = fs.readFileSync(forewordPath, 'utf-8');
+    // Strip metadata comment and # Foreword heading
+    forewordContent = forewordContent.replace(/<!--[\s\S]*?-->/g, '').replace(/^#\s+Foreword\s*\n/, '').trim();
+
+    const forewordParas = forewordContent.split(/\n\s*\n/).filter(Boolean).map(para =>
+      new Paragraph({
+        style: "Normal",
+        spacing: { line: 360, after: 120 },
+        children: parseInlineFormatting(para.trim()),
+      })
+    );
+
+    allSections.push({
+      properties: {
+        page: {
+          size: { width: 12240, height: 15840 },
+          margin: { top: 1440, right: 1440, bottom: 1440, left: 1440 },
+        },
+      },
+      children: [
+        new Paragraph({
+          heading: HeadingLevel.HEADING_1,
+          children: [new TextRun({ text: "Foreword", font: "Georgia", size: 48, bold: true })],
+          spacing: { after: 480 },
+        }),
+        ...forewordParas,
+      ],
+    });
+  }
 
   // 5e: Table of Contents
   allSections.push({
@@ -1192,6 +1444,23 @@ async function main() {
   const doc = new Document({
     features: { updateFields: true },
     styles: bookStyles,
+    numbering: {
+      config: [
+        {
+          reference: "prayer-bullets",
+          levels: [{
+            level: 0,
+            format: LevelFormat.BULLET,
+            text: "\u2022",
+            alignment: AlignmentType.LEFT,
+            style: {
+              paragraph: { indent: { left: 720, hanging: 360 } },
+              run: { font: "Symbol", size: 24 },
+            },
+          }],
+        },
+      ],
+    },
     sections: allSections,
   });
 
@@ -1204,8 +1473,10 @@ async function main() {
   fs.writeFileSync(outputPath, buffer);
 
   const fileSizeKB = Math.round(buffer.length / 1024);
+  const frontMatterPages = 4 + (has_foreword ? 1 : 0) + 1; // half title + full title + copyright + dedication + foreword(?) + TOC
   const backMatterSections = (hasScriptures && IS_THEOLOGICAL ? 1 : 0) + (KEY_TERMS.length > 0 ? 1 : 0) + 1; // +1 for About the Author
-  console.log(`Generated ${BOOK_TITLE}.docx (${fileSizeKB} KB) with ${chapterFiles.length} chapters, 5 front matter pages, ${backMatterSections} back matter sections`);
+  const enrichmentNote = has_enrichments ? ', enrichments after each chapter' : '';
+  console.log(`Generated ${BOOK_TITLE}.docx (${fileSizeKB} KB) with ${chapterFiles.length} chapters, ${frontMatterPages} front matter pages, ${backMatterSections} back matter sections${enrichmentNote}`);
 }
 
 main().catch(err => { console.error('Error generating .docx:', err); process.exit(1); });
