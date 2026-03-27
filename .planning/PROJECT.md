@@ -21,11 +21,11 @@ Every chapter must read like it was written by a bestselling author — hooks th
 - [x] Three book size tiers: booklet (<100 pages), short (15-25k words), standard (40-60k words) — Validated in Phase 02
 - [x] Master context document that all agents read (voice, theology, outline, character arcs, key terms, recurring themes) — Validated in Phase 02 (Book DNA)
 - [x] Hybrid iteration workflow: outline approval → full draft generation → chapter-level revision cycles — Validated in Phase 02 (outline approval gate)
+- [x] Research skill that gathers supporting material per chapter (scripture, references, illustrations) — Validated in Phase 03
+- [x] Writer skill that produces full chapter drafts in parallel, each with a compelling opening hook — Validated in Phase 03
 
 ### Active
 
-- [ ] Research skill that gathers supporting material per chapter (scripture, references, illustrations)
-- [ ] Writer skill that produces full chapter drafts in parallel, each with a compelling opening hook
 - [ ] Editor skill that ensures voice consistency, flow between chapters, and bestselling-author quality
 - [ ] Formatter skill that produces professional .docx output (TOC, foreword, chapter summaries, discussion questions, page numbers)
 - [ ] Professional book structure: foreword, TOC, chapter summaries, discussion questions, about the author
@@ -84,4 +84,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-27 after Phase 02 completion*
+*Last updated: 2026-03-27 after Phase 03 completion*
