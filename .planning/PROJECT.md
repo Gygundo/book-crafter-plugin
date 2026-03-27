@@ -29,7 +29,13 @@ Every chapter must read like it was written by a bestselling author — hooks th
 
 ### Active
 
-- [ ] Content enhancement skills (discussion questions, chapter summaries, further reading)
+(None — all v1.0 requirements validated)
+
+### Validated (Phase 06)
+
+- [x] Sermon-to-book adapter that transforms spoken-rhythm source material into written-rhythm prose before outline generation — Validated in Phase 06
+- [x] Content enrichment skill: discussion questions (with cliche test), chapter summaries, prayer points (theological only), and foreword — Validated in Phase 06
+- [x] Enrichments rendered inline in .docx after each chapter body, foreword in front matter — Validated in Phase 06
 
 ### Validated (Phase 05)
 
@@ -90,4 +96,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-27 after Phase 05 completion*
+*Last updated: 2026-03-28 after Phase 06 completion (final phase of v1.0)*
