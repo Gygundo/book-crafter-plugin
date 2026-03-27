@@ -448,6 +448,65 @@ f. **Return to review gate:** After all requested revisions complete, present th
 **On Option 3 (Read full draft):**
 Compile all `edited/ch[NN]-final.md` files into a single markdown document and present it to the user (or tell them the file paths to read). Then return to the review gate.
 
+#### Stage 5: Format
+
+**Step 1: Verify readiness**
+
+1. Confirm Stage 4 is COMPLETE: all `edited/ch[NN]-final.md` files exist AND `reports/consistency-report.md` exists AND no `<!-- REVISION IN PROGRESS -->` marker
+2. Confirm `book-dna.md` exists in the project directory
+3. Create `output/` directory if it does not exist: `mkdir -p [project_directory]/output`
+
+**Step 2: Invoke the formatter**
+
+Invoke the `book-crafter:formatter` skill with argument:
+- Project directory path: `[project_directory]`
+
+The formatter will:
+1. Read `book-dna.md` for metadata (title, subtitle, author, chapter count, key terms, style rules)
+2. Read `voice-profile.md` for spelling conventions
+3. Read all `edited/ch[NN]-final.md` files
+4. Generate a Node.js script using docx-js that assembles the complete .docx
+5. Execute the script to produce `output/[Book Title].docx`
+
+**Step 3: Verify output**
+
+After the formatter returns:
+1. Check that `output/` directory contains a `.docx` file: `ls output/*.docx 2>/dev/null`
+2. Verify the file is > 0 bytes: `test -s output/*.docx`
+3. Report file size: `ls -lh output/*.docx`
+4. If validation script is available, run it: `python scripts/office/validate.py output/*.docx` (optional -- do not fail if script not found)
+
+**Step 4: Report completion**
+
+Display:
+```
+## Pipeline Complete: [Book Title]
+
+Your book has been formatted and exported.
+
+Output: [project_directory]/output/[Book Title].docx
+Size: [file size]
+Chapters: [N]
+
+Front matter: Half title, Title page, Copyright, Dedication, Table of Contents
+Back matter: About the Author, Scripture Index, Glossary
+
+Note: When you open the .docx in Word, you may see "Update fields?" -- click Yes to populate the Table of Contents.
+
+The book pipeline is now complete. You can:
+1. Open the .docx in Microsoft Word or Google Docs
+2. Request revisions to specific chapters (use Mode 5)
+3. Start a new book project
+```
+
+Update the **Status Dashboard** (Section 4) to show the completed format:
+```
+[x] Stage 5: Formatting (formatter)
+    Generated: [date] | File: [filename] | Size: [size]
+```
+
+No changes needed to Section 3 (State Detection) since `output/*.docx` detection is already implemented.
+
 ## 6. Execution Modes
 
 ### Mode 1: Guided (Default)
