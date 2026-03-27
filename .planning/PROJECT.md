@@ -29,8 +29,12 @@ Every chapter must read like it was written by a bestselling author — hooks th
 
 ### Active
 
-- [ ] Formatter skill that produces professional .docx output (TOC, foreword, chapter summaries, discussion questions, page numbers)
-- [ ] Professional book structure: foreword, TOC, chapter summaries, discussion questions, about the author
+- [ ] Content enhancement skills (discussion questions, chapter summaries, further reading)
+
+### Validated (Phase 05)
+
+- [x] Formatter skill that produces professional .docx output (TOC, page numbers, front/back matter) — Validated in Phase 05
+- [x] Professional book structure: half title, title page, copyright, dedication, TOC, about the author, scripture index, glossary — Validated in Phase 05
 
 ### Out of Scope
 
@@ -86,4 +90,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-27 after Phase 03 completion*
+*Last updated: 2026-03-27 after Phase 05 completion*
