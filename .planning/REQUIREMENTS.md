@@ -62,14 +62,14 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Formatting
 
-- [ ] **FMT-01**: Professional .docx output using docx-js with consistent typography and formatting
-- [ ] **FMT-02**: Title page with book title, subtitle, author name
-- [ ] **FMT-03**: Auto-generated table of contents with chapter titles and page numbers
-- [ ] **FMT-04**: Chapter headings with consistent formatting (page breaks, heading styles)
-- [ ] **FMT-05**: Page numbers in footer ("Page X of Y")
-- [ ] **FMT-06**: Front matter: half title, full title page, copyright page, dedication, TOC
-- [ ] **FMT-07**: Back matter: about the author, scripture index (auto-extracted from chapters), glossary of key terms
-- [ ] **FMT-08**: Formatting inherits docx-js patterns from the existing docx skill
+- [x] **FMT-01**: Professional .docx output using docx-js with consistent typography and formatting
+- [x] **FMT-02**: Title page with book title, subtitle, author name
+- [x] **FMT-03**: Auto-generated table of contents with chapter titles and page numbers
+- [x] **FMT-04**: Chapter headings with consistent formatting (page breaks, heading styles)
+- [x] **FMT-05**: Page numbers in footer ("Page X of Y")
+- [x] **FMT-06**: Front matter: half title, full title page, copyright page, dedication, TOC
+- [x] **FMT-07**: Back matter: about the author, scripture index (auto-extracted from chapters), glossary of key terms
+- [x] **FMT-08**: Formatting inherits docx-js patterns from the existing docx skill
 
 ### Content Enhancements
 
@@ -156,14 +156,14 @@ Which phases cover which requirements. Updated during roadmap creation.
 | EDIT-04 | Phase 4 | Complete |
 | EDIT-05 | Phase 4 | Complete |
 | EDIT-06 | Phase 4 | Complete |
-| FMT-01 | Phase 5 | Pending |
-| FMT-02 | Phase 5 | Pending |
-| FMT-03 | Phase 5 | Pending |
-| FMT-04 | Phase 5 | Pending |
-| FMT-05 | Phase 5 | Pending |
-| FMT-06 | Phase 5 | Pending |
-| FMT-07 | Phase 5 | Pending |
-| FMT-08 | Phase 5 | Pending |
+| FMT-01 | Phase 5 | Complete |
+| FMT-02 | Phase 5 | Complete |
+| FMT-03 | Phase 5 | Complete |
+| FMT-04 | Phase 5 | Complete |
+| FMT-05 | Phase 5 | Complete |
+| FMT-06 | Phase 5 | Complete |
+| FMT-07 | Phase 5 | Complete |
+| FMT-08 | Phase 5 | Complete |
 | ENH-01 | Phase 6 | Pending |
 | ENH-02 | Phase 6 | Pending |
 | ENH-03 | Phase 6 | Pending |

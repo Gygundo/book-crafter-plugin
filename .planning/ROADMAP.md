@@ -96,7 +96,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 05-01-PLAN.md — Complete formatter skill: document assembly pipeline with front matter, body chapters, back matter, TOC, page numbers, scripture index
+- [x] 05-01-PLAN.md — Complete formatter skill: document assembly pipeline with front matter, body chapters, back matter, TOC, page numbers, scripture index
 - [ ] 05-02-PLAN.md — Orchestrator Stage 5 wiring and pipeline-stages.md documentation update
 
 ### Phase 6: Content Enhancements
