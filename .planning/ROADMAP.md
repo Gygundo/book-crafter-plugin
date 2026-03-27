@@ -30,11 +30,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. User can invoke the orchestrator and it creates a new book project directory with organised subdirectories for each pipeline stage
   3. Orchestrator can detect an interrupted project and identify which pipeline stage to resume from based on existing artefacts
   4. Pipeline stages execute in sequence (outline -> research -> write -> edit -> format) with the orchestrator managing transitions
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 01-01: TBD
-- [ ] 01-02: TBD
+- [ ] 01-01-PLAN.md — Plugin scaffold: manifest, stub skills, subagent definitions, reference documents
+- [ ] 01-02-PLAN.md — Master orchestrator skill with pipeline logic, state detection, and status dashboard
 
 ### Phase 2: Voice System + Book Outliner
 **Goal**: Users can define how the book sounds (voice profile) and what the book covers (outline), with an approval gate before any writing begins
