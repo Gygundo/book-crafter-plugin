@@ -18,10 +18,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Voice System
 
-- [ ] **VOICE-01**: Voice profile system loads .md reference files defining tone, sentence patterns, vocabulary, emphasis techniques, anti-patterns
-- [ ] **VOICE-02**: Ship with theological/spiritual default voice profile derived from sermon-crafter and brand-voice.md
-- [ ] **VOICE-03**: Support custom .md voice profiles for non-theological genres
-- [ ] **VOICE-04**: Support inline voice descriptions in the topic brief for one-off projects
+- [x] **VOICE-01**: Voice profile system loads .md reference files defining tone, sentence patterns, vocabulary, emphasis techniques, anti-patterns
+- [x] **VOICE-02**: Ship with theological/spiritual default voice profile derived from sermon-crafter and brand-voice.md
+- [x] **VOICE-03**: Support custom .md voice profiles for non-theological genres
+- [x] **VOICE-04**: Support inline voice descriptions in the topic brief for one-off projects
 - [ ] **VOICE-05**: Book DNA master context document synthesises voice + theology + outline + themes + key terms into a single artefact all agents read
 - [ ] **VOICE-06**: Book DNA is READ-ONLY during parallel chapter generation and updated only between pipeline stages
 
@@ -127,10 +127,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | FOUND-04 | Phase 1 | Complete |
 | FOUND-05 | Phase 1 | Complete |
 | FOUND-06 | Phase 1 | Complete |
-| VOICE-01 | Phase 2 | Pending |
-| VOICE-02 | Phase 2 | Pending |
-| VOICE-03 | Phase 2 | Pending |
-| VOICE-04 | Phase 2 | Pending |
+| VOICE-01 | Phase 2 | Complete |
+| VOICE-02 | Phase 2 | Complete |
+| VOICE-03 | Phase 2 | Complete |
+| VOICE-04 | Phase 2 | Complete |
 | VOICE-05 | Phase 2 | Pending |
 | VOICE-06 | Phase 2 | Pending |
 | OUTL-01 | Phase 2 | Pending |

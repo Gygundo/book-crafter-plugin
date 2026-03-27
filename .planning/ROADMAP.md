@@ -49,7 +49,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 02-01-PLAN.md — Voice profile system: spec document, default profile validation, orchestrator voice selection with 4 input modes
+- [x] 02-01-PLAN.md — Voice profile system: spec document, default profile validation, orchestrator voice selection with 4 input modes
 - [ ] 02-02-PLAN.md — Complete outliner skill with two-mode generation, structured output, narrative arc, Book DNA generation, and orchestrator wiring
 
 ### Phase 3: Research + Chapter Writing
