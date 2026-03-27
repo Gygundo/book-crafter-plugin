@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-27)
 
 **Core value:** Every chapter must read like it was written by a bestselling author -- hooks that grab, revelation-driven depth that stays accessible, seamless flow between chapters, and a voice so consistent the reader forgets multiple agents touched it.
-**Current focus:** Phase 04 — editor-revision-workflow
+**Current focus:** Phase 05 — formatter-docx-output
 
 ## Current Position
 
-Phase: 5
-Plan: Not started
-Status: Ready to execute
-Last activity: 2026-03-27
+Phase: 05 (formatter-docx-output) — EXECUTING
+Plan: 1 of 2
+Status: Executing Phase 05
+Last activity: 2026-03-27 -- Phase 05 execution started
 
 Progress: [░░░░░░░░░░] 0%
 
