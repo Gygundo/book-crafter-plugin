@@ -81,7 +81,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 04-01-PLAN.md — Editor skill: three-pass pipeline (voice consistency, flow/transitions, cross-chapter validation), rolling window for large books, chapter-editor subagent
+- [x] 04-01-PLAN.md — Editor skill: three-pass pipeline (voice consistency, flow/transitions, cross-chapter validation), rolling window for large books, chapter-editor subagent
 - [ ] 04-02-PLAN.md — Orchestrator Stage 4 detail, review gate, chapter-level revision workflow with adjacency checks and version history
 
 ### Phase 5: Formatter + .docx Output

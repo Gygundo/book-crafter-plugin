@@ -53,12 +53,12 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Editing
 
-- [ ] **EDIT-01**: Voice consistency pass — compares tone, sentence rhythm, vocabulary across all chapters and normalises drift
-- [ ] **EDIT-02**: Flow/transition pass — ensures chapter endings connect to next chapter openings with natural transitions
-- [ ] **EDIT-03**: Theological guardrail pass — validates content against theological framework (grace over law, identity in Christ, no banned cliches, no academic hedging)
-- [ ] **EDIT-04**: Cross-chapter consistency validator — checks terminology consistency, theological consistency, reference consistency ("we'll explore this in chapter 7" → chapter 7 delivers)
-- [ ] **EDIT-05**: Editor uses rolling-window pattern for longer books to handle context limits (1-2 chapter overlap)
-- [ ] **EDIT-06**: Consistency report produced with specific flagged issues before final formatting
+- [x] **EDIT-01**: Voice consistency pass — compares tone, sentence rhythm, vocabulary across all chapters and normalises drift
+- [x] **EDIT-02**: Flow/transition pass — ensures chapter endings connect to next chapter openings with natural transitions
+- [x] **EDIT-03**: Theological guardrail pass — validates content against theological framework (grace over law, identity in Christ, no banned cliches, no academic hedging)
+- [x] **EDIT-04**: Cross-chapter consistency validator — checks terminology consistency, theological consistency, reference consistency ("we'll explore this in chapter 7" → chapter 7 delivers)
+- [x] **EDIT-05**: Editor uses rolling-window pattern for longer books to handle context limits (1-2 chapter overlap)
+- [x] **EDIT-06**: Consistency report produced with specific flagged issues before final formatting
 
 ### Formatting
 
@@ -150,12 +150,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | WRITE-05 | Phase 3 | Complete |
 | WRITE-06 | Phase 3 | Complete |
 | WRITE-07 | Phase 3 | Complete |
-| EDIT-01 | Phase 4 | Pending |
-| EDIT-02 | Phase 4 | Pending |
-| EDIT-03 | Phase 4 | Pending |
-| EDIT-04 | Phase 4 | Pending |
-| EDIT-05 | Phase 4 | Pending |
-| EDIT-06 | Phase 4 | Pending |
+| EDIT-01 | Phase 4 | Complete |
+| EDIT-02 | Phase 4 | Complete |
+| EDIT-03 | Phase 4 | Complete |
+| EDIT-04 | Phase 4 | Complete |
+| EDIT-05 | Phase 4 | Complete |
+| EDIT-06 | Phase 4 | Complete |
 | FMT-01 | Phase 5 | Pending |
 | FMT-02 | Phase 5 | Pending |
 | FMT-03 | Phase 5 | Pending |
