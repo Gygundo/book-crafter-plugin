@@ -50,7 +50,7 @@ Plans:
 
 Plans:
 - [x] 02-01-PLAN.md — Voice profile system: spec document, default profile validation, orchestrator voice selection with 4 input modes
-- [ ] 02-02-PLAN.md — Complete outliner skill with two-mode generation, structured output, narrative arc, Book DNA generation, and orchestrator wiring
+- [x] 02-02-PLAN.md — Complete outliner skill with two-mode generation, structured output, narrative arc, Book DNA generation, and orchestrator wiring
 
 ### Phase 3: Research + Chapter Writing
 **Goal**: The pipeline produces complete chapter drafts -- researched, voice-consistent, and written in parallel -- for an approved outline

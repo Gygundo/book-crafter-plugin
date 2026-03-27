@@ -22,17 +22,17 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **VOICE-02**: Ship with theological/spiritual default voice profile derived from sermon-crafter and brand-voice.md
 - [x] **VOICE-03**: Support custom .md voice profiles for non-theological genres
 - [x] **VOICE-04**: Support inline voice descriptions in the topic brief for one-off projects
-- [ ] **VOICE-05**: Book DNA master context document synthesises voice + theology + outline + themes + key terms into a single artefact all agents read
-- [ ] **VOICE-06**: Book DNA is READ-ONLY during parallel chapter generation and updated only between pipeline stages
+- [x] **VOICE-05**: Book DNA master context document synthesises voice + theology + outline + themes + key terms into a single artefact all agents read
+- [x] **VOICE-06**: Book DNA is READ-ONLY during parallel chapter generation and updated only between pipeline stages
 
 ### Book Outliner
 
-- [ ] **OUTL-01**: Generate chapter-by-chapter outline from a topic brief (topic, key themes, target audience, optional scriptures)
-- [ ] **OUTL-02**: Each chapter in outline includes: title, opening hook strategy, key arguments, supporting scriptures, momentum position
-- [ ] **OUTL-03**: Outline designs a narrative arc — chapters escalate in intensity and revelation toward a climax
-- [ ] **OUTL-04**: Outline approval gate — user reviews and approves/modifies outline before drafting begins
-- [ ] **OUTL-05**: Support three book size tiers: booklet (<100 pages, 5-8 chapters), short (15-25k words, 8-12 chapters), standard (40-60k words, 12-20 chapters)
-- [ ] **OUTL-06**: Generate outline from existing content (sermon transcripts, notes, blog posts) by extracting themes and arguments
+- [x] **OUTL-01**: Generate chapter-by-chapter outline from a topic brief (topic, key themes, target audience, optional scriptures)
+- [x] **OUTL-02**: Each chapter in outline includes: title, opening hook strategy, key arguments, supporting scriptures, momentum position
+- [x] **OUTL-03**: Outline designs a narrative arc — chapters escalate in intensity and revelation toward a climax
+- [x] **OUTL-04**: Outline approval gate — user reviews and approves/modifies outline before drafting begins
+- [x] **OUTL-05**: Support three book size tiers: booklet (<100 pages, 5-8 chapters), short (15-25k words, 8-12 chapters), standard (40-60k words, 12-20 chapters)
+- [x] **OUTL-06**: Generate outline from existing content (sermon transcripts, notes, blog posts) by extracting themes and arguments
 
 ### Research
 
@@ -82,7 +82,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Iteration
 
-- [ ] **ITER-01**: Outline approval gate — user reviews outline before any drafting begins
+- [x] **ITER-01**: Outline approval gate — user reviews outline before any drafting begins
 - [ ] **ITER-02**: Full draft review — complete book presented for holistic feedback before final formatting
 - [ ] **ITER-03**: Chapter-level revision — user can request rewrite of specific chapters with targeted feedback
 - [ ] **ITER-04**: Revised chapters trigger flow-check on adjacent chapters (transitions may break)
@@ -131,14 +131,14 @@ Which phases cover which requirements. Updated during roadmap creation.
 | VOICE-02 | Phase 2 | Complete |
 | VOICE-03 | Phase 2 | Complete |
 | VOICE-04 | Phase 2 | Complete |
-| VOICE-05 | Phase 2 | Pending |
-| VOICE-06 | Phase 2 | Pending |
-| OUTL-01 | Phase 2 | Pending |
-| OUTL-02 | Phase 2 | Pending |
-| OUTL-03 | Phase 2 | Pending |
-| OUTL-04 | Phase 2 | Pending |
-| OUTL-05 | Phase 2 | Pending |
-| OUTL-06 | Phase 2 | Pending |
+| VOICE-05 | Phase 2 | Complete |
+| VOICE-06 | Phase 2 | Complete |
+| OUTL-01 | Phase 2 | Complete |
+| OUTL-02 | Phase 2 | Complete |
+| OUTL-03 | Phase 2 | Complete |
+| OUTL-04 | Phase 2 | Complete |
+| OUTL-05 | Phase 2 | Complete |
+| OUTL-06 | Phase 2 | Complete |
 | RSRCH-01 | Phase 3 | Pending |
 | RSRCH-02 | Phase 3 | Pending |
 | RSRCH-03 | Phase 3 | Pending |
@@ -170,7 +170,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | ENH-04 | Phase 6 | Pending |
 | ENH-05 | Phase 6 | Pending |
 | ENH-06 | Phase 6 | Pending |
-| ITER-01 | Phase 2 | Pending |
+| ITER-01 | Phase 2 | Complete |
 | ITER-02 | Phase 4 | Pending |
 | ITER-03 | Phase 4 | Pending |
 | ITER-04 | Phase 4 | Pending |
