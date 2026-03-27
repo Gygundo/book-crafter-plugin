@@ -97,7 +97,7 @@ Plans:
 
 Plans:
 - [x] 05-01-PLAN.md — Complete formatter skill: document assembly pipeline with front matter, body chapters, back matter, TOC, page numbers, scripture index
-- [ ] 05-02-PLAN.md — Orchestrator Stage 5 wiring and pipeline-stages.md documentation update
+- [x] 05-02-PLAN.md — Orchestrator Stage 5 wiring and pipeline-stages.md documentation update
 
 ### Phase 6: Content Enhancements
 **Goal**: The pipeline supports sermon-to-book conversion and generates reader engagement elements (discussion questions, summaries, prayer points, foreword)
