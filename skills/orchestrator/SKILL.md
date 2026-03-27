@@ -54,7 +54,11 @@ When creating a new project:
    - Key themes (optional)
    - Target audience (optional)
    - Book size tier: `booklet` (<100 pages, 5-8 chapters), `short` (15-25K words, 8-12 chapters), or `standard` (40-60K words, 12-20 chapters). Default: `standard`
-   - Voice profile: `spiritual-default` or path to a custom `.md` profile. Default: `spiritual-default`
+   - Voice profile (one of four options):
+     - **Named profile**: A profile name from the plugin's voice library (e.g., "spiritual-default"). Looks up `${CLAUDE_PLUGIN_ROOT}/references/voice-profiles/[name].md`
+     - **Custom file path**: An absolute or relative path to a `.md` voice profile file (e.g., "~/my-voices/academic.md")
+     - **Inline description**: A plain-text description of the desired voice (e.g., "casual, conversational, like talking to a friend over coffee"). Will be expanded into a full profile.
+     - **Not specified**: Defaults to `spiritual-default`
 
 2. **Create the project directory structure:**
 
@@ -76,9 +80,40 @@ When creating a new project:
    - Created date (today)
    - Author name if provided
 
-4. **Copy the voice profile:** Read the selected voice profile from `${CLAUDE_PLUGIN_ROOT}/references/voice-profiles/` and write it to `voice-profile.md` in the project root. For the default, use `${CLAUDE_PLUGIN_ROOT}/references/voice-profiles/spiritual-default.md`.
+### Voice Profile Selection
 
-5. **Confirm creation:** Show the user the created directory structure and the populated book-dna.md metadata, then proceed to the status dashboard.
+Determine which voice input mode the user specified and process accordingly:
+
+**Mode 1: Named profile** (user provides a name like "spiritual-default"):
+1. Read `${CLAUDE_PLUGIN_ROOT}/references/voice-profiles/[name].md`
+2. If file not found, list available profiles from `${CLAUDE_PLUGIN_ROOT}/references/voice-profiles/` (exclude `voice-profile-spec.md`) and ask user to choose
+3. Copy file contents to `[project]/voice-profile.md`
+
+**Mode 2: Custom file path** (user provides a file path ending in `.md`):
+1. Read the file at the provided path
+2. Validate against `${CLAUDE_PLUGIN_ROOT}/references/voice-profiles/voice-profile-spec.md`:
+   - Check for required sections: Tone, Sentence Patterns, Vocabulary (with Use and Avoid subsections), Emphasis Techniques, Anti-Patterns
+   - If any required section is missing: WARN the user which sections are missing, fill each missing section with "[Not specified -- using neutral, clear prose]" marked with <!-- DEFAULT -->
+3. Write the (possibly augmented) profile to `[project]/voice-profile.md`
+
+**Mode 3: Inline description** (user provides plain text that is not a file path):
+1. Generate a full voice profile from the user's description by expanding it into the required sections:
+   - **Tone**: Infer from the description (e.g., "casual" -> "Relaxed, conversational, approachable")
+   - **Sentence Patterns**: Infer rhythm (e.g., "casual" -> shorter sentences, contractions, informal fragments)
+   - **Vocabulary > Use**: Extract characteristic language from the description
+   - **Vocabulary > Avoid**: Infer what breaks the described voice
+   - **Emphasis Techniques**: Infer from the tone
+   - **Anti-Patterns**: Infer what would violate the described voice
+2. Mark each section with <!-- INFERRED --> to indicate it was generated, not user-specified
+3. Write the generated profile to `[project]/voice-profile.md`
+4. Show the generated profile to the user: "I've expanded your voice description into a full profile. Here's what I've inferred -- let me know if you'd like to adjust anything before we continue."
+
+**Mode 4: Not specified** (user did not mention voice):
+1. Use `${CLAUDE_PLUGIN_ROOT}/references/voice-profiles/spiritual-default.md`
+2. Copy to `[project]/voice-profile.md`
+3. Inform the user: "Using the default spiritual/theological voice profile. You can change this later by providing a different voice profile."
+
+4. **Confirm creation:** Show the user the created directory structure and the populated book-dna.md metadata, then proceed to the status dashboard.
 
 ### Detecting an Existing Project
 
