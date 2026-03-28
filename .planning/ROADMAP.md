@@ -158,7 +158,7 @@ Plans:
 **Requirements**: OUTL-06, ENH-01, ENH-02
 **Depends on:** Phase 8
 **Gap Closure:** Closes gaps from v1.0 milestone audit
-**Plans:** 0 plans
+**Plans:** 1 plan
 
 Plans:
 - [ ] 09-01-PLAN.md — Update outliner SKILL.md Section 2 mode detection and Section 4.1 source reading to prefer `sources-adapted/` when present
