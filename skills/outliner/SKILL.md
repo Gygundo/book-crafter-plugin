@@ -28,14 +28,16 @@ Extract from `voice-profile.md`:
 
 ## 2. Determine Mode
 
-Check the project directory for source content:
+Check the project directory for source content, preferring adapted content when available:
 
-- If a `sources/` directory exists and contains `.md`, `.txt`, or `.docx` files: use **Source Ingestion Mode** (section 4)
-- If no source files are present: use **Topic Brief Mode** (section 3)
+1. If a `sources-adapted/` directory exists and contains `.md`, `.txt`, or `.docx` files: use **Source Ingestion Mode** (section 4) reading from `sources-adapted/`
+2. Else if a `sources/` directory exists and contains `.md`, `.txt`, or `.docx` files: use **Source Ingestion Mode** (section 4) reading from `sources/`
+3. If neither directory contains source files: use **Topic Brief Mode** (section 3)
 
 Log which mode is being used:
 - "Mode: Topic Brief" -- generating outline from topic brief and metadata
-- "Mode: Source Ingestion ([N] source files found)" -- synthesising outline from existing content
+- "Mode: Source Ingestion (adapted, [N] source files from sources-adapted/)" -- using sermon-adapted content
+- "Mode: Source Ingestion ([N] source files from sources/)" -- using raw source content
 
 ## 3. Topic Brief Mode
 
@@ -118,7 +120,9 @@ Generate a book outline from existing content (sermon transcripts, notes, blog p
 
 ### Step 1: Read and analyse all source files
 
-Read all files from the `sources/` directory (`.md`, `.txt`, `.docx` files).
+Read all files from the source directory identified in Section 2 (either `sources-adapted/` or `sources/`). Accept `.md`, `.txt`, or `.docx` files.
+
+When reading from `sources-adapted/`, these files have already been transformed from spoken to written rhythm by the sermon adapter. The outliner should treat them as written prose -- do not apply any additional spoken-to-written transformations.
 
 ### Step 2: Extract themes and arguments
 
