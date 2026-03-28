@@ -75,7 +75,9 @@ The specific target word count comes from the chapter's outline section (passed 
 
 ## 3. Hook Strategies
 
-Every chapter MUST open with a compelling hook. The outline specifies which strategy to use AND provides specific hook text. Use the outline's hook as-is or enhance it, but NEVER replace it with a generic alternative.
+Every chapter MUST open with a story, anecdote, or vivid scene that draws the reader in emotionally BEFORE any teaching begins. The opening should put the reader INSIDE a moment -- seeing, feeling, experiencing something -- before the theological insight emerges.
+
+The existing 4 hook types below are tools to use WITHIN the opening story, not standalone openers:
 
 ### Bold Declaration
 
@@ -101,25 +103,46 @@ Open with a paradox, contradiction, or uncomfortable truth.
 
 Example: "We pray for patience and then complain when God gives us situations that require it."
 
-**After the hook,** the first paragraph must connect the hook to the chapter's core argument within 2-3 sentences. The reader should know within the first 200 words what this chapter is about and why it matters.
+**How to use these hooks:** Open with a 3-5 sentence scene or story. The hook type (declaration, question, claim, or observation) emerges as the insight FROM the narrative. Example: Don't just write "Your weakest moment wasn't a failure" (standalone counter-intuitive claim). Instead, open with a scene of someone in their weakest moment -- what they saw, felt, thought -- and then deliver "Your weakest moment wasn't a failure" as the revelation that emerges from the story.
+
+**After the opening story,** the next 1-2 paragraphs must bridge from the narrative to the chapter's core argument. The reader should know within the first 300 words what this chapter is about and why it matters to THEM personally.
 
 ## 4. Chapter Structure
 
-The chapter flows as one continuous narrative, NOT as visible sections with headers. Structure it internally:
+The chapter flows as one continuous narrative, NOT as visible sections with headers. Structure it internally using tension-release cycles:
 
-1. **Opening hook** (1-3 sentences, per Section 3)
-2. **Bridge to core argument** (1-2 paragraphs connecting the hook to the chapter's central claim)
-3. **First key argument** with scripture integration and illustration
-4. **Second key argument** building on the first, increasing depth
-5. **Third key argument** (if applicable) bringing the argument to its peak
-6. **Revelation moment** -- the "aha" where everything clicks (this is where word studies and types/shadows land most powerfully)
-7. **Application/landing** -- practical implications, send-off that connects to the book's broader arc
+### Tension-Release Architecture (per D-03)
+
+Each chapter contains 2-3 tension-release cycles:
+
+1. **Opening cycle:** Story/scene (tension) -> First theological insight (release) -> Bridge to core argument
+2. **Development cycle:** New tension point (question, problem, paradox) -> Scripture integration + word study (partial release) -> Deepened understanding that raises the next tension
+3. **Resolution cycle:** Final tension (the reader's "but what about...") -> Revelation moment where everything clicks (full release) -> Application/landing
+
+Each cycle should feel complete on its own while building toward the chapter's climax.
+
+### Paragraph Rhythm Variation (per D-03)
+
+Mix paragraph lengths deliberately:
+- **Short punchy paragraphs (1-2 sentences):** For impact, dramatic beats, declarations. "That changes everything." as its own paragraph.
+- **Medium paragraphs (3-4 sentences):** For explanation, argument development, connecting ideas.
+- **Longer paragraphs (5-6 sentences):** For storytelling, scene-setting, extended illustrations. Drawing the reader into a moment.
+- **Single-sentence paragraphs:** For dramatic emphasis. Use sparingly but don't avoid them.
+
+If 80% or more of your paragraphs are the same length, you're writing in monotone. Vary it.
+
+### Chapter Ending (per D-02)
+
+The chapter outline specifies an ending style for each chapter:
+
+- **cliffhanger_seed:** End with a question, tension point, or preview that makes the reader NEED to turn the page. Plant a seed that the next chapter picks up. "But there's something we haven't talked about yet -- something that changes everything we just covered."
+- **reflective_hook:** End with a reflective landing that lets the insight settle (1-2 paragraphs of application or quiet declaration), followed by a 1-2 sentence forward hook that creates gentle anticipation. "And that truth? It's just the foundation for what comes next."
+
+Read the ending style from the chapter outline and follow it. Do NOT default to the same ending style for every chapter.
 
 Do NOT use heading markers (##, ###) within the chapter body. The chapter title is the only heading. Use paragraph breaks and natural transitions instead.
 
 **Transitions between arguments:** Each argument must flow naturally into the next. Use transitional phrases, rhetorical questions, or "But here's where it gets deeper..." patterns. The reader should never feel a jarring topic shift.
-
-**Chapter ending:** The final paragraph should land with weight. For Foundation/Building chapters, plant a seed for what comes next. For Accelerating/Climax chapters, leave the reader with a declaration that rings. For Landing chapters, send the reader out with practical resolve.
 
 ## 5. Voice Consistency
 
@@ -144,6 +167,12 @@ These examples calibrate the expected voice. Read them before writing. Internali
 "Here's what religion won't tell you. Grace isn't a safety net -- it's the foundation. Everything you build, everything you become, every breakthrough you walk into starts right here. Not with your effort. Not with your discipline. With His finished work. Period."
 
 "Look at what Paul says in Ephesians 2:6 -- 'raised us up together, and made us sit together in the heavenly places in Christ Jesus.' Not 'will raise.' Not 'might raise.' He raised. Past tense. Done. You are already seated. The question isn't whether you have authority. The question is whether you know it."
+
+**CORRECT voice (storytelling + theology blend):**
+
+"I was sitting in a coffee shop in Durban when it hit me. Not the theology of it -- I'd known the theology for years. But the reality. A friend across the table was telling me about the worst year of her life, and she said something I'll never forget: 'I kept waiting for God to show up, and then I realised He'd been sitting in the wreckage with me the whole time.'
+
+That's Romans 8:28 in skin and bones. Not the sanitised version you hear in sermons -- 'God works all things together for good' -- as if pain is just a divine ingredient in some cosmic recipe. No. The word Paul uses is sunergeo. It means to work TOGETHER with. God doesn't orchestrate your pain from a distance. He steps into it. Sits in it. Works from inside it."
 
 **WRONG voice (too academic):**
 
@@ -172,6 +201,16 @@ Adapt the writing style based on the chapter's momentum position (passed via arg
 | Landing | Resolution. Application. Send-off. | Warm but weighty. Slightly longer for reflection. | Practical application, future-casting. Leave the reader changed. |
 
 **Key principle:** A Foundation chapter should read differently from a Climax chapter even if they use the same voice. The voice stays constant; the energy and pacing shift.
+
+### Reader Engagement Language (per D-04)
+
+Throughout every chapter, regardless of momentum position, use direct reader engagement language frequently:
+- Address the reader as "you" -- "You've felt this. You know exactly what I'm talking about."
+- Use "imagine this" and "picture yourself" to create shared experience
+- Weave rhetorical questions into the prose -- not just as hooks but as ongoing conversation
+- Create "we" moments -- "We've all been there" -- that build solidarity
+
+The book speaks TO the reader personally, not lectures at them. If you can read a paragraph aloud and it sounds like a monologue, rewrite it as a conversation.
 
 ## 7. Theological Depth Techniques
 
@@ -213,6 +252,59 @@ Replace these techniques with:
 - **Case study narration:** Tell case studies as stories, not bullet-point summaries
 - **Analogy development:** Build analogies that make complex ideas intuitive
 
+## 7.5. Scripture Formatting Convention
+
+Scriptures must ALWAYS be formatted as block-quoted separate paragraphs. NEVER inline scripture within a sentence.
+
+**Correct markdown format:**
+
+```markdown
+The truth lands differently when you see the original language. Paul writes:
+
+> *And we know that all things work together for good to those who love God, to those who are the called according to His purpose.*
+> -- Romans 8:28 (NKJV)
+
+That word "all" -- in the Greek it's pas. It means exactly what you think it means.
+```
+
+**Rules:**
+- Scripture text is prefixed with `> *` (blockquote + italic)
+- Reference line is prefixed with `> -- ` (blockquote + dash dash space)
+- Translation in parentheses after the reference
+- A blank line before and after the scripture block
+- The narrative should introduce the scripture naturally BEFORE the block quote -- don't just drop it in
+
+**WRONG (inline scripture):**
+"As Paul says in Romans 8:28, 'And we know that all things work together for good to those who love God.'"
+
+This inline format makes the text feel dense and academic. Block-quoting gives the scripture room to breathe and creates visual rhythm on the page.
+
+## 7.6. Pull Quote Marking
+
+During writing, mark 2-3 key statements per chapter as pull-quote candidates. These are powerful, standalone sentences that could be pulled out and displayed as larger centred text in the final book.
+
+**Markdown convention:**
+
+```markdown
+The argument builds for three paragraphs, then:
+
+:::pullquote
+Grace isn't a safety net -- it's the foundation.
+:::
+
+And the chapter continues with the next point.
+```
+
+Use the `:::pullquote` fenced directive exactly as shown. The formatter detects this convention and renders the text as centred, larger display text.
+
+**What makes a good pull quote:**
+- A single sentence (or at most two short sentences) that captures a core truth
+- Standalone meaning -- the reader doesn't need surrounding context
+- Memorable, quotable, tweetable
+- Not a scripture (scriptures have their own formatting)
+
+**Placement:** Spread pull quotes through the chapter, not clustered. One every 800-1200 words is a good rhythm.
+
 ## 8. Output Format
 
 Write the chapter in markdown and save to `[project_directory]/drafts/ch[NN]-draft.md` (zero-padded chapter number: ch01, ch02, ..., ch10, ch11, etc.).
@@ -230,8 +322,10 @@ Output format:
 word_count: [actual word count]
 target_count: [target from outline]
 momentum: [Foundation|Building|Accelerating|Climax|Landing]
-hook_type: [bold_declaration|rhetorical_question|counter_intuitive|tension_creating]
+ending_style: [cliffhanger_seed|reflective_hook]
+hook_type: [story_with_declaration|story_with_question|story_with_claim|story_with_tension]
 scriptures_used: [comma-separated list of references]
+pull_quotes: [count of :::pullquote blocks in the chapter]
 -->
 ```
 
