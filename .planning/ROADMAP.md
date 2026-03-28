@@ -143,10 +143,11 @@ Plans:
 
 ### Phase 8: Voice builder skill - analyse source content to generate custom voice profiles
 
-**Goal:** [To be planned]
-**Requirements**: TBD
+**Goal:** A new voice-builder skill that analyses a directory of markdown files (e.g. an Obsidian vault) and generates a custom voice profile conforming to voice-profile-spec.md, with a review gate before saving and integration into the orchestrator as a fifth voice selection option
+**Requirements**: VB-01, VB-02, VB-03, VB-04, VB-05, VB-06, VB-07, VB-08
 **Depends on:** Phase 7
-**Plans:** 0 plans
+**Plans:** 2 plans
 
 Plans:
-- [ ] TBD (run /gsd:plan-phase 8 to break down)
+- [ ] 08-01-PLAN.md — Voice builder skill: two-pass analysis, corpus assessment, domain detection, calibration examples, and review gate
+- [ ] 08-02-PLAN.md — Orchestrator integration: Mode 5 ("Build from source material") voice selection option
