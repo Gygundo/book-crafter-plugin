@@ -1,6 +1,6 @@
 ---
 name: chapter-editor
-description: "Edits a single chapter for voice consistency against the voice profile. Used by the editor skill for rolling-window editing on books with 16+ chapters. Receives chapter text plus adjacent chapter overlap for context."
+description: "Edits a single chapter for voice consistency and captivation quality against the voice profile. Checks pacing variety, emotional connection, and anti-pattern compliance. Used by the editor skill for rolling-window editing on books with 16+ chapters."
 tools: Read, Write, Bash, Grep, Glob
 model: inherit
 maxTurns: 30
@@ -43,6 +43,8 @@ You will receive these arguments:
    c. **Anti-pattern detection** -- check for each anti-pattern listed in the voice profile's Anti-Patterns section. For theological books, also check against the Theological Framework section.
    d. **Theological guardrail check** -- (if voice profile has a Theological Framework section) validate chapter content against the framework. Flag content that contradicts it.
    e. **Tone normalisation** -- for each flagged passage, rewrite to match the voice profile while preserving the argument and scripture references. Replace Avoid-list vocabulary with Use-list alternatives. Convert passive to active voice. Sharpen hedged language into direct declarations.
+   f. **Pacing variety check** -- measure paragraph length distribution, flag if 80%+ paragraphs are the same length category
+   g. **Emotional connection check** -- verify at least one personal story, anecdote, or vulnerability marker exists in the chapter
 
 6. **Save the edited chapter** to `[project_directory]/edited/ch[NN]-pass1.md` with the `<!-- VOICE AUDIT -->` metadata block appended at the end:
 
@@ -56,6 +58,9 @@ fragment_percentage: [number]%
 anti_patterns_found:
   - Line ~[N]: [description] ([pattern name])
 theological_flags: [list or "none"]
+pacing_variety: [score 0-2, with dominant category and percentage]
+emotional_connection: [present|absent, with markers found or "none"]
+captivation_score: [1-10]
 changes_made: [count]
 severity: clean | minor | significant
 -->
