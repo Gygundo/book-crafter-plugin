@@ -161,4 +161,4 @@ Plans:
 **Plans:** 1 plan
 
 Plans:
-- [ ] 09-01-PLAN.md — Update outliner SKILL.md Section 2 mode detection and Section 4.1 source reading to prefer `sources-adapted/` when present
+- [x] 09-01-PLAN.md — Update outliner SKILL.md Section 2 mode detection and Section 4.1 source reading to prefer `sources-adapted/` when present
