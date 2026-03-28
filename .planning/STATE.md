@@ -3,7 +3,7 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 07-01-PLAN.md
+stopped_at: Completed Wave 1 (07-01, 07-02)
 last_updated: "2026-03-28T11:08:03.952Z"
 last_activity: 2026-03-27
 progress:
@@ -65,6 +65,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 06 P01 | 4min | 2 tasks | 3 files |
 | Phase 06 P02 | 7min | 2 tasks | 4 files |
 | Phase 07 P01 | 2min | 2 tasks | 2 files |
+| Phase 07 P02 | 2min | 1 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -105,6 +106,9 @@ Recent decisions affecting current work:
 - [Phase 06]: Formatter backward compatible -- has_enrichments flag skips rendering for pre-Phase 6 projects
 - [Phase 07]: Voice profile models bestselling author CRAFT (storytelling, warmth, vulnerability) while preserving theological framework verbatim
 - [Phase 07]: Calibration examples are original prose in target style, not quotes from published books
+- [Phase 07]: Hook types become tools within opening stories, not standalone openers (D-01)
+- [Phase 07]: Tension-release cycles (2-3 per chapter) replace linear 7-part chapter structure (D-03)
+- [Phase 07]: Scripture uses block-quote markdown (> *text* + > -- Reference), pull quotes use :::pullquote fenced directives (D-10, D-12)
 
 ### Roadmap Evolution
 
@@ -122,5 +126,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-03-28T11:08:03.949Z
-Stopped at: Completed 07-01-PLAN.md
+Stopped at: Completed Wave 1 (07-01, 07-02)
 Resume file: None
