@@ -3,11 +3,11 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 06-02-PLAN.md
-last_updated: "2026-03-27T22:21:09.649Z"
+stopped_at: Phase 7 context gathered
+last_updated: "2026-03-28T10:38:28.053Z"
 last_activity: 2026-03-27
 progress:
-  total_phases: 6
+  total_phases: 8
   completed_phases: 6
   total_plans: 12
   completed_plans: 12
@@ -103,6 +103,11 @@ Recent decisions affecting current work:
 - [Phase 06]: No approval gate for enrichments -- users revise via Mode 5 after .docx review
 - [Phase 06]: Formatter backward compatible -- has_enrichments flag skips rendering for pre-Phase 6 projects
 
+### Roadmap Evolution
+
+- Phase 7 added: Captivating writing, modern voice profile, and bestseller formatting
+- Phase 8 added: Voice builder skill - analyse source content to generate custom voice profiles
+
 ### Pending Todos
 
 None yet.
@@ -113,6 +118,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-27T22:17:03.143Z
-Stopped at: Completed 06-02-PLAN.md
-Resume file: None
+Last session: 2026-03-28T10:38:28.050Z
+Stopped at: Phase 7 context gathered
+Resume file: .planning/phases/07-captivating-writing-modern-voice-profile-and-bestseller-formatting/07-CONTEXT.md
