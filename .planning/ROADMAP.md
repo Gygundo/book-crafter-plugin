@@ -150,4 +150,4 @@ Plans:
 
 Plans:
 - [x] 08-01-PLAN.md — Voice builder skill: two-pass analysis, corpus assessment, domain detection, calibration examples, and review gate
-- [ ] 08-02-PLAN.md — Orchestrator integration: Mode 5 ("Build from source material") voice selection option
+- [x] 08-02-PLAN.md — Orchestrator integration: Mode 5 ("Build from source material") voice selection option
