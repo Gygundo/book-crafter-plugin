@@ -114,7 +114,7 @@ function convertSmartQuotes(text) {
 
 ### parseChapterMarkdown(content)
 
-Parses an entire chapter markdown file into an array of `Paragraph` objects:
+Parses an entire chapter markdown file into an array of `Paragraph` objects. Detects three content types: normal paragraphs (rendered as Normal style), scripture block quotes (rendered as ScriptureBlockQuote + ScriptureReference styles), and pull quotes (rendered as PullQuote style):
 
 ```javascript
 function parseChapterMarkdown(content) {
@@ -129,25 +129,99 @@ function parseChapterMarkdown(content) {
     content = content.replace(/<!--\s*METADATA[\s\S]*?-->/, '').trim();
   }
 
-  // Split on blank lines to get paragraphs
-  const blocks = content.split(/\n\s*\n/).filter(block => block.trim());
+  // Also strip VOICE AUDIT blocks from edited chapters
+  content = content.replace(/<!--\s*VOICE AUDIT[\s\S]*?-->/, '').trim();
 
+  const lines = content.split('\n');
   const paragraphs = [];
-  for (const block of blocks) {
-    const trimmed = block.trim();
+  let i = 0;
 
-    // Skip the chapter heading line (# Chapter N: Title)
-    if (/^#\s+Chapter\s+\d+/.test(trimmed)) continue;
+  while (i < lines.length) {
+    const line = lines[i].trim();
 
-    // Create a Normal paragraph with parsed inline formatting
-    paragraphs.push(new Paragraph({
-      style: "Normal",
-      spacing: { line: 360, after: 120 },
-      children: parseInlineFormatting(trimmed),
-    }));
+    // Skip empty lines
+    if (!line) { i++; continue; }
+
+    // Skip chapter heading
+    if (/^#\s+Chapter\s+\d+/.test(line)) { i++; continue; }
+
+    // Detect pull quote block: :::pullquote ... :::
+    if (line === ':::pullquote') {
+      i++;
+      const pullLines = [];
+      while (i < lines.length && lines[i].trim() !== ':::') {
+        if (lines[i].trim()) pullLines.push(lines[i].trim());
+        i++;
+      }
+      if (i < lines.length) i++; // skip closing :::
+      if (pullLines.length > 0) {
+        paragraphs.push(new Paragraph({
+          style: "PullQuote",
+          children: [new TextRun({ text: pullLines.join(' '), font: "Georgia", size: 28, italics: true })],
+        }));
+      }
+      continue;
+    }
+
+    // Detect scripture block quote: > *text* followed eventually by > -- Reference
+    if (line.startsWith('> ') && isScriptureBlock(lines, i)) {
+      const scriptureLines = [];
+      let refLine = null;
+      while (i < lines.length && lines[i].trim().startsWith('> ')) {
+        const stripped = lines[i].trim().replace(/^>\s*/, '');
+        if (stripped.match(/^--\s*.+/)) {
+          refLine = stripped.replace(/^--\s*/, '').trim();
+        } else {
+          // Remove wrapping * for italic (formatter applies italic via style)
+          scriptureLines.push(stripped.replace(/^\*|\*$/g, '').trim());
+        }
+        i++;
+      }
+      if (scriptureLines.length > 0) {
+        paragraphs.push(new Paragraph({
+          style: "ScriptureBlockQuote",
+          children: [new TextRun({ text: scriptureLines.join(' '), font: "Georgia", size: 22, italics: true })],
+        }));
+      }
+      if (refLine) {
+        paragraphs.push(new Paragraph({
+          style: "ScriptureReference",
+          children: [new TextRun({ text: refLine, font: "Georgia", size: 20 })],
+        }));
+      }
+      continue;
+    }
+
+    // Collect regular paragraph (may span multiple non-empty lines until blank line)
+    const paraLines = [];
+    while (i < lines.length && lines[i].trim() && !lines[i].trim().startsWith(':::') && !isScriptureBlockStart(lines, i)) {
+      paraLines.push(lines[i].trim());
+      i++;
+    }
+    if (paraLines.length > 0) {
+      const text = paraLines.join(' ');
+      paragraphs.push(new Paragraph({
+        style: "Normal",
+        spacing: { line: 360, after: 120 },
+        children: parseInlineFormatting(text),
+      }));
+    }
   }
 
   return { paragraphs, scripturesUsed };
+}
+
+// Helper: Check if a > block is a scripture block (has a > -- Reference line)
+function isScriptureBlock(lines, startIndex) {
+  for (let i = startIndex; i < lines.length && lines[i].trim().startsWith('> '); i++) {
+    if (lines[i].trim().match(/^>\s*--\s*.+/)) return true;
+  }
+  return false;
+}
+
+// Helper: Check if current line starts a scripture block
+function isScriptureBlockStart(lines, index) {
+  return lines[index].trim().startsWith('> ') && isScriptureBlock(lines, index);
 }
 ```
 
@@ -219,7 +293,7 @@ function renderEnrichmentParagraphs(enrichment) {
   // Discussion Questions heading
   paragraphs.push(new Paragraph({
     heading: HeadingLevel.HEADING_2,
-    children: [new TextRun({ text: "Discussion Questions", font: "Georgia", size: 32, bold: true })],
+    children: [new TextRun({ text: "Discussion Questions", font: "Calibri", size: 32, bold: true })],
     spacing: { before: 480, after: 240 },
   }));
 
@@ -235,7 +309,7 @@ function renderEnrichmentParagraphs(enrichment) {
   // Chapter Summary heading
   paragraphs.push(new Paragraph({
     heading: HeadingLevel.HEADING_2,
-    children: [new TextRun({ text: "Chapter Summary", font: "Georgia", size: 32, bold: true })],
+    children: [new TextRun({ text: "Chapter Summary", font: "Calibri", size: 32, bold: true })],
     spacing: { before: 480, after: 240 },
   }));
 
@@ -250,7 +324,7 @@ function renderEnrichmentParagraphs(enrichment) {
   if (enrichment.prayerPoints.length > 0) {
     paragraphs.push(new Paragraph({
       heading: HeadingLevel.HEADING_2,
-      children: [new TextRun({ text: "Prayer Points", font: "Georgia", size: 32, bold: true })],
+      children: [new TextRun({ text: "Prayer Points", font: "Calibri", size: 32, bold: true })],
       spacing: { before: 480, after: 240 },
     }));
 
@@ -270,6 +344,8 @@ function renderEnrichmentParagraphs(enrichment) {
 
 ## 4. Document Styles
 
+**Typography convention (per D-11):** Chapter headings and section headings use Calibri (sans-serif) for a modern bestseller look. Body text, front matter, back matter, and all non-heading text use Georgia (serif) for readability. This mixed-font approach is standard in modern Christian non-fiction publishing.
+
 Define the complete styles object for the Document:
 
 ```javascript
@@ -283,7 +359,7 @@ const bookStyles = {
     {
       id: "Heading1", name: "Heading 1",
       basedOn: "Normal", next: "Normal", quickFormat: true,
-      run: { size: 48, bold: true, font: "Georgia" }, // 24pt chapter titles
+      run: { size: 48, bold: true, font: "Calibri" }, // Sans-serif for chapter headings per D-11
       paragraph: {
         spacing: { before: 480, after: 240 },
         outlineLevel: 0, // REQUIRED for TOC pickup
@@ -294,6 +370,41 @@ const bookStyles = {
       run: { font: "Georgia", size: 24 }, // 12pt
       paragraph: {
         spacing: { line: 360, after: 120 }, // 1.5 line spacing, 6pt after
+      },
+    },
+    {
+      id: "ScriptureBlockQuote",
+      name: "Scripture Block Quote",
+      basedOn: "Normal",
+      run: { font: "Georgia", size: 22, italics: true }, // 11pt italic
+      paragraph: {
+        indent: { left: convertInchesToTwip(0.5), right: convertInchesToTwip(0.5) },
+        spacing: { before: 240, after: 120, line: 360 },
+      },
+    },
+    {
+      id: "ScriptureReference",
+      name: "Scripture Reference",
+      basedOn: "Normal",
+      run: { font: "Georgia", size: 20 }, // 10pt
+      paragraph: {
+        alignment: AlignmentType.RIGHT,
+        indent: { left: convertInchesToTwip(0.5), right: convertInchesToTwip(0.5) },
+        spacing: { after: 240 },
+      },
+    },
+    {
+      id: "PullQuote",
+      name: "Pull Quote",
+      basedOn: "Normal",
+      run: { font: "Georgia", size: 28, italics: true }, // 14pt italic
+      paragraph: {
+        alignment: AlignmentType.CENTER,
+        spacing: { before: 480, after: 480 },
+        border: {
+          top: { style: BorderStyle.SINGLE, size: 1, color: "CCCCCC" },
+          bottom: { style: BorderStyle.SINGLE, size: 1, color: "CCCCCC" },
+        },
       },
     },
   ],
@@ -847,6 +958,18 @@ function parseInlineFormatting(text) {
   return runs;
 }
 
+// ---- Scripture Block Detection Helpers ----
+function isScriptureBlock(lines, startIndex) {
+  for (let i = startIndex; i < lines.length && lines[i].trim().startsWith('> '); i++) {
+    if (lines[i].trim().match(/^>\s*--\s*.+/)) return true;
+  }
+  return false;
+}
+
+function isScriptureBlockStart(lines, index) {
+  return lines[index].trim().startsWith('> ') && isScriptureBlock(lines, index);
+}
+
 // ---- Chapter Markdown Parser ----
 function parseChapterMarkdown(content) {
   const metadataMatch = content.match(/<!--\s*METADATA[\s\S]*?-->/);
@@ -857,17 +980,85 @@ function parseChapterMarkdown(content) {
     content = content.replace(/<!--\s*METADATA[\s\S]*?-->/, '').trim();
   }
 
-  const blocks = content.split(/\n\s*\n/).filter(b => b.trim());
+  // Also strip VOICE AUDIT blocks from edited chapters
+  content = content.replace(/<!--\s*VOICE AUDIT[\s\S]*?-->/, '').trim();
+
+  const lines = content.split('\n');
   const paragraphs = [];
-  for (const block of blocks) {
-    const trimmed = block.trim();
-    if (/^#\s+Chapter\s+\d+/.test(trimmed)) continue;
-    paragraphs.push(new Paragraph({
-      style: "Normal",
-      spacing: { line: 360, after: 120 },
-      children: parseInlineFormatting(trimmed),
-    }));
+  let i = 0;
+
+  while (i < lines.length) {
+    const line = lines[i].trim();
+
+    // Skip empty lines
+    if (!line) { i++; continue; }
+
+    // Skip chapter heading
+    if (/^#\s+Chapter\s+\d+/.test(line)) { i++; continue; }
+
+    // Detect pull quote block: :::pullquote ... :::
+    if (line === ':::pullquote') {
+      i++;
+      const pullLines = [];
+      while (i < lines.length && lines[i].trim() !== ':::') {
+        if (lines[i].trim()) pullLines.push(lines[i].trim());
+        i++;
+      }
+      if (i < lines.length) i++; // skip closing :::
+      if (pullLines.length > 0) {
+        paragraphs.push(new Paragraph({
+          style: "PullQuote",
+          children: [new TextRun({ text: pullLines.join(' '), font: "Georgia", size: 28, italics: true })],
+        }));
+      }
+      continue;
+    }
+
+    // Detect scripture block quote: > *text* followed eventually by > -- Reference
+    if (line.startsWith('> ') && isScriptureBlock(lines, i)) {
+      const scriptureLines = [];
+      let refLine = null;
+      while (i < lines.length && lines[i].trim().startsWith('> ')) {
+        const stripped = lines[i].trim().replace(/^>\s*/, '');
+        if (stripped.match(/^--\s*.+/)) {
+          refLine = stripped.replace(/^--\s*/, '').trim();
+        } else {
+          // Remove wrapping * for italic (formatter applies italic via style)
+          scriptureLines.push(stripped.replace(/^\*|\*$/g, '').trim());
+        }
+        i++;
+      }
+      if (scriptureLines.length > 0) {
+        paragraphs.push(new Paragraph({
+          style: "ScriptureBlockQuote",
+          children: [new TextRun({ text: scriptureLines.join(' '), font: "Georgia", size: 22, italics: true })],
+        }));
+      }
+      if (refLine) {
+        paragraphs.push(new Paragraph({
+          style: "ScriptureReference",
+          children: [new TextRun({ text: refLine, font: "Georgia", size: 20 })],
+        }));
+      }
+      continue;
+    }
+
+    // Collect regular paragraph (may span multiple non-empty lines until blank line)
+    const paraLines = [];
+    while (i < lines.length && lines[i].trim() && !lines[i].trim().startsWith(':::') && !isScriptureBlockStart(lines, i)) {
+      paraLines.push(lines[i].trim());
+      i++;
+    }
+    if (paraLines.length > 0) {
+      const text = paraLines.join(' ');
+      paragraphs.push(new Paragraph({
+        style: "Normal",
+        spacing: { line: 360, after: 120 },
+        children: parseInlineFormatting(text),
+      }));
+    }
   }
+
   return { paragraphs, scripturesUsed };
 }
 
@@ -936,7 +1127,7 @@ function renderEnrichmentParagraphs(enrichment) {
   const paragraphs = [];
   paragraphs.push(new Paragraph({
     heading: HeadingLevel.HEADING_2,
-    children: [new TextRun({ text: "Discussion Questions", font: "Georgia", size: 32, bold: true })],
+    children: [new TextRun({ text: "Discussion Questions", font: "Calibri", size: 32, bold: true })],
     spacing: { before: 480, after: 240 },
   }));
   for (let i = 0; i < enrichment.questions.length; i++) {
@@ -948,7 +1139,7 @@ function renderEnrichmentParagraphs(enrichment) {
   }
   paragraphs.push(new Paragraph({
     heading: HeadingLevel.HEADING_2,
-    children: [new TextRun({ text: "Chapter Summary", font: "Georgia", size: 32, bold: true })],
+    children: [new TextRun({ text: "Chapter Summary", font: "Calibri", size: 32, bold: true })],
     spacing: { before: 480, after: 240 },
   }));
   paragraphs.push(new Paragraph({
@@ -959,7 +1150,7 @@ function renderEnrichmentParagraphs(enrichment) {
   if (enrichment.prayerPoints.length > 0) {
     paragraphs.push(new Paragraph({
       heading: HeadingLevel.HEADING_2,
-      children: [new TextRun({ text: "Prayer Points", font: "Georgia", size: 32, bold: true })],
+      children: [new TextRun({ text: "Prayer Points", font: "Calibri", size: 32, bold: true })],
       spacing: { before: 480, after: 240 },
     }));
     for (const point of enrichment.prayerPoints) {
@@ -984,7 +1175,7 @@ const bookStyles = {
     {
       id: "Heading1", name: "Heading 1",
       basedOn: "Normal", next: "Normal", quickFormat: true,
-      run: { size: 48, bold: true, font: "Georgia" },
+      run: { size: 48, bold: true, font: "Calibri" }, // Sans-serif for chapter headings per D-11
       paragraph: {
         spacing: { before: 480, after: 240 },
         outlineLevel: 0,
@@ -995,6 +1186,41 @@ const bookStyles = {
       run: { font: "Georgia", size: 24 },
       paragraph: {
         spacing: { line: 360, after: 120 },
+      },
+    },
+    {
+      id: "ScriptureBlockQuote",
+      name: "Scripture Block Quote",
+      basedOn: "Normal",
+      run: { font: "Georgia", size: 22, italics: true }, // 11pt italic
+      paragraph: {
+        indent: { left: convertInchesToTwip(0.5), right: convertInchesToTwip(0.5) },
+        spacing: { before: 240, after: 120, line: 360 },
+      },
+    },
+    {
+      id: "ScriptureReference",
+      name: "Scripture Reference",
+      basedOn: "Normal",
+      run: { font: "Georgia", size: 20 }, // 10pt
+      paragraph: {
+        alignment: AlignmentType.RIGHT,
+        indent: { left: convertInchesToTwip(0.5), right: convertInchesToTwip(0.5) },
+        spacing: { after: 240 },
+      },
+    },
+    {
+      id: "PullQuote",
+      name: "Pull Quote",
+      basedOn: "Normal",
+      run: { font: "Georgia", size: 28, italics: true }, // 14pt italic
+      paragraph: {
+        alignment: AlignmentType.CENTER,
+        spacing: { before: 480, after: 480 },
+        border: {
+          top: { style: BorderStyle.SINGLE, size: 1, color: "CCCCCC" },
+          bottom: { style: BorderStyle.SINGLE, size: 1, color: "CCCCCC" },
+        },
       },
     },
   ],
@@ -1166,7 +1392,7 @@ async function main() {
       children: [
         new Paragraph({
           heading: HeadingLevel.HEADING_1,
-          children: [new TextRun({ text: "Foreword", font: "Georgia", size: 48, bold: true })],
+          children: [new TextRun({ text: "Foreword", font: "Calibri", size: 48, bold: true })],
           spacing: { after: 480 },
         }),
         ...forewordParas,
