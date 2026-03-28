@@ -87,12 +87,17 @@ For each chapter, generate:
   - **Rhetorical question** -- a question that makes the reader stop and think before reading on
   - **Counter-intuitive claim** -- a statement that contradicts common wisdom and creates curiosity
   - **Tension-creating observation** -- an observation that exposes a gap between reality and expectation
+  **Story-first hooks (preferred):** Wherever possible, the hook should be wrapped in a story, anecdote, or vivid scene. The bold declaration, question, or tension emerges FROM the opening narrative rather than standing alone. Example: Instead of just "Your weakest moment wasn't a failure", open with a 2-3 sentence scene of someone experiencing that moment, then deliver the declaration as the insight that emerges from the story.
 - **Core argument:** The single central claim this chapter makes, in one sentence. Every paragraph in the chapter should serve this argument.
 - **Key arguments:** 3-5 supporting arguments that build the core argument. These become the chapter's structural backbone.
 - **Supporting scriptures:** 2-5 scripture references relevant to the chapter's argument. For theological books (voice profile has a Theological/Domain Framework section), this is mandatory. For non-theological voice profiles, write "[N/A -- non-theological voice profile]".
 - **Momentum position:** Foundation | Building | Accelerating | Climax | Landing
 - **Connects to:** Which other chapters this chapter foreshadows, builds on, or callbacks to. Use the format: "Ch [X] (foreshadows [concept])", "Ch [Y] (builds on [concept])". Every chapter must connect to at least one other chapter.
 - **Target word count:** Calculated from the size tier's per-chapter range. Can vary by +/- 20% based on the chapter's role (climax chapters tend to be longer, foundation chapters moderate).
+- **Ending style:** Choose ONE:
+  - **cliffhanger_seed** -- end with a question, tension point, or preview that makes the reader NEED the next chapter. Best for Foundation and Building chapters where you want forward momentum.
+  - **reflective_hook** -- end with a reflective landing that lets the insight settle, followed by a 1-2 sentence forward hook. Best for Accelerating, Climax, and Landing chapters where the content needs to breathe before moving on.
+  The outliner designs which ending fits each chapter based on momentum position and content. Not every chapter should use the same ending style.
 
 ### Step 5: Cross-chapter coherence check
 
@@ -176,6 +181,7 @@ Target: [total word count] words, [chapter count] chapters, ~[per-chapter words]
 - **Momentum position:** [Foundation | Building | Accelerating | Climax | Landing]
 - **Connects to:** Ch [X] (foreshadows...), Ch [Y] (builds on...)
 - **Target word count:** ~[N] words
+- **Ending style:** [cliffhanger_seed | reflective_hook]
 
 ## Chapter 2: [Title]
 - **Hook strategy:** [Type] -- [Specific hook description in 1-2 sentences]
@@ -188,6 +194,7 @@ Target: [total word count] words, [chapter count] chapters, ~[per-chapter words]
 - **Momentum position:** [Foundation | Building | Accelerating | Climax | Landing]
 - **Connects to:** Ch [X] (foreshadows...), Ch [Y] (builds on...)
 - **Target word count:** ~[N] words
+- **Ending style:** [cliffhanger_seed | reflective_hook]
 
 [... continue for all chapters ...]
 ```
@@ -196,8 +203,9 @@ Every chapter MUST have all fields present. No field may be omitted for any chap
 
 The "Supporting scriptures" field may be "[N/A -- non-theological voice profile]" if the voice profile does not have a Theological/Domain Framework section.
 
-For Source Ingestion Mode, add a "Source Material Notes" bullet after "Target word count" for each chapter:
+For Source Ingestion Mode, add a "Source Material Notes" bullet after "Ending style" for each chapter:
 ```markdown
+- **Ending style:** [cliffhanger_seed | reflective_hook]
 - **Source Material Notes:** [Key quotes, illustrations, or source references for this chapter]
 ```
 
