@@ -101,4 +101,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-28 after Phase 08 completion (voice builder skill, orchestrator Mode 5 integration)*
+*Last updated: 2026-03-28 after Phase 09 completion (outliner wired to sermon adapter via sources-adapted/ preference — last v1.0 milestone gap closed)*
