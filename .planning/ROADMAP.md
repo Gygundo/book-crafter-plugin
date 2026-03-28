@@ -151,3 +151,14 @@ Plans:
 Plans:
 - [x] 08-01-PLAN.md — Voice builder skill: two-pass analysis, corpus assessment, domain detection, calibration examples, and review gate
 - [x] 08-02-PLAN.md — Orchestrator integration: Mode 5 ("Build from source material") voice selection option
+
+### Phase 9: Wire Sermon Adapter Output to Outliner
+
+**Goal:** Fix the broken sermon-to-book pipeline by updating the outliner to prefer `sources-adapted/` over `sources/` when adapted content exists, closing the integration gap between the sermon adapter (Stage 0.5) and the outliner (Stage 1)
+**Requirements**: OUTL-06, ENH-01, ENH-02
+**Depends on:** Phase 8
+**Gap Closure:** Closes gaps from v1.0 milestone audit
+**Plans:** 0 plans
+
+Plans:
+- [ ] 09-01-PLAN.md — Update outliner SKILL.md Section 2 mode detection and Section 4.1 source reading to prefer `sources-adapted/` when present

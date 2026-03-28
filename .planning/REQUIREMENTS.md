@@ -32,7 +32,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **OUTL-03**: Outline designs a narrative arc — chapters escalate in intensity and revelation toward a climax
 - [x] **OUTL-04**: Outline approval gate — user reviews and approves/modifies outline before drafting begins
 - [x] **OUTL-05**: Support three book size tiers: booklet (<100 pages, 5-8 chapters), short (15-25k words, 8-12 chapters), standard (40-60k words, 12-20 chapters)
-- [x] **OUTL-06**: Generate outline from existing content (sermon transcripts, notes, blog posts) by extracting themes and arguments
+- [ ] **OUTL-06**: Generate outline from existing content (sermon transcripts, notes, blog posts) by extracting themes and arguments
 
 ### Research
 
@@ -73,8 +73,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Content Enhancements
 
-- [x] **ENH-01**: Sermon-to-book input path — converts sermon series into book chapters, adapting spoken rhythm to written rhythm
-- [x] **ENH-02**: Sermon adaptation transforms: spoken fragments to complete sentences, audience-specific to universal references, verbal cues to written transitions, repetition-for-emphasis to revelation-for-emphasis
+- [ ] **ENH-01**: Sermon-to-book input path — converts sermon series into book chapters, adapting spoken rhythm to written rhythm
+- [ ] **ENH-02**: Sermon adaptation transforms: spoken fragments to complete sentences, audience-specific to universal references, verbal cues to written transitions, repetition-for-emphasis to revelation-for-emphasis
 - [x] **ENH-03**: Discussion questions per chapter — specific to the chapter's unique arguments, passes the cliche test
 - [x] **ENH-04**: Chapter summaries — concise recap of key points for each chapter
 - [x] **ENH-05**: Prayer points per chapter (for theological books) — connected to the chapter's revelation, not generic prayers
@@ -138,7 +138,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | OUTL-03 | Phase 2 | Complete |
 | OUTL-04 | Phase 2 | Complete |
 | OUTL-05 | Phase 2 | Complete |
-| OUTL-06 | Phase 2 | Complete |
+| OUTL-06 | Phase 9 | Pending |
 | RSRCH-01 | Phase 3 | Complete |
 | RSRCH-02 | Phase 3 | Complete |
 | RSRCH-03 | Phase 3 | Complete |
@@ -164,8 +164,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | FMT-06 | Phase 5 | Complete |
 | FMT-07 | Phase 5 | Complete |
 | FMT-08 | Phase 5 | Complete |
-| ENH-01 | Phase 6 | Complete |
-| ENH-02 | Phase 6 | Complete |
+| ENH-01 | Phase 9 | Pending |
+| ENH-02 | Phase 9 | Pending |
 | ENH-03 | Phase 6 | Complete |
 | ENH-04 | Phase 6 | Complete |
 | ENH-05 | Phase 6 | Complete |
@@ -179,6 +179,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 **Coverage:**
 - v1 requirements: 49 total
 - Mapped to phases: 49
+- Complete: 46
+- Pending (gap closure): 3 (OUTL-06, ENH-01, ENH-02)
 - Unmapped: 0
 
 ---
