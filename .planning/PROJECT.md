@@ -31,6 +31,11 @@ Every chapter must read like it was written by a bestselling author — hooks th
 
 (None — all v1.0 requirements validated)
 
+### Validated (Phase 08)
+
+- [x] Voice builder skill that analyses a directory of markdown files and generates a custom voice profile conforming to voice-profile-spec.md — Validated in Phase 08
+- [x] Orchestrator Mode 5 "Build from source material" voice selection option — Validated in Phase 08
+
 ### Validated (Phase 06)
 
 - [x] Sermon-to-book adapter that transforms spoken-rhythm source material into written-rhythm prose before outline generation — Validated in Phase 06
@@ -96,4 +101,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-28 after Phase 07 completion (captivating writing, modern voice profile, bestseller formatting)*
+*Last updated: 2026-03-28 after Phase 08 completion (voice builder skill, orchestrator Mode 5 integration)*
