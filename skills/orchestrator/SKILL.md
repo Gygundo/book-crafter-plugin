@@ -61,10 +61,11 @@ When creating a new project:
    - Key themes (optional)
    - Target audience (optional)
    - Book size tier: `booklet` (<100 pages, 5-8 chapters), `short` (15-25K words, 8-12 chapters), or `standard` (40-60K words, 12-20 chapters). Default: `standard`
-   - Voice profile (one of four options):
+   - Voice profile (one of five options):
      - **Named profile**: A profile name from the plugin's voice library (e.g., "spiritual-default"). Looks up `${CLAUDE_PLUGIN_ROOT}/references/voice-profiles/[name].md`
      - **Custom file path**: An absolute or relative path to a `.md` voice profile file (e.g., "~/my-voices/academic.md")
      - **Inline description**: A plain-text description of the desired voice (e.g., "casual, conversational, like talking to a friend over coffee"). Will be expanded into a full profile.
+     - **Build from source material**: A directory path containing .md files to analyse. The voice builder skill generates a profile from the source content.
      - **Not specified**: Defaults to `spiritual-default`
 
 2. **Create the project directory structure:**
@@ -115,6 +116,18 @@ Determine which voice input mode the user specified and process accordingly:
 2. Mark each section with <!-- INFERRED --> to indicate it was generated, not user-specified
 3. Write the generated profile to `[project]/voice-profile.md`
 4. Show the generated profile to the user: "I've expanded your voice description into a full profile. Here's what I've inferred -- let me know if you'd like to adjust anything before we continue."
+
+**Mode 5: Build from source material** (user wants to analyse existing writing to generate a voice profile):
+1. Ask for the directory path containing source material (if not already provided). The directory should contain `.md` files (e.g., an Obsidian vault, a content folder).
+2. Invoke the `book-crafter:voice-builder` skill with the directory path
+3. The voice builder analyses the content and presents a profile for user review
+4. On approval, the voice builder saves the profile to `${CLAUDE_PLUGIN_ROOT}/references/voice-profiles/[auto-name].md`
+5. Copy the approved profile to `[project]/voice-profile.md`
+6. Continue with pipeline (proceed to outline stage)
+
+Note: The voice builder handles all analysis, review, and saving internally. The orchestrator just invokes it and waits for the approved profile path.
+
+**Detecting Mode 5:** The user triggers Mode 5 when they say "build from my writing", "analyse my content", "generate from my files", "build voice profile", "extract voice from", "use my existing writing", or provide a directory path explicitly for voice analysis (as opposed to a single `.md` file path, which is Mode 2).
 
 **Mode 4: Not specified** (user did not mention voice):
 1. Use `${CLAUDE_PLUGIN_ROOT}/references/voice-profiles/spiritual-default.md`
@@ -723,6 +736,7 @@ Voice profiles dir:  ${CLAUDE_PLUGIN_ROOT}/references/voice-profiles/
 Default voice:       ${CLAUDE_PLUGIN_ROOT}/references/voice-profiles/spiritual-default.md
 Subagent defs:       ${CLAUDE_PLUGIN_ROOT}/agents/chapter-writer.md
                      ${CLAUDE_PLUGIN_ROOT}/agents/chapter-editor.md
+Voice builder:       ${CLAUDE_PLUGIN_ROOT}/skills/voice-builder/SKILL.md
 Stage skills:        ${CLAUDE_PLUGIN_ROOT}/skills/sermon-adapter/SKILL.md
                      ${CLAUDE_PLUGIN_ROOT}/skills/outliner/SKILL.md
                      ${CLAUDE_PLUGIN_ROOT}/skills/researcher/SKILL.md
