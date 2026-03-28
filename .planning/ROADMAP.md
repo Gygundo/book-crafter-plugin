@@ -139,7 +139,7 @@ Plans:
 - [x] 07-01-PLAN.md — Voice profile rewrite for bestseller-quality craft + outliner ending style field
 - [x] 07-02-PLAN.md — Writer skill with storytelling-first hooks, tension-release pacing, and markdown conventions
 - [ ] 07-03-PLAN.md — Formatter typography upgrade: scripture block quotes, pull quotes, mixed-font (Calibri headings + Georgia body)
-- [ ] 07-04-PLAN.md — Editor captivation checks (4 checks in existing 3-pass pipeline) + subagent updates
+- [x] 07-04-PLAN.md — Editor captivation checks (4 checks in existing 3-pass pipeline) + subagent updates
 
 ### Phase 8: Voice builder skill - analyse source content to generate custom voice profiles
 
