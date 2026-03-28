@@ -127,3 +127,26 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 4. Editor + Revision Workflow | 0/2 | Not started | - |
 | 5. Formatter + .docx Output | 0/2 | Not started | - |
 | 6. Content Enhancements | 1/2 | In Progress|  |
+
+### Phase 7: Captivating writing, modern voice profile, and bestseller formatting
+
+**Goal:** Upgrade the pipeline's writing quality from functional-but-sermon-like output to captivating, page-turner prose by rewriting the voice profile for bestseller-quality craft, enhancing the writer and outliner with storytelling-first patterns, modernising the formatter for mixed-font typography with scripture block quotes and pull quotes, and adding captivation enforcement to the editor
+**Requirements**: D-01, D-02, D-03, D-04, D-05, D-06, D-07, D-08, D-09, D-10, D-11, D-12, D-13, D-14
+**Depends on:** Phase 6
+**Plans:** 4 plans
+
+Plans:
+- [ ] 07-01-PLAN.md — Voice profile rewrite for bestseller-quality craft + outliner ending style field
+- [ ] 07-02-PLAN.md — Writer skill with storytelling-first hooks, tension-release pacing, and markdown conventions
+- [ ] 07-03-PLAN.md — Formatter typography upgrade: scripture block quotes, pull quotes, mixed-font (Calibri headings + Georgia body)
+- [ ] 07-04-PLAN.md — Editor captivation checks (4 checks in existing 3-pass pipeline) + subagent updates
+
+### Phase 8: Voice builder skill - analyse source content to generate custom voice profiles
+
+**Goal:** [To be planned]
+**Requirements**: TBD
+**Depends on:** Phase 7
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 8 to break down)
