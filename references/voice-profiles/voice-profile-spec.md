@@ -41,6 +41,18 @@ Interpretive lens for domain-specific content. Required for theological books. C
 ### 7. Scripture Handling
 Translation defaults, quoting style, citation conventions. Only for profiles that reference religious texts. Omit for secular profiles.
 
+### 8. Reader Moments (recommended, optional for custom profiles)
+
+A bulleted list of **at least 12 concrete everyday scenes** grouped by mood (anxiety, grief, doubt, joy, etc.). Writer selects ≥2 per chapter for CRAFT-06 enforcement — these moments anchor abstract theological or conceptual claims to experiences the reader has actually lived.
+
+**Structure:** A `## Reader Moments` heading followed by `### [Mood]` subheadings. Each mood contains 2-4 one-line bullets describing a specific scene. Aim for ≥12 moments across ≥3 mood categories.
+
+**Recommended for:** spiritual, pastoral, self-help, memoir, and any voice profile that will be used for CRAFT-06-enforced book projects.
+
+**When absent from a profile:** Editor runs CRAFT-06 in flag-only mode — no hard fail, no auto-revise. Diagnostic report still notes missing reader-moment citations but the pipeline proceeds.
+
+See `references/voice-profiles/spiritual-default.md` § Reader Moments for an example.
+
 ## Validation Rules
 
 - Missing required section (1-5): WARN user, fill with "[Not specified -- using neutral, clear prose]" marked with <!-- DEFAULT -->

@@ -171,6 +171,18 @@ Each anti-pattern should include a brief "because" explaining why it violates th
 
 Only include if domain was detected AND user confirmed (see Section 6). Extract the domain-specific beliefs, positions, or framework from the source material. Use the same structure as the spiritual-default.md Theological Framework section: a bulleted list of core positions with brief explanations.
 
+**## Reader Moments**
+
+Always include this section when the corpus supports it. It enables CRAFT-06 enforcement in the editor — the writer selects ≥2 concrete reader-moments per chapter to anchor abstract claims.
+
+During Pass 1 corpus analysis, extract concrete everyday scenes the source material mentions or implies. Group them by mood: anxiety moments, grief moments, doubt moments, joy moments, longing moments, relief moments, and so on. Each moment must be a specific lived experience (e.g. "the 2am phone-check after an argument", "the grocery-aisle grief flash when their favourite cereal appears") — not an abstract feeling ("feeling anxious", "being sad").
+
+**Target output:** ≥12 moments across ≥3 mood categories. Format as a `## Reader Moments` section with `### [Mood]` subheadings, matching the schema in `references/voice-profiles/voice-profile-spec.md` § 8 and the example shape in `references/voice-profiles/spiritual-default.md` § Reader Moments.
+
+**Partial-corpus fallback:** If the source corpus does not yield enough concrete moments (fewer than 8), emit the `## Reader Moments` section with whatever was found and append an HTML comment: `<!-- reader_moments_partial: only N moments extracted from corpus; editor runs CRAFT-06 in flag-only mode -->`. The editor will honour that marker and skip hard-fail on CRAFT-06 for books generated with this profile.
+
+**No-corpus fallback:** If fewer than 3 concrete moments can be extracted, omit the section entirely. Custom profiles without Reader Moments cause the editor to run CRAFT-06 in flag-only mode automatically (per voice-profile-spec.md § 8).
+
 **## Calibration Examples**
 
 Always include this section. It is the most powerful tool for maintaining voice consistency across parallel chapter agents.
