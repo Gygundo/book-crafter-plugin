@@ -163,7 +163,6 @@ Plans:
 Plans:
 - [x] 09-01-PLAN.md — Update outliner SKILL.md Section 2 mode detection and Section 4.1 source reading to prefer `sources-adapted/` when present
 
----
 
 ## Milestone v1.1: Bestseller Quality + Distribution
 
@@ -292,3 +291,26 @@ Plans:
 - Total v1.1 requirements: 36 (CRAFT-01..17 + PKG-01..10 + GATE-01..09)
 - Mapped: 36 / 36 (100%)
 - Orphaned: 0
+
+### Phase 13: Repetition and novelty enforcement
+
+**Goal:** Close the repetition blindspot surfaced by the first real sample run. The system scored 14/14 on its own captivation rubric while the human reader experienced the output as a loop (central image "one small lamp refusing the whole dark" hit in every zone of every chapter; author's kitchen-counter vulnerability beat near-verbatim in both foreword and Ch 2). Ship structural fixes so outputs are judged on variation, not just presence, and the release gate trusts a single canonical score.
+
+**Requirements**: Cross-AI consensus (Codex + Gemini 2.5 Flash — see `.planning/phases/11-distribution-packaging/11-REVIEWS.md`).
+
+**Depends on:** Phase 11
+
+**UI hint:** no
+
+**Success criteria (goal-backward):**
+1. Exactly ONE canonical captivation score surface. Editor emits structured YAML fields (`captivation_total:`, `novelty_dedup:`, per-component scores). Sample skill gate reads YAML, not a prose grep. The three existing schemas (`references/captivation-rubric.md`, `skills/editor/SKILL.md:504` template, sample report checklist) are reconciled.
+2. Editor Pass 3 runs a manuscript-level "Novelty and Dedup Audit" across `front-matter/*.md` + `edited/ch*-final.md`. Flags and fails the score when it finds: repeated 6+ word spans outside scripture and declared refrains; reuse of a vulnerability scene across foreword and chapter; reuse of a reader-moment in adjacent chapters; reuse of a metaphor vehicle as dominant image across chapters.
+3. Captivation rubric gains a Novelty / Variation dimension. Central-image distinctness extends from concept to descriptive phrasing. Same-phrase reuse across zones of a single chapter is capped, not rewarded.
+4. Writer skill prompt adds an anti-loop clause: no 6+ word phrase reuse across chapters or foreword unless whitelisted as a refrain; spent vulnerability seeds cannot be reused; motif family may be shared but image vehicle must differ per chapter; echo and recontextualise, not repeat.
+5. Tiny-book fixture brief rewritten from "same exact central image every chapter" to "one motif family, three distinct vehicles" (phone glow / kitchen counter / grey dawn). The phrase "one small lamp refusing the whole dark" appears at most once in the whole booklet.
+6. A fresh `/book-crafter:sample` run against the rewritten fixture passes the new canonical gate, produces zero dedup flags, and reads as visibly non-repetitive.
+
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 13 to break down — consensus fix list is in 11-REVIEWS.md)

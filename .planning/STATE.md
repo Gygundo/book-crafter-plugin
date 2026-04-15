@@ -176,6 +176,7 @@ Recent decisions affecting current work:
 - Phase 8 added: Voice builder skill - analyse source content to generate custom voice profiles
 - Phase 9 added: Wire sermon adapter output to outliner (v1.0 gap closure)
 - Milestone v1.1 added: Phases 10, 11, 12 — Bestseller Quality + Distribution
+- Phase 13 added: Repetition and novelty enforcement (cross-AI review of first real sample run — Codex + Gemini consensus that rubric rewards presence without penalising variation; ship canonical score + editor dedup audit + writer anti-loop + fixture rewrite)
 
 ### Pending Todos
 
