@@ -142,7 +142,14 @@ Subtractive audit tracker. Every v2 addition to `references/voice-profiles/spiri
 
 | # | V2 Addition | V1 Removal | Rationale |
 |---|-------------|------------|-----------|
-| _(populated during Plan 7 execution — subtractive voice-profile audit)_ | | | |
+| 1 | `## Reader Moments` heading + CRAFT-06 intro line (3 lines) | Vocabulary > Avoid duplicate bullets: `"Let me explain"`, `"It is important to note"`, `"We must understand"`, `"Firstly, secondly, thirdly"`, `"In this chapter, we will..."`, `"The following points illustrate..."`, `"As previously mentioned"`, plus `"Filler phrases ("In conclusion", "Furthermore", "It is important to note that")"` (8 lines) | CRAFT-06 needs concrete reader scenes to anchor abstract claims. The removed Avoid bullets are already enumerated as blocked phrases inside the Lecture-tone Anti-Pattern, which was expanded inline to absorb them (`"in conclusion"`, `"furthermore"`, `"as previously mentioned"`, `"firstly, secondly, thirdly"`, `"in this chapter, we will"` added to the blocked-phrases list). Net: duplicates collapsed into one canonical location. |
+| 2 | `### Anxiety` + 4 reader-moment bullets (5 lines) | Calibration Examples Example 2 body (6 lines) — "Greek word study woven into narrative with vulnerability" paragraph | Calibration body moves to `references/bestseller-calibration.md` Score Level 6 exemplar (Plan 6 creates that file). Voice profile keeps one compact example that still demonstrates the blend. |
+| 3 | `### Grief` + 3 bullets (4 lines) | Calibration Examples Example 3 body (6 lines) — "Direct reader engagement with conversational theological depth" paragraph | Calibration body moves to `references/bestseller-calibration.md` Score Level 9 exemplar (Plan 6). |
+| 4 | `### Doubt` + 3 bullets (4 lines) | Calibration Examples "What These Examples Show" summary block (8 lines — heading + 5 bullets + blank lines) | That summary duplicated what the rest of the voice profile already teaches (story-before-theology, vulnerability as trust, rhythm variation). Redundant once bestseller-calibration.md exists as the authoritative calibration source. |
+| 5 | `### Joy` + 2 bullets (3 lines) + Reader Moments heading spacing | Emphasis Techniques overlap: `"Building momentum -- later points carry more weight than earlier ones"` and `"Closing declarations that land with force"` (2 lines) duplicated Sentence Patterns entries `"Building intensity through a section, with later sentences carrying more weight"` and `"Bold declarations -- confident theological statements..."`. Also trimmed Calibration Examples pointer prose from 2 lines to 1. | Overlap removed — Sentence Patterns is the canonical home for rhythm/intensity rules. |
+
+**Line delta verification:** v1 = 123 lines; v2 = 119 lines; net = **-4 lines** (≤ 0 constraint satisfied).
+**Theological Framework sha256:** `6762388c6cbc4a11ef5d560db3f7a2ff2bb9987c89db0b752f2d47b536adad5d` — verified byte-identical in v2 (lines 87-97).
 
 **Cap:** spiritual-default.md ≤150 lines post-audit. Line delta must be ≤ 0.
 

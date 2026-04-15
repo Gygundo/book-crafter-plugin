@@ -33,16 +33,8 @@ Bold, direct, revelation-driven -- but wrapped in story. Like a bestselling auth
 ### Avoid
 - Academic hedging ("some scholars believe", "it could possibly mean", "there is a view that")
 - Religious cliches ("God won't give you more than you can handle", "everything happens for a reason")
-- Filler phrases ("In conclusion", "Furthermore", "It is important to note that")
 - Passive voice when active voice is possible
 - Em dashes -- use regular hyphens with spaces or restructure the sentence
-- "Let me explain"
-- "It is important to note"
-- "We must understand"
-- "Firstly, secondly, thirdly"
-- "In this chapter, we will..."
-- "The following points illustrate..."
-- "As previously mentioned"
 - "3 steps to..." or any numbered-steps framing
 - "There are [N] reasons why..."
 
@@ -52,8 +44,6 @@ Bold, direct, revelation-driven -- but wrapped in story. Like a bestselling auth
 - Greek/Hebrew word studies woven naturally as revelation moments, not footnotes
 - Cross-references that let scripture interpret scripture
 - Types and shadows connecting Old and New Testaments
-- Building momentum -- later points carry more weight than earlier ones
-- Closing declarations that land with force
 - Personal stories and vulnerability -- sharing failures, doubts, and "I remember when" moments that make theological truths land in the reader's lived experience
 - Emotional connection before intellectual argument -- always lead with the human experience, then reveal the theological depth underneath
 - Scene-setting -- putting the reader inside a moment before unpacking its significance
@@ -65,10 +55,34 @@ Bold, direct, revelation-driven -- but wrapped in story. Like a bestselling auth
 - Cessationist framing (implying gifts have ceased)
 - Surface-level observations (stating what a verse says without uncovering hidden layers)
 - AI voice leaking through (overly balanced, hedged, or neutral tone)
-- **Lecture tone:** Anything that sounds like a classroom instead of a conversation. Blocked phrases: "let me explain", "it is important to note", "we must understand", "the following points". If it sounds like a professor, rewrite it.
+- **Lecture tone:** Anything that sounds like a classroom instead of a conversation. Blocked phrases: "let me explain", "it is important to note", "we must understand", "the following points", "in conclusion", "furthermore", "as previously mentioned", "firstly, secondly, thirdly", "in this chapter, we will". If it sounds like a professor, rewrite it.
 - **List-heavy structure:** Excessive bullet-point thinking disguised as prose. No "3 steps to...", "firstly, secondly, thirdly", or numbered frameworks. If the content reads like a listicle, restructure it as narrative.
 - **Missing emotional connection:** Content that is all head (theology/logic) with no heart (story/emotion/vulnerability). Every theological point must connect to a human experience. If a section has no story, anecdote, or moment of vulnerability, it needs one.
 - **Predictable chapter formula:** Chapters that follow the same structural template. If every chapter opens with a declaration, then explains, then applies -- the reader can see the machinery. Vary the approach: some lead with story, others with a bold claim, others with a question, others with a scene.
+
+## Reader Moments
+
+> Concrete everyday scenes the reader has actually lived. Writer selects ≥2 per chapter to anchor abstract claims. Per CRAFT-06.
+
+### Anxiety
+- The 2am phone-check after an argument
+- The Sunday-night dread before Monday morning
+- The tight-chest silence in the car outside a hospital
+- The cursor blinking on an unfinished job application
+
+### Grief
+- The grocery-aisle grief flash when their favourite cereal appears
+- The first Christmas with an empty chair at the table
+- The moment you reach for the phone to tell them, and remember
+
+### Doubt
+- The pew you can't stay seated in
+- The prayer that dies halfway through the sentence
+- The worship song you can't sing the chorus of
+
+### Joy
+- The kitchen-dance with kids underfoot
+- The first bite of coffee on a morning that finally feels clear
 
 ## Theological Framework
 
@@ -98,26 +112,8 @@ This ensures the formatter renders them as visually distinct block quotes.
 
 ## Calibration Examples
 
-These examples demonstrate the TARGET quality -- the blend of storytelling warmth, theological depth, vulnerability, and reader engagement that every chapter should aim for. These are original examples written in the target style.
+These demonstrate the TARGET quality -- storytelling warmth + theological depth + vulnerability + reader engagement. See `references/bestseller-calibration.md` for the full before/after exemplars at score levels 3/6/9.
 
-### Target Quality: Storytelling + Theology Blend
+**Example: Opening with story that leads into theological truth**
 
-**Example 1: Opening with story that leads into theological truth**
-
-I remember when the phone rang at 2 AM and I knew before I answered. Some calls carry weight you can feel through the plastic. My father was gone, and with him went every unfinished conversation I'd been putting off for years. I sat on the edge of the bed in the dark, and for the first time in my adult life, I had nothing theological to say. No verse came to mind. No worship song rose up. Just silence and the sound of my own breathing. It was in that emptiness -- that terrifying, holy emptiness -- that I first understood what Paul meant when he wrote that the Spirit intercedes with groanings too deep for words. God wasn't asking me to perform faith. He was holding me in it.
-
-**Example 2: Greek word study woven into narrative with vulnerability**
-
-For years I taught about grace the way you teach about a country you've never visited. I knew the coordinates. I could quote the travel guides. But I'd never actually been there. Then I hit a season where everything I'd built fell apart -- not spectacularly, not dramatically, just slowly, like a house settling into bad foundations. And in that settling, I stumbled across a Greek word that wrecked me: *charis*. We translate it "grace", but that English word has been sanded smooth by overuse. *Charis* is wild. It means unmerited, unearned, lavish generosity poured out on someone who didn't ask for it and couldn't pay for it. I didn't understand this until I was the one who couldn't pay. That's when grace stopped being a doctrine and started being oxygen.
-
-**Example 3: Direct reader engagement with conversational theological depth**
-
-You know that feeling when someone tells you to rest and your whole body tenses up? That's not just personality. That's theology. Somewhere along the way, you absorbed the idea that God's love is a performance review -- that He's watching your output, measuring your devotion, keeping score. Picture yourself standing before Him right now. What do you feel? If the answer is anxiety, I need you to hear this: that voice isn't His. The finished work of the Cross means exactly what it says. Finished. Not "mostly done with some assembly required." Not "complete pending your cooperation." Finished. You are not earning something that was already given. You are not maintaining something that was already secured. You are seated -- right now, in this moment -- with Christ. Not standing in line. Not waiting in the lobby. Seated.
-
-### What These Examples Show
-
-- Theology emerges FROM story, not the reverse
-- Word studies feel like discoveries, not lectures
-- The reader is spoken TO personally, not talked AT
-- Vulnerability makes the author trustworthy, not weak
-- Short punchy sentences alternate with longer narrative flow
+I remember when the phone rang at 2 AM and I knew before I answered. Some calls carry weight you can feel through the plastic. My father was gone, and with him went every unfinished conversation I'd been putting off for years. I sat on the edge of the bed in the dark, and for the first time in my adult life, I had nothing theological to say. No verse came to mind. Just silence and the sound of my own breathing. It was in that emptiness -- that terrifying, holy emptiness -- that I first understood what Paul meant when he wrote that the Spirit intercedes with groanings too deep for words. God wasn't asking me to perform faith. He was holding me in it.
