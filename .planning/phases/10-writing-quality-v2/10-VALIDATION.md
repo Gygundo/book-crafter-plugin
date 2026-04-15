@@ -51,7 +51,7 @@ created: 2026-04-15
 - [ ] `scripts/craft-check.js` — deterministic CRAFT-01/02/05/07/15 checker (research: ~100 lines, zero-deps)
 - [ ] `scripts/test-craft-check.js` — node:test unit tests for craft-check.js
 - [ ] `scripts/test-rubric-regression.js` — rubric extraction regression harness (CRAFT-09 score identity)
-- [ ] `fixtures/phase10/` — 7 fixture chapter markdown files covering pass/fail cases for CRAFT-01..CRAFT-08
+- [ ] `fixtures/phase10/` — 6 fixture files covering deterministic checks (CRAFT-01/02/05/07/15). CRAFT-03/04/06/08 are LLM judgment rules verified manually — no deterministic fixtures.
 - [ ] `fixtures/phase10/baseline-scores.json` — captured rubric scores BEFORE CRAFT-09 extraction (regression lock)
 
 ---
