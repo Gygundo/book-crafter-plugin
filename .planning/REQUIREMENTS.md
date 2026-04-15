@@ -211,8 +211,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 - [x] **CRAFT-13**: Voice profile audited and subtractively edited — every v2 addition paired with a v1 removal, cap 150 lines, tracked kill list committed
 - [x] **CRAFT-14**: Orchestrator gains `--fresh` mode that deletes Book DNA, chapter-outline, research/, drafts/, revisions/, edited/, enrichments/, front-matter/, reports/, output/ before starting (preserves only `sources/`, `sources-adapted/`, `brief.md`, `voice-profile.md`)
 - [x] **CRAFT-15**: All generated artefacts carry a version stamp (`<!-- generated-by: book-crafter v1.1.0 -->`)
-- [ ] **CRAFT-16**: Per-chapter bestseller diagnostic report (CRAFT-01..CRAFT-08 pass/fail matrix with line citations) appended to `consistency-report.md`
-- [ ] **CRAFT-17**: Hard 2-revision cap per chapter with divergent-improvement detection (if revision N scores lower than N-1 on any sub-metric, accept N-1 and stop)
+- [x] **CRAFT-16**: Per-chapter bestseller diagnostic report (CRAFT-01..CRAFT-08 pass/fail matrix with line citations) appended to `consistency-report.md`
+- [x] **CRAFT-17**: Hard 2-revision cap per chapter with divergent-improvement detection (if revision N scores lower than N-1 on any sub-metric, accept N-1 and stop)
 
 ### Distribution Packaging
 
@@ -283,8 +283,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CRAFT-13 | Phase 10 | Complete |
 | CRAFT-14 | Phase 10 | Complete |
 | CRAFT-15 | Phase 10 | Complete |
-| CRAFT-16 | Phase 10 | Pending |
-| CRAFT-17 | Phase 10 | Pending |
+| CRAFT-16 | Phase 10 | Complete |
+| CRAFT-17 | Phase 10 | Complete |
 | PKG-01 | Phase 11 | Pending |
 | PKG-02 | Phase 11 | Pending |
 | PKG-03 | Phase 11 | Pending |

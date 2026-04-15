@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Bestseller Quality + Distribution
 status: executing
-stopped_at: Completed 10-06-PLAN.md
-last_updated: "2026-04-15T13:59:53.293Z"
+stopped_at: Completed 10-09-PLAN.md (Phase 10 closed)
+last_updated: "2026-04-15T14:04:25.251Z"
 last_activity: 2026-04-15
 progress:
   total_phases: 12
-  completed_phases: 9
+  completed_phases: 10
   total_plans: 28
-  completed_plans: 27
+  completed_plans: 28
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-15)
 ## Current Position
 
 Phase: 10 (writing-quality-v2) — EXECUTING
-Plan: 8 of 9
+Plan: 9 of 9
 Status: Ready to execute
 Last activity: 2026-04-15
 
@@ -86,6 +86,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 10-writing-quality-v2 P05 | 3min | 1 tasks | 1 files |
 | Phase 10-writing-quality-v2 P08 | 6min | 2 tasks | 6 files |
 | Phase 10-writing-quality-v2 P06 | 5min | 2 tasks | 3 files |
+| Phase 10-writing-quality-v2 P09 | 6min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -155,6 +156,7 @@ Recent decisions affecting current work:
 - [Phase 10-writing-quality-v2]: Plan 10-06: Rubric extended by appending 2 components (Craft Density, Cross-Chapter Craft); legacy 5-component sha256 lock from Plan 10-01 preserved via append-only edit
 - [Phase 10-writing-quality-v2]: Plan 10-06: Cross-Chapter Craft is manuscript-level but stamped per-chapter so CRAFT-16 diagnostic reads don't need special-case logic
 - [Phase 10-writing-quality-v2]: Plan 10-06: test-rubric-regression.js --extended flag keeps base run green for branches that haven't touched Plan 10-06
+- [Phase 10-writing-quality-v2]: Plan 10-09: Bestseller Diagnostic is read-only assembly; strict divergent-improvement detection trips on ANY sub-component delta < 0; revision state stored in reports/revision-log.md surviving Resume but cleared by Fresh
 
 ### Roadmap Evolution
 
@@ -174,6 +176,6 @@ None yet. Phase 12 is a pre-declared gate, not a blocker.
 
 ## Session Continuity
 
-Last session: 2026-04-15T13:59:53.290Z
-Stopped at: Completed 10-06-PLAN.md
+Last session: 2026-04-15T14:04:25.249Z
+Stopped at: Completed 10-09-PLAN.md (Phase 10 closed)
 Resume file: None

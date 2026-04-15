@@ -174,7 +174,7 @@ Plans:
 
 ### v1.1 Phases
 
-- [ ] **Phase 10: Writing Quality v2** — Seven countable craft rules, extracted/extended captivation rubric, voice profile subtractive audit, `--fresh` orchestrator mode, version stamps, per-chapter diagnostic report
+- [x] **Phase 10: Writing Quality v2** — Seven countable craft rules, extracted/extended captivation rubric, voice profile subtractive audit, `--fresh` orchestrator mode, version stamps, per-chapter diagnostic report (completed 2026-04-15)
 - [ ] **Phase 11: Distribution Packaging** — Marketplace.json, plugin.json v1.1.0 metadata, recipient README, LICENSE, CHANGELOG, fixture, release.sh with whitelist zip, sample skill
 - [ ] **Phase 12: Re-run + Release Gate** — Frozen baseline, `--fresh` re-run, seven-gap comparison, external review, sermon-adapter regression check, fresh-install smoke-test, ship decision, git tag
 
@@ -205,7 +205,7 @@ Plans:
 
 **Anti-pattern reminder (from PITFALLS.md + Phase 7 post-mortem):** Do NOT repeat the Phase 7 failure mode — additive-only rule evolution where the voice profile becomes a kitchen sink and the model averages competing signals into blandness. Every v2 addition MUST pair with an explicit v1 removal; the voice profile is capped at 150 lines; the kill list is committed. Rules must be procedural ("if first 150 words contain zero sensory details, rewrite") not aspirational ("write vividly"). Scene openers without provenance comments must be flagged — an agent asked to invent a scene with no source material will hallucinate generic fiction.
 
-**Plans:** 8/9 plans executed
+**Plans:** 9/9 plans complete
 
 Plans:
 - [x] 10-01-PLAN.md — Wave 0 infrastructure + rubric extraction (craft-check.js, fixtures, baseline, captivation-rubric.md)
@@ -216,7 +216,7 @@ Plans:
 - [x] 10-06-PLAN.md — Captivation rubric extended 5→7 components + bestseller-calibration.md (score levels 3/6/9)
 - [x] 10-07-PLAN.md — Voice profile subtractive audit + Reader Moments section + kill list (PARALLEL wave 3)
 - [x] 10-08-PLAN.md — Orchestrator Mode 6 Fresh Run + version stamps wired into all emitting skills
-- [ ] 10-09-PLAN.md — Bestseller diagnostic report in consistency-report.md + 2-revision cap with divergent-improvement detection
+- [x] 10-09-PLAN.md — Bestseller diagnostic report in consistency-report.md + 2-revision cap with divergent-improvement detection
 
 ### Phase 11: Distribution Packaging
 **Goal:** A non-technical recipient can install the plugin into their Claude Code in three copy-paste slash commands, with all supporting release infrastructure (marketplace, manifest metadata, README, LICENSE, CHANGELOG, fixture, release script) in place.
@@ -275,7 +275,7 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 10. Writing Quality v2 | 8/9 | In Progress|  |
+| 10. Writing Quality v2 | 9/9 | Complete   | 2026-04-15 |
 | 11. Distribution Packaging | 0/6 | Not started | - |
 | 12. Re-run + Release Gate | 0/7 | Not started | - |
 
