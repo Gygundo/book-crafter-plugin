@@ -196,12 +196,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ### Writing Quality v2
 
-- [ ] **CRAFT-01**: Writer produces a scene-first opener — named human + time-marker + sensory detail — in the first 150 words of every chapter, cited to a source file or Book DNA line via provenance comment
-- [ ] **CRAFT-02**: Editor enforces Greek/Hebrew density cap of ≤3 transliterated terms per chapter, each with ≥3 sentences of unpacking
-- [ ] **CRAFT-03**: Writer places one dominant central image in the opening 200 words, middle third, and closing 200 words of every chapter
-- [ ] **CRAFT-04**: Writer includes one first-person author vulnerability beat per chapter in the middle third, sourced from voice profile or source material (never fabricated)
-- [ ] **CRAFT-05**: Editor detects and rewrites pulpit-seam phrases ("So", "Now", "Let us", "Here's where", "And so") at chapter and paragraph starts, with a permitted-usage counter-example list
-- [ ] **CRAFT-06**: Writer names ≥2 concrete reader-moments per chapter (e.g. "the 2am phone-check"), sourced from a Voice Profile *Reader Moments* section
+- [x] **CRAFT-01**: Writer produces a scene-first opener — named human + time-marker + sensory detail — in the first 150 words of every chapter, cited to a source file or Book DNA line via provenance comment
+- [x] **CRAFT-02**: Editor enforces Greek/Hebrew density cap of ≤3 transliterated terms per chapter, each with ≥3 sentences of unpacking
+- [x] **CRAFT-03**: Writer places one dominant central image in the opening 200 words, middle third, and closing 200 words of every chapter
+- [x] **CRAFT-04**: Writer includes one first-person author vulnerability beat per chapter in the middle third, sourced from voice profile or source material (never fabricated)
+- [x] **CRAFT-05**: Editor detects and rewrites pulpit-seam phrases ("So", "Now", "Let us", "Here's where", "And so") at chapter and paragraph starts, with a permitted-usage counter-example list
+- [x] **CRAFT-06**: Writer names ≥2 concrete reader-moments per chapter (e.g. "the 2am phone-check"), sourced from a Voice Profile *Reader Moments* section
 - [ ] **CRAFT-07**: Editor enforces ≥2 quoted/italicised reader-thought lines per chapter (psychological tension, not structural)
 - [ ] **CRAFT-08**: Editor enforces a concrete:abstract noun ratio ≥1:1 over any 4-paragraph window (show-don't-tell detector)
 - [x] **CRAFT-09**: Captivation rubric extracted from inline editor/writer sections into standalone `references/captivation-rubric.md`, unchanged scores on regression check
@@ -268,12 +268,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| CRAFT-01 | Phase 10 | Pending |
-| CRAFT-02 | Phase 10 | Pending |
-| CRAFT-03 | Phase 10 | Pending |
-| CRAFT-04 | Phase 10 | Pending |
-| CRAFT-05 | Phase 10 | Pending |
-| CRAFT-06 | Phase 10 | Pending |
+| CRAFT-01 | Phase 10 | Complete |
+| CRAFT-02 | Phase 10 | Complete |
+| CRAFT-03 | Phase 10 | Complete |
+| CRAFT-04 | Phase 10 | Complete |
+| CRAFT-05 | Phase 10 | Complete |
+| CRAFT-06 | Phase 10 | Complete |
 | CRAFT-07 | Phase 10 | Pending |
 | CRAFT-08 | Phase 10 | Pending |
 | CRAFT-09 | Phase 10 | Complete |

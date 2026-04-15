@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Bestseller Quality + Distribution
 status: executing
-stopped_at: Completed 10-07-PLAN.md
-last_updated: "2026-04-15T13:13:11.014Z"
+stopped_at: Completed 10-03-PLAN.md
+last_updated: "2026-04-15T13:13:25.703Z"
 last_activity: 2026-04-15
 progress:
   total_phases: 12
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-15)
 ## Current Position
 
 Phase: 10 (writing-quality-v2) — EXECUTING
-Plan: 3 of 9
+Plan: 4 of 9
 Status: Ready to execute
 Last activity: 2026-04-15
 
@@ -81,6 +81,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 10-writing-quality-v2 P01 | 8min | 3 tasks | 12 files |
 | Phase 10-writing-quality-v2 P02 | 2min | 1 tasks | 1 files |
 | Phase 10-writing-quality-v2 P07 | 4min | 2 tasks | 4 files |
+| Phase 10-writing-quality-v2 P03 | 4min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -141,6 +142,8 @@ Recent decisions affecting current work:
 - [Phase 10-writing-quality-v2]: Plan 10-01: Each known-bad fixture isolates a single failure; 13 node:test cases include explicit fails-only-X assertions to prevent cross-check bleed
 - [Phase 10-writing-quality-v2]: Plan 10-02: bestseller-craft-rules.md is voice-agnostic single source of truth for CRAFT-01..08; writer and editor both read it to prevent Phase-7-style duplication drift
 - [Phase 10-writing-quality-v2]: Plan 10-07: Subtractive audit pattern works — spiritual-default.md net -4 lines (123->119) with Reader Moments added and Theological Framework byte-preserved (sha256 lock verified)
+- [Phase 10-writing-quality-v2]: Plan 10-03: Book DNA Chapter Map shifts from table to sub-list layout to accommodate central_image + vulnerability_beat_seed without column-width blowout
+- [Phase 10-writing-quality-v2]: Plan 10-03: Writer cites full 25-term Greek/Hebrew lexicon inline so chapter-writer subagents don't need to cross-load craft-check.js
 
 ### Roadmap Evolution
 
@@ -160,6 +163,6 @@ None yet. Phase 12 is a pre-declared gate, not a blocker.
 
 ## Session Continuity
 
-Last session: 2026-04-15T13:13:10.502Z
-Stopped at: Completed 10-07-PLAN.md
+Last session: 2026-04-15T13:13:25.700Z
+Stopped at: Completed 10-03-PLAN.md
 Resume file: None
