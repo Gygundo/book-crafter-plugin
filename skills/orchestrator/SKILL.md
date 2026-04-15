@@ -814,6 +814,93 @@ If any of these phrases appear in the user's utterance during orchestrator invoc
 - **Never re-prompt without showing the specific paths about to be deleted.** The confirmation prompt always enumerates the delete list and the preserve list in full. A vague "are you sure?" prompt is not compliant.
 - **Never delete files outside the identified project directory.** All paths in the delete list resolve relative to `{project_path}`. Mode 6 must never touch plugin files, other projects, or the user's home directory.
 
+### Mode 7: Rewrite Targets (Phase 13, D-11)
+
+> Phase 13 adds a scoped re-run mode so a dedup failure on a 20-chapter book does not require re-running the whole pipeline. Editor Pass 3 §4.4.5 emits a `rewrite_targets` block when `novelty_dedup` fails. This mode reads that block and re-runs writer + editor for ONLY the flagged chapters, with each target's `reason` field injected as directional writer guidance. Follows the Mode 6 Fresh Run phrase-trigger pattern.
+
+#### Phrase triggers
+
+- `--rewrite-targets`
+- `rewrite the flagged chapters`
+- `apply rewrite targets from <path>`
+- `re-run flagged chapters`
+
+If the invocation prompt contains any of these phrases, Mode 7 activates BEFORE the state detection algorithm in Section 3. The optional path argument points to a `rewrite_targets.yaml` file; the default is `[project_directory]/reports/rewrite_targets.yaml` (the path where editor Pass 3 §4.4.5 writes it).
+
+#### Preprocessing steps
+
+1. **Identify the project directory.** Use the same resolution logic as Mode 6: explicit project path argument if provided, else `~/Documents/Books/<book-name>`, else the current project state.
+
+2. **Resolve the `rewrite_targets.yaml` path.** Default: `[project_directory]/reports/rewrite_targets.yaml`. If the user supplied an explicit path via `apply rewrite targets from <path>`, use that instead. If the file does not exist, halt with:
+
+   > "Mode 7: rewrite_targets.yaml not found at [path] — run editor Pass 3 first to produce the targets block."
+
+3. **Parse the yaml file.** Expected shape (matches editor §4.4.5 emit contract):
+
+   ```yaml
+   rewrite_targets:
+     - file: edited/ch02-final.md
+       span: "L21-L28"
+       reason: "verbatim overlap with front-matter/foreword.md:L12-L18 — rewrite the vulnerability beat using a different sourced detail"
+       flagged_by: craft-check
+     - file: edited/ch03-final.md
+       span: "L40-L47"
+       reason: "same central-image vehicle dominates ch01 and ch03 — substitute with a distinct vehicle from the motif family"
+       flagged_by: editor-pass3
+   ```
+
+   Use a minimal handwritten YAML parser (~30 lines, the same flat-schema parser pattern used by `craft-check.js --dna` for the refrains block). No new npm dependency.
+
+4. **Validate the `reason` field for every target.** D-12 requires specific directional hints. Reject any target whose `reason` does NOT contain BOTH (a) a source location (file reference, path, or line range `L\d+-L\d+`) AND (b) one of the directional verbs `rewrite`, `substitute`, `replace`, `different`. If any target has a generic reason, halt with:
+
+   > "Mode 7: target [file] has insufficient reason — D-12 requires a specific cross-reference and directional instruction. Edit rewrite_targets.yaml and retry."
+
+5. **Validate file paths for traversal safety (Pitfall 6).** For each `target.file`, compute `absolute_path = path.resolve(projectDir, target.file)` and assert `absolute_path.startsWith(projectDir)`. Any `../` escape causes an immediate halt with:
+
+   > "Mode 7: path traversal detected in target [file] — aborting to protect files outside the project directory."
+
+6. **Mandatory confirmation prompt — never silent delete.** Surface a prompt listing EVERY chapter that will be re-run and EVERY file that will be deleted:
+
+   > "Mode 7 will re-run writer + editor for these chapters: [list]. Files to be deleted before re-run: [list of `edited/ch*-final.md` and `drafts/ch*-draft.md` paths]. Proceed? (yes/no)"
+
+   Halt if the author says anything other than affirmative (`yes`, `y`, `proceed`, `confirm`, case-insensitive).
+
+7. **Delete the listed chapter files.** Delete each listed `edited/ch*-final.md` AND the corresponding `drafts/ch*-draft.md` (so filesystem-as-state makes writer regenerate them from scratch). Preserve every other chapter's files. The **explicit preserve list** — never deleted by Mode 7 — is: `sources/`, `sources-adapted/`, `brief.md`, `voice-profile.md`, `book-dna.md`, `chapter-outline.md`, `research/`, `front-matter/`, `enrichments/`, and any chapter not named in `rewrite_targets`. Never delete anything not explicitly named in `rewrite_targets`.
+
+8. **Inject each target's `reason` field into the writer's invocation prompt for that specific chapter.** Writer prompts are built per-chapter by the existing Stage 3 wave-batching logic — extend that builder to check a `rewrite_reason` parameter and, if present, append a section to the writer prompt:
+
+   > "REWRITE GUIDANCE (Phase 13 Mode 7, flagged_by [flagged_by]): [reason text]. Your rewrite MUST address this specific reason. Producing the same text as before is a hard fail."
+
+9. **Re-enter the orchestrator's normal state detection flow (Section 3).** Because the listed chapters' files are now deleted, the normal writer + editor stages will re-run for exactly those chapters. Other chapters remain byte-identical.
+
+10. **After the editor Pass 3 re-runs, re-check `novelty_dedup`. Do NOT auto-loop.** If it is STILL `fail`, halt and surface the new `rewrite_targets.yaml` (which may be different from the previous one — different flags, different chapters, different reasons). Tell the author:
+
+    > "Mode 7: dedup failure persists after scoped re-run. New rewrite_targets.yaml written at reports/rewrite_targets.yaml. Invoke Mode 7 again with the new targets, or manually rewrite the flagged spans and re-run editor."
+
+    This respects D-10 (no auto-remediation, editor stays judge-not-author).
+
+#### Safety invariants
+
+- **Mandatory confirmation prompt** — never proceed silently. Every Mode 7 invocation enumerates the full re-run list and delete list.
+- **Path-traversal protection** — `absolute_path` MUST start with `projectDir`. Any `../` escape aborts immediately before any file is touched.
+- **Explicit preserve list** — never delete `sources/`, `sources-adapted/`, `brief.md`, `voice-profile.md`, `book-dna.md`, `chapter-outline.md`, `research/`, `front-matter/`, `enrichments/`, or any chapter not named in `rewrite_targets`.
+- **No auto-loop** — one Mode 7 invocation triggers at most one scoped re-run; a second failure requires a second explicit Mode 7 invocation.
+- **Byte-identical untouched chapters** — chapters NOT listed in `rewrite_targets` stay byte-identical through the entire Mode 7 flow. Assert this via a pre/post file hash check if feasible; otherwise rely on the explicit preserve list as the guarantee.
+- **Reason field D-12 contract enforcement** — reject targets with generic reasons BEFORE touching any file. No destructive operation runs until every target passes validation.
+
+#### Relationship to other modes
+
+Mode 6 (Fresh Run) wipes the entire run directory and restarts the pipeline. Mode 7 wipes only the flagged chapters. Mode 6 is appropriate when the outline or Book DNA is wrong; Mode 7 is appropriate when only specific chapters failed the novelty audit. Mode 7 cannot run before the editor has produced a `reports/rewrite_targets.yaml` — if that file does not exist, the user needs Mode 6 (Fresh Run) or a normal Stage 4 re-run, not Mode 7. Mode 7 honours the Phase 11 D-09 fixture bypass indirectly: on the `fixtures/tiny-book/` fixture (3 chapters), Mode 7 re-runs all 3 chapters if all 3 are flagged, which is functionally equivalent to a full re-run but preserves the Mode 7 contract for larger books.
+
+#### Example invocation
+
+```
+/book-crafter:orchestrator --rewrite-targets
+/book-crafter:orchestrator apply rewrite targets from ~/Documents/Books/MyBook/reports/rewrite_targets.yaml
+```
+
+Both invocations trigger Mode 7. The orchestrator locates the yaml, parses the targets, enforces the D-12 reason contract, surfaces the mandatory confirmation prompt, deletes only the flagged chapters, and re-enters state detection so writer + editor re-run exclusively for those chapters.
+
 ## 7. Error Handling
 
 Handle these common situations gracefully:
