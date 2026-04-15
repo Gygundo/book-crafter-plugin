@@ -1,6 +1,8 @@
 # Captivation Rubric
 
-> Captivation scoring for chapter-level quality. 5 components × 0-2 points = 0-10 total. Invoked by editor Pass 1 (§2.4, §2.5, §2.5.5) and Pass 2 (§3.3, §3.4) — scoring logic lives here as the single source of truth.
+> Captivation scoring for chapter-level quality. 7 components × 0-2 points = 0-14 total. Invoked by editor Pass 1 (§2.4, §2.5, §2.5.5) and Pass 2 (§3.3, §3.4) — scoring logic lives here as the single source of truth.
+
+> **Rubric extended from 5 to 7 components in CRAFT-10.** Original 5-component scores must remain byte-identical on the baseline fixture per CRAFT-09. The first five component blocks below are locked — they must not be edited, reordered, or moved. Craft Density and Cross-Chapter Craft were appended at the end of the Components section; their scores are additive, not a re-weighting of the originals.
 
 ## Components
 
@@ -79,9 +81,43 @@ For each chapter, check that the ending has either a cliffhanger seed or a refle
 
 Flag chapters that score 0 -- they end without any forward momentum per D-02.
 
+### Craft Density
+
+Maps to CRAFT-02/03/04 coverage. Measures how tightly the chapter earns its abstractions — does the scene-first craft actually thread through the whole chapter, or does it only appear at the opener before collapsing into teaching?
+
+Two sub-checks, each worth 1 point:
+
+- **Central image zonal presence (0-1):** Is the chapter's central image (per outline `central_image` field / Book DNA Chapter Map) present in at least two of the three chapter zones — opening (first 200 words), middle (middle third of the chapter body), closing (final 200 words)? One zone only = 0. Two or three zones = 1.
+- **Vulnerability beat in middle third with resolved seed (0-1):** Is there an author vulnerability beat (first-person, specific, non-fabricated) in the middle third of the chapter, AND does it trace back to a `vulnerability_beat_seed` pointer (sources/, sources-adapted/, voice-profile.md, or book-dna.md)? Absent or ungrounded = 0. Present AND seeded = 1.
+
+**Scoring:**
+- 2 points: Both sub-checks pass
+- 1 point: Exactly one sub-check passes
+- 0 points: Neither sub-check passes
+
+Half-point increments not allowed — the score is 0, 1, or 2.
+
+Anchor to calibration exemplars at `${CLAUDE_PLUGIN_ROOT}/references/bestseller-calibration.md` § Score Level 3 / 6 / 9 (Craft Density column). Use the exemplars as calibration, not as templates.
+
+### Cross-Chapter Craft
+
+Evaluates cross-chapter coherence of craft rules. Unlike the first six components (which score a single chapter in isolation), this component is evaluated over the whole manuscript — but it is recorded on each chapter's scorecard so Pass 2 and the CRAFT-16 diagnostic step can surface it per chapter.
+
+Two sub-checks, each worth 1 point:
+
+- **Central-image distinctness across chapters (0-1):** Scan every chapter's `central_image` field. If any two chapters have near-identical images (same sensory anchor, same metaphor vehicle), that is a fail — images blur into each other and the reader loses the per-chapter craft signature. All distinct = 1. Any collision = 0.
+- **Transliterated-term variety across chapters (0-1):** Scan the transliterated Greek/Hebrew terms actually invoked in each chapter (per CRAFT-02 cap). If the same 3 terms recur in every chapter (lexical fatigue — e.g. charis/pistis/agape in chapters 1-2-3-4-5), that is a fail. Variety across chapters = 1. Same 3 in ≥ 3 chapters = 0.
+
+**Scoring:**
+- 2 points: Both sub-checks pass across the manuscript
+- 1 point: Exactly one sub-check passes
+- 0 points: Neither sub-check passes
+
+Anchor to calibration exemplars at `${CLAUDE_PLUGIN_ROOT}/references/bestseller-calibration.md` § Score Level 3 / 6 / 9 (Cross-Chapter Craft column). This is the only component where a single chapter's score depends on other chapters; editor Pass 2 computes it once and stamps the same value onto every chapter scorecard.
+
 ## Scoring Aggregation
 
-Each chapter receives a `captivation_score` (1-10) based on five components (0-2 points each):
+Each chapter receives a `captivation_score` (0-14) based on seven components (0-2 points each):
 
 | Component | What it measures | Source |
 |-----------|-----------------|--------|
@@ -90,11 +126,19 @@ Each chapter receives a `captivation_score` (1-10) based on five components (0-2
 | Pacing variety | Paragraph length distribution | Pass 1 |
 | Emotional connection | Personal stories/vulnerability markers | Pass 1 |
 | Reader engagement | "you", rhetorical questions, direct address | Pass 1 |
+| Craft Density | Central image zonal presence + seeded vulnerability beat | Pass 1 |
+| Cross-Chapter Craft | Image distinctness + transliterated-term variety across chapters | Pass 2 |
 
-**Thresholds:**
-- 8-10: Captivating -- reads like a bestseller
-- 5-7: Acceptable -- some areas could improve
-- 3-4: Weak -- specific areas need attention
-- 1-2: Significant issues -- chapter needs substantial rework
+Total range: **0-14**.
 
-**Momentum-aware threshold:** A chapter in a "Building" momentum position with teaching-heavy content can score 5-6 without triggering a rewrite recommendation. Only chapters scoring below 4 trigger a "significant" severity flag for captivation specifically.
+**Thresholds (0-14 scale):**
+
+| Total | Band | Meaning |
+|-------|------|---------|
+| 0-6 | Below craft floor | Chapter requires revision |
+| 7-10 | Competent | Chapter ships as-is if no auto-revise triggers fired |
+| 11-14 | Strong | Bestseller-track quality |
+
+**Momentum-aware threshold:** A chapter in a "Building" momentum position with teaching-heavy content can score in the 7-10 band without triggering a rewrite recommendation. Only chapters in the 0-6 band trigger a "significant" severity flag for captivation specifically.
+
+**Legacy 0-10 reference:** The original five components (Pacing Variety, Emotional Connection, Reader Engagement, Opening Engagement, Chapter-Ending Momentum) still sum to 0-10 and their bodies are byte-identical to the Phase 7 baseline fixture. Tests that check only the legacy five (per `fixtures/phase10/baseline-scores.json`) continue to pass unchanged — the new components are additive.
