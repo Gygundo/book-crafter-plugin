@@ -204,7 +204,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 - [ ] **CRAFT-06**: Writer names ≥2 concrete reader-moments per chapter (e.g. "the 2am phone-check"), sourced from a Voice Profile *Reader Moments* section
 - [ ] **CRAFT-07**: Editor enforces ≥2 quoted/italicised reader-thought lines per chapter (psychological tension, not structural)
 - [ ] **CRAFT-08**: Editor enforces a concrete:abstract noun ratio ≥1:1 over any 4-paragraph window (show-don't-tell detector)
-- [ ] **CRAFT-09**: Captivation rubric extracted from inline editor/writer sections into standalone `references/captivation-rubric.md`, unchanged scores on regression check
+- [x] **CRAFT-09**: Captivation rubric extracted from inline editor/writer sections into standalone `references/captivation-rubric.md`, unchanged scores on regression check
 - [ ] **CRAFT-10**: Captivation rubric extended from 5 components (0-10) to 7 components (0-14), with Craft Density and Cross-Chapter Craft components anchored to before/after exemplars from Eternally Secure
 - [ ] **CRAFT-11**: New `references/bestseller-craft-rules.md` reference file, read by both writer and editor, voice-agnostic, cap 200 lines
 - [ ] **CRAFT-12**: New `references/bestseller-calibration.md` with paraphrased before/after paragraphs at score levels 3, 6, and 9
@@ -276,7 +276,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CRAFT-06 | Phase 10 | Pending |
 | CRAFT-07 | Phase 10 | Pending |
 | CRAFT-08 | Phase 10 | Pending |
-| CRAFT-09 | Phase 10 | Pending |
+| CRAFT-09 | Phase 10 | Complete |
 | CRAFT-10 | Phase 10 | Pending |
 | CRAFT-11 | Phase 10 | Pending |
 | CRAFT-12 | Phase 10 | Pending |

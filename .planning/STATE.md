@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Bestseller Quality + Distribution
-status: roadmap_complete
-stopped_at: Milestone v1.1 roadmap created
-last_updated: "2026-04-15T00:00:00.000Z"
+status: executing
+stopped_at: Completed 10-01-PLAN.md
+last_updated: "2026-04-15T13:05:44.113Z"
 last_activity: 2026-04-15
 progress:
-  total_phases: 3
-  completed_phases: 0
-  total_plans: 22
-  completed_plans: 0
+  total_phases: 12
+  completed_phases: 9
+  total_plans: 28
+  completed_plans: 20
   percent: 0
 ---
 
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-15)
 
 **Core value:** Every chapter must read like it was written by a bestselling author -- hooks that grab, revelation-driven depth that stays accessible, seamless flow between chapters, and a voice so consistent the reader forgets multiple agents touched it.
-**Current focus:** Phase 10 — Writing Quality v2 (milestone v1.1)
+**Current focus:** Phase 10 — writing-quality-v2
 
 ## Current Position
 
-Phase: 10 (roadmap complete, ready for discuss-phase)
-Plan: —
-Status: Roadmap complete — ready to discuss/plan Phase 10
-Last activity: 2026-04-15 — Milestone v1.1 roadmap created
+Phase: 10 (writing-quality-v2) — EXECUTING
+Plan: 2 of 9
+Status: Ready to execute
+Last activity: 2026-04-15
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -78,6 +78,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 07 P03 | 2min | 1 tasks | 1 files |
 | Phase 07 P04 | 3min | 2 tasks | 3 files |
 | Phase 08 P02 | 1min | 1 tasks | 1 files |
+| Phase 10-writing-quality-v2 P01 | 8min | 3 tasks | 12 files |
 
 ## Accumulated Context
 
@@ -133,6 +134,9 @@ Recent decisions affecting current work:
 - [Phase 07]: Scripture detection: two-line pattern (> *text* + > -- Reference) prevents false positives on regular blockquotes
 - [Phase 07]: Captivation score uses 5 components at 0-2 points each for 1-10 scale with momentum-aware thresholds
 - [Phase 08]: Mode 5 inserted before Mode 4 (fallback) to maintain correct detection order; orchestrator delegates all analysis to voice-builder skill
+- [Phase 10-writing-quality-v2]: Plan 10-01: craft-check.js uses path.dirname(path.dirname(resolve(chapterPath))) for project root resolution; works with relative or absolute fixture paths
+- [Phase 10-writing-quality-v2]: Plan 10-01: Regression hash covers only the 5 captivation component bodies, not §4.5 aggregation, leaving Plan 6 free to extend aggregation without breaking the lock
+- [Phase 10-writing-quality-v2]: Plan 10-01: Each known-bad fixture isolates a single failure; 13 node:test cases include explicit fails-only-X assertions to prevent cross-check bleed
 
 ### Roadmap Evolution
 
@@ -152,6 +156,6 @@ None yet. Phase 12 is a pre-declared gate, not a blocker.
 
 ## Session Continuity
 
-Last session: 2026-04-15T00:00:00.000Z
-Stopped at: Milestone v1.1 roadmap created — 3 phases, 36 requirements, 100% coverage
-Resume file: .planning/ROADMAP.md (v1.1 section)
+Last session: 2026-04-15T13:05:35.859Z
+Stopped at: Completed 10-01-PLAN.md
+Resume file: None

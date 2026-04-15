@@ -205,10 +205,10 @@ Plans:
 
 **Anti-pattern reminder (from PITFALLS.md + Phase 7 post-mortem):** Do NOT repeat the Phase 7 failure mode — additive-only rule evolution where the voice profile becomes a kitchen sink and the model averages competing signals into blandness. Every v2 addition MUST pair with an explicit v1 removal; the voice profile is capped at 150 lines; the kill list is committed. Rules must be procedural ("if first 150 words contain zero sensory details, rewrite") not aspirational ("write vividly"). Scene openers without provenance comments must be flagged — an agent asked to invent a scene with no source material will hallucinate generic fiction.
 
-**Plans:** 9 plans
+**Plans:** 1/9 plans executed
 
 Plans:
-- [ ] 10-01-PLAN.md — Wave 0 infrastructure + rubric extraction (craft-check.js, fixtures, baseline, captivation-rubric.md)
+- [x] 10-01-PLAN.md — Wave 0 infrastructure + rubric extraction (craft-check.js, fixtures, baseline, captivation-rubric.md)
 - [ ] 10-02-PLAN.md — Create bestseller-craft-rules.md (voice-agnostic CRAFT-01..08 reference, ≤200 lines)
 - [ ] 10-03-PLAN.md — Writer + outliner updates (scene-first, Greek cap, central image, vulnerability, reader moments, pulpit avoidance)
 - [ ] 10-04-PLAN.md — Editor Pass 1 craft-check invocation + new sub-sections (craft density, pulpit seam, tension-release, show-don't-tell)
@@ -275,7 +275,7 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 10. Writing Quality v2 | 0/9 | Planned | - |
+| 10. Writing Quality v2 | 1/9 | In Progress|  |
 | 11. Distribution Packaging | 0/6 | Not started | - |
 | 12. Re-run + Release Gate | 0/7 | Not started | - |
 
