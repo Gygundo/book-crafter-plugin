@@ -202,15 +202,15 @@ Which phases cover which requirements. Updated during roadmap creation.
 - [x] **CRAFT-04**: Writer includes one first-person author vulnerability beat per chapter in the middle third, sourced from voice profile or source material (never fabricated)
 - [x] **CRAFT-05**: Editor detects and rewrites pulpit-seam phrases ("So", "Now", "Let us", "Here's where", "And so") at chapter and paragraph starts, with a permitted-usage counter-example list
 - [x] **CRAFT-06**: Writer names ≥2 concrete reader-moments per chapter (e.g. "the 2am phone-check"), sourced from a Voice Profile *Reader Moments* section
-- [ ] **CRAFT-07**: Editor enforces ≥2 quoted/italicised reader-thought lines per chapter (psychological tension, not structural)
-- [ ] **CRAFT-08**: Editor enforces a concrete:abstract noun ratio ≥1:1 over any 4-paragraph window (show-don't-tell detector)
+- [x] **CRAFT-07**: Editor enforces ≥2 quoted/italicised reader-thought lines per chapter (psychological tension, not structural)
+- [x] **CRAFT-08**: Editor enforces a concrete:abstract noun ratio ≥1:1 over any 4-paragraph window (show-don't-tell detector)
 - [x] **CRAFT-09**: Captivation rubric extracted from inline editor/writer sections into standalone `references/captivation-rubric.md`, unchanged scores on regression check
 - [ ] **CRAFT-10**: Captivation rubric extended from 5 components (0-10) to 7 components (0-14), with Craft Density and Cross-Chapter Craft components anchored to before/after exemplars from Eternally Secure
 - [x] **CRAFT-11**: New `references/bestseller-craft-rules.md` reference file, read by both writer and editor, voice-agnostic, cap 200 lines
 - [ ] **CRAFT-12**: New `references/bestseller-calibration.md` with paraphrased before/after paragraphs at score levels 3, 6, and 9
 - [x] **CRAFT-13**: Voice profile audited and subtractively edited — every v2 addition paired with a v1 removal, cap 150 lines, tracked kill list committed
 - [ ] **CRAFT-14**: Orchestrator gains `--fresh` mode that deletes Book DNA, chapter-outline, research/, drafts/, revisions/, edited/, enrichments/, front-matter/, reports/, output/ before starting (preserves only `sources/`, `sources-adapted/`, `brief.md`, `voice-profile.md`)
-- [ ] **CRAFT-15**: All generated artefacts carry a version stamp (`<!-- generated-by: book-crafter v1.1.0 -->`)
+- [x] **CRAFT-15**: All generated artefacts carry a version stamp (`<!-- generated-by: book-crafter v1.1.0 -->`)
 - [ ] **CRAFT-16**: Per-chapter bestseller diagnostic report (CRAFT-01..CRAFT-08 pass/fail matrix with line citations) appended to `consistency-report.md`
 - [ ] **CRAFT-17**: Hard 2-revision cap per chapter with divergent-improvement detection (if revision N scores lower than N-1 on any sub-metric, accept N-1 and stop)
 
@@ -274,15 +274,15 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CRAFT-04 | Phase 10 | Complete |
 | CRAFT-05 | Phase 10 | Complete |
 | CRAFT-06 | Phase 10 | Complete |
-| CRAFT-07 | Phase 10 | Pending |
-| CRAFT-08 | Phase 10 | Pending |
+| CRAFT-07 | Phase 10 | Complete |
+| CRAFT-08 | Phase 10 | Complete |
 | CRAFT-09 | Phase 10 | Complete |
 | CRAFT-10 | Phase 10 | Pending |
 | CRAFT-11 | Phase 10 | Complete |
 | CRAFT-12 | Phase 10 | Pending |
 | CRAFT-13 | Phase 10 | Complete |
 | CRAFT-14 | Phase 10 | Pending |
-| CRAFT-15 | Phase 10 | Pending |
+| CRAFT-15 | Phase 10 | Complete |
 | CRAFT-16 | Phase 10 | Pending |
 | CRAFT-17 | Phase 10 | Pending |
 | PKG-01 | Phase 11 | Pending |

@@ -205,13 +205,13 @@ Plans:
 
 **Anti-pattern reminder (from PITFALLS.md + Phase 7 post-mortem):** Do NOT repeat the Phase 7 failure mode — additive-only rule evolution where the voice profile becomes a kitchen sink and the model averages competing signals into blandness. Every v2 addition MUST pair with an explicit v1 removal; the voice profile is capped at 150 lines; the kill list is committed. Rules must be procedural ("if first 150 words contain zero sensory details, rewrite") not aspirational ("write vividly"). Scene openers without provenance comments must be flagged — an agent asked to invent a scene with no source material will hallucinate generic fiction.
 
-**Plans:** 4/9 plans executed
+**Plans:** 5/9 plans executed
 
 Plans:
 - [x] 10-01-PLAN.md — Wave 0 infrastructure + rubric extraction (craft-check.js, fixtures, baseline, captivation-rubric.md)
 - [x] 10-02-PLAN.md — Create bestseller-craft-rules.md (voice-agnostic CRAFT-01..08 reference, ≤200 lines)
 - [x] 10-03-PLAN.md — Writer + outliner updates (scene-first, Greek cap, central image, vulnerability, reader moments, pulpit avoidance)
-- [ ] 10-04-PLAN.md — Editor Pass 1 craft-check invocation + new sub-sections (craft density, pulpit seam, tension-release, show-don't-tell)
+- [x] 10-04-PLAN.md — Editor Pass 1 craft-check invocation + new sub-sections (craft density, pulpit seam, tension-release, show-don't-tell)
 - [ ] 10-05-PLAN.md — Editor Pass 2 scene-first strictness + central image/vulnerability/reader moment audits
 - [ ] 10-06-PLAN.md — Captivation rubric extended 5→7 components + bestseller-calibration.md (score levels 3/6/9)
 - [x] 10-07-PLAN.md — Voice profile subtractive audit + Reader Moments section + kill list (PARALLEL wave 3)
@@ -275,7 +275,7 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 10. Writing Quality v2 | 4/9 | In Progress|  |
+| 10. Writing Quality v2 | 5/9 | In Progress|  |
 | 11. Distribution Packaging | 0/6 | Not started | - |
 | 12. Re-run + Release Gate | 0/7 | Not started | - |
 

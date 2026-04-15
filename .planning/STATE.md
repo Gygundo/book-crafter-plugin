@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Bestseller Quality + Distribution
 status: executing
-stopped_at: Completed 10-03-PLAN.md
-last_updated: "2026-04-15T13:13:25.703Z"
+stopped_at: Completed 10-04-PLAN.md
+last_updated: "2026-04-15T13:25:07.705Z"
 last_activity: 2026-04-15
 progress:
   total_phases: 12
   completed_phases: 9
   total_plans: 28
-  completed_plans: 23
+  completed_plans: 24
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-15)
 ## Current Position
 
 Phase: 10 (writing-quality-v2) — EXECUTING
-Plan: 4 of 9
+Plan: 5 of 9
 Status: Ready to execute
 Last activity: 2026-04-15
 
@@ -82,6 +82,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 10-writing-quality-v2 P02 | 2min | 1 tasks | 1 files |
 | Phase 10-writing-quality-v2 P07 | 4min | 2 tasks | 4 files |
 | Phase 10-writing-quality-v2 P03 | 4min | 2 tasks | 3 files |
+| Phase 10-writing-quality-v2 P04 | 6min | 1 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -144,6 +145,8 @@ Recent decisions affecting current work:
 - [Phase 10-writing-quality-v2]: Plan 10-07: Subtractive audit pattern works — spiritual-default.md net -4 lines (123->119) with Reader Moments added and Theological Framework byte-preserved (sha256 lock verified)
 - [Phase 10-writing-quality-v2]: Plan 10-03: Book DNA Chapter Map shifts from table to sub-list layout to accommodate central_image + vulnerability_beat_seed without column-width blowout
 - [Phase 10-writing-quality-v2]: Plan 10-03: Writer cites full 25-term Greek/Hebrew lexicon inline so chapter-writer subagents don't need to cross-load craft-check.js
+- [Phase 10-writing-quality-v2]: Plan 10-04: Editor Pass 1 gets deterministic craft-check.js at §2.0 + LLM judgment sub-sections §2.9-§2.12; craft_check field merged into VOICE AUDIT for Pass 2/CRAFT-16 reuse
+- [Phase 10-writing-quality-v2]: Plan 10-04: Revision requests written to revisions/ch[NN]-request.md (stateless editor); CRAFT-15 stamp auto-fixed in place to preserve CRAFT-17 2-revision cap
 
 ### Roadmap Evolution
 
@@ -163,6 +166,6 @@ None yet. Phase 12 is a pre-declared gate, not a blocker.
 
 ## Session Continuity
 
-Last session: 2026-04-15T13:13:25.700Z
-Stopped at: Completed 10-03-PLAN.md
+Last session: 2026-04-15T13:25:07.703Z
+Stopped at: Completed 10-04-PLAN.md
 Resume file: None
