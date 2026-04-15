@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Bestseller Quality + Distribution
 status: executing
-stopped_at: Completed 11-01-PLAN.md
-last_updated: "2026-04-15T16:10:54.485Z"
+stopped_at: Completed 11-03-PLAN.md
+last_updated: "2026-04-15T16:12:43.525Z"
 last_activity: 2026-04-15
 progress:
   total_phases: 12
   completed_phases: 10
   total_plans: 34
-  completed_plans: 29
+  completed_plans: 30
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-15)
 ## Current Position
 
 Phase: 11 (distribution-packaging) — EXECUTING
-Plan: 2 of 6
+Plan: 3 of 6
 Status: Ready to execute
 Last activity: 2026-04-15
 
@@ -88,6 +88,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 10-writing-quality-v2 P06 | 5min | 2 tasks | 3 files |
 | Phase 10-writing-quality-v2 P09 | 6min | 2 tasks | 2 files |
 | Phase 11-distribution-packaging P01 | 2min | 2 tasks | 3 files |
+| Phase 11-distribution-packaging P03 | 2min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -159,6 +160,7 @@ Recent decisions affecting current work:
 - [Phase 10-writing-quality-v2]: Plan 10-06: test-rubric-regression.js --extended flag keeps base run green for branches that haven't touched Plan 10-06
 - [Phase 10-writing-quality-v2]: Plan 10-09: Bestseller Diagnostic is read-only assembly; strict divergent-improvement detection trips on ANY sub-component delta < 0; revision state stored in reports/revision-log.md surviving Resume but cleared by Fresh
 - [Phase 11-distribution-packaging]: Plan 11-01: Tiny-book fixture seeded with captivation threshold 8; topic 'The 2am Prayer' chosen for deterministic CRAFT-01..08 coverage
+- [Phase 11-distribution-packaging]: Plan 11-03: repository field uses string URL shape (Claude Code schema), not {type,url} npm shape; plugin.json keeps book-crafter-dev identity on disk while marketplace.json carries release identity book-crafter
 
 ### Roadmap Evolution
 
@@ -178,6 +180,6 @@ None yet. Phase 12 is a pre-declared gate, not a blocker.
 
 ## Session Continuity
 
-Last session: 2026-04-15T16:10:54.482Z
-Stopped at: Completed 11-01-PLAN.md
+Last session: 2026-04-15T16:12:41.647Z
+Stopped at: Completed 11-03-PLAN.md
 Resume file: None

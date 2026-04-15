@@ -216,8 +216,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ### Distribution Packaging
 
-- [ ] **PKG-01**: `.claude-plugin/marketplace.json` created with `source: "./"`, `strict: true`, no version field (plugin.json authoritative)
-- [ ] **PKG-02**: `plugin.json` bumped to `1.1.0`, plus `homepage`, `license`, `author`, `repository` metadata fields populated
+- [x] **PKG-01**: `.claude-plugin/marketplace.json` created with `source: "./"`, `strict: true`, no version field (plugin.json authoritative)
+- [x] **PKG-02**: `plugin.json` bumped to `1.1.0`, plus `homepage`, `license`, `author`, `repository` metadata fields populated
 - [ ] **PKG-03**: Recipient-facing `README.md` with 3-line copy-paste install block (`/plugin marketplace add …`, `/plugin install …`, `/reload-plugins`) — zero terminal commands for recipient, prerequisite note for Claude Code + Node ≥18
 - [ ] **PKG-04**: `LICENSE` file (MIT)
 - [ ] **PKG-05**: `CHANGELOG.md` with v1.0.0 and v1.1.0 entries, Keep-a-Changelog format
@@ -225,7 +225,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 - [ ] **PKG-07**: `scripts/release.sh` — whitelist-based zip builder (explicit allow-list, never `zip -r .`), version gate, CHANGELOG gate, size check (fail >5MB), personal-path grep gate (fail if output contains `/Users/David`)
 - [ ] **PKG-08**: `claude plugin validate .` passes cleanly on the packaged plugin
 - [ ] **PKG-09**: `/book-crafter:sample` skill — one-command end-to-end demo that runs the full pipeline on the fixture brief
-- [ ] **PKG-10**: Marketplace schema re-verified at Phase 11 start (doc re-fetch) before writing marketplace.json
+- [x] **PKG-10**: Marketplace schema re-verified at Phase 11 start (doc re-fetch) before writing marketplace.json
 
 ### Re-run + Release Gate
 
@@ -285,8 +285,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CRAFT-15 | Phase 10 | Complete |
 | CRAFT-16 | Phase 10 | Complete |
 | CRAFT-17 | Phase 10 | Complete |
-| PKG-01 | Phase 11 | Pending |
-| PKG-02 | Phase 11 | Pending |
+| PKG-01 | Phase 11 | Complete |
+| PKG-02 | Phase 11 | Complete |
 | PKG-03 | Phase 11 | Pending |
 | PKG-04 | Phase 11 | Pending |
 | PKG-05 | Phase 11 | Pending |
@@ -294,7 +294,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PKG-07 | Phase 11 | Pending |
 | PKG-08 | Phase 11 | Pending |
 | PKG-09 | Phase 11 | Pending |
-| PKG-10 | Phase 11 | Pending |
+| PKG-10 | Phase 11 | Complete |
 | GATE-01 | Phase 12 | Pending |
 | GATE-02 | Phase 12 | Pending |
 | GATE-03 | Phase 12 | Pending |
