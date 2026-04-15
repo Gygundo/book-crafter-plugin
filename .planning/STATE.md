@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Bestseller Quality + Distribution
 status: executing
-stopped_at: Completed 11-05-PLAN.md
-last_updated: "2026-04-15T16:34:40.619Z"
+stopped_at: Completed 11-04-PLAN.md
+last_updated: "2026-04-15T16:35:11.726Z"
 last_activity: 2026-04-15
 progress:
   total_phases: 12
   completed_phases: 10
   total_plans: 34
-  completed_plans: 32
+  completed_plans: 33
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-15)
 ## Current Position
 
 Phase: 11 (distribution-packaging) — EXECUTING
-Plan: 5 of 6
+Plan: 6 of 6
 Status: Ready to execute
 Last activity: 2026-04-15
 
@@ -91,6 +91,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 11-distribution-packaging P03 | 2min | 2 tasks | 2 files |
 | Phase 11-distribution-packaging P02 | 11min | 3 tasks | 3 files |
 | Phase 11-distribution-packaging P05 | 3min | 1 tasks | 1 files |
+| Phase 11-distribution-packaging P04 | 4min | 1 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -167,6 +168,7 @@ Recent decisions affecting current work:
 - [Phase 11-distribution-packaging]: Plan 11-02: CHANGELOG [1.1.0] header format locked to '## [1.1.0] - 2026-04-15' for release.sh Gate 2 regex (^## \[1\.1\.0\])
 - [Phase 11-distribution-packaging]: Plan 11-05: Sample skill owns the .docx output path override (fixtures/tiny-book/run/final/) via §3 invocation prompt; orchestrator stays unmodified
 - [Phase 11-distribution-packaging]: Plan 11-05: Captivation primary source is consistency-report.md N/14; craft-check.js is degraded fallback only (5 of 14 components)
+- [Phase 11-distribution-packaging]: Plan 11-04: cp -R drags .DS_Store stowaways; release.sh strips them post-copy via find -delete before Gate 4 to keep zip listings clean
 
 ### Roadmap Evolution
 
@@ -186,6 +188,6 @@ None yet. Phase 12 is a pre-declared gate, not a blocker.
 
 ## Session Continuity
 
-Last session: 2026-04-15T16:34:34.071Z
-Stopped at: Completed 11-05-PLAN.md
+Last session: 2026-04-15T16:35:11.723Z
+Stopped at: Completed 11-04-PLAN.md
 Resume file: None

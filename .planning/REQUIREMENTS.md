@@ -222,7 +222,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 - [x] **PKG-04**: `LICENSE` file (MIT)
 - [x] **PKG-05**: `CHANGELOG.md` with v1.0.0 and v1.1.0 entries, Keep-a-Changelog format
 - [x] **PKG-06**: `fixtures/tiny-book/` — 3-chapter booklet fixture (`brief.md` + `expected-captivation-score.txt`) that smoke-test runs against in ≤5 minutes
-- [ ] **PKG-07**: `scripts/release.sh` — whitelist-based zip builder (explicit allow-list, never `zip -r .`), version gate, CHANGELOG gate, size check (fail >5MB), personal-path grep gate (fail if output contains `/Users/David`)
+- [x] **PKG-07**: `scripts/release.sh` — whitelist-based zip builder (explicit allow-list, never `zip -r .`), version gate, CHANGELOG gate, size check (fail >5MB), personal-path grep gate (fail if output contains `/Users/David`)
 - [ ] **PKG-08**: `claude plugin validate .` passes cleanly on the packaged plugin
 - [x] **PKG-09**: `/book-crafter:sample` skill — one-command end-to-end demo that runs the full pipeline on the fixture brief
 - [x] **PKG-10**: Marketplace schema re-verified at Phase 11 start (doc re-fetch) before writing marketplace.json
@@ -291,7 +291,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PKG-04 | Phase 11 | Complete |
 | PKG-05 | Phase 11 | Complete |
 | PKG-06 | Phase 11 | Complete |
-| PKG-07 | Phase 11 | Pending |
+| PKG-07 | Phase 11 | Complete |
 | PKG-08 | Phase 11 | Pending |
 | PKG-09 | Phase 11 | Complete |
 | PKG-10 | Phase 11 | Complete |
