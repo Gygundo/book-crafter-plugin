@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Bestseller Quality + Distribution
-status: defining_requirements
-stopped_at: Milestone v1.1 started
+status: roadmap_complete
+stopped_at: Milestone v1.1 roadmap created
 last_updated: "2026-04-15T00:00:00.000Z"
 last_activity: 2026-04-15
 progress:
-  total_phases: 0
+  total_phases: 3
   completed_phases: 0
-  total_plans: 0
+  total_plans: 22
   completed_plans: 0
   percent: 0
 ---
@@ -18,17 +18,17 @@ progress:
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-03-27)
+See: .planning/PROJECT.md (updated 2026-04-15)
 
 **Core value:** Every chapter must read like it was written by a bestselling author -- hooks that grab, revelation-driven depth that stays accessible, seamless flow between chapters, and a voice so consistent the reader forgets multiple agents touched it.
-**Current focus:** Phase 09 — wire-sermon-adapter-to-outliner
+**Current focus:** Phase 10 — Writing Quality v2 (milestone v1.1)
 
 ## Current Position
 
-Phase: Not started (defining requirements)
+Phase: 10 (roadmap complete, ready for discuss-phase)
 Plan: —
-Status: Defining requirements
-Last activity: 2026-04-15 — Milestone v1.1 started
+Status: Roadmap complete — ready to discuss/plan Phase 10
+Last activity: 2026-04-15 — Milestone v1.1 roadmap created
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -36,20 +36,29 @@ Progress: [░░░░░░░░░░] 0%
 
 **Velocity:**
 
-- Total plans completed: 0
-- Average duration: -
-- Total execution time: 0 hours
+- Total plans completed (v1.0): 25
+- Total plans in v1.1: 22 (estimated)
+- Average duration: ~3 min/plan (v1.0 trend)
+- Total execution time: ~75 minutes (v1.0)
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| - | - | - | - |
+| 01 | 2 | 7min | 3.5min |
+| 02 | 2 | 5min | 2.5min |
+| 03 | 2 | 5min | 2.5min |
+| 04 | 2 | 4min | 2min |
+| 05 | 2 | 6min | 3min |
+| 06 | 2 | 11min | 5.5min |
+| 07 | 4 | 9min | 2.25min |
+| 08 | 2 | ~2min | 1min |
+| 09 | 1 | — | — |
 
 **Recent Trend:**
 
-- Last 5 plans: -
-- Trend: -
+- Last 5 plans: fast (1-3 min each)
+- Trend: stable
 
 *Updated after each plan completion*
 | Phase 01 P01 | 5min | 2 tasks | 11 files |
@@ -77,6 +86,14 @@ Progress: [░░░░░░░░░░] 0%
 Decisions are logged in PROJECT.md Key Decisions table.
 Recent decisions affecting current work:
 
+- [v1.1 Roadmap]: Three phases (10, 11, 12) derived directly from research SUMMARY.md decomposition — Writing Quality v2 → Distribution Packaging → Re-run + Release Gate
+- [v1.1 Roadmap]: Phase 12 is a HARD GATE on release. Phase 11 cannot mark complete until Phase 12 signs off. `git tag v1.1.0` blocks on GATE-03 (seven-gap comparison) + GATE-08 (David's explicit ship call).
+- [v1.1 Roadmap]: Phase 10 subtractive audit (CRAFT-13) runs in parallel with rule additions, not after — structural prevention against Phase 7's additive-only failure mode.
+- [v1.1 Roadmap]: Phase 10 internal ordering: extract captivation rubric (CRAFT-09) before extending (CRAFT-10); create `references/bestseller-craft-rules.md` (CRAFT-11) before updating writer/editor skills that read it.
+- [v1.1 Roadmap]: Phase 11 start requires marketplace schema doc re-fetch (PKG-10) before writing marketplace.json.
+- [v1.1 Roadmap]: "Claude Desktop" terminology forbidden in all v1.1 artefacts — plugins live in Claude Code, not claude.ai.
+- [v1.1 Roadmap]: Zero new npm dependencies — Writing Quality v2 is entirely model-driven.
+- [v1.1 Roadmap]: 100% requirement coverage — 36/36 v1.1 requirements mapped (17 CRAFT → P10, 10 PKG → P11, 9 GATE → P12).
 - Roadmap: 6 phases derived from 49 requirements, following pipeline dependency chain
 - Roadmap: ITER-01 mapped to Phase 2 (outliner approval gate) since it duplicates OUTL-04 functionality
 - Roadmap: Phase 6 depends on Phase 4 (not Phase 5) -- enhancements enrich content, not formatting
@@ -121,17 +138,20 @@ Recent decisions affecting current work:
 
 - Phase 7 added: Captivating writing, modern voice profile, and bestseller formatting
 - Phase 8 added: Voice builder skill - analyse source content to generate custom voice profiles
+- Phase 9 added: Wire sermon adapter output to outliner (v1.0 gap closure)
+- Milestone v1.1 added: Phases 10, 11, 12 — Bestseller Quality + Distribution
 
 ### Pending Todos
 
-None yet.
+- Discuss and plan Phase 10 (Writing Quality v2)
+- At Phase 11 start: re-fetch Claude Code marketplace schema docs (PKG-10 gate)
 
 ### Blockers/Concerns
 
-None yet.
+None yet. Phase 12 is a pre-declared gate, not a blocker.
 
 ## Session Continuity
 
-Last session: 2026-03-28T19:02:45.114Z
-Stopped at: Completed 08-02-PLAN.md
-Resume file: None
+Last session: 2026-04-15T00:00:00.000Z
+Stopped at: Milestone v1.1 roadmap created — 3 phases, 36 requirements, 100% coverage
+Resume file: .planning/ROADMAP.md (v1.1 section)

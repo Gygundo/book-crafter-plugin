@@ -162,3 +162,114 @@ Plans:
 
 Plans:
 - [x] 09-01-PLAN.md — Update outliner SKILL.md Section 2 mode detection and Section 4.1 source reading to prefer `sources-adapted/` when present
+
+---
+
+## Milestone v1.1: Bestseller Quality + Distribution
+
+**Defined:** 2026-04-15
+**Goal:** Lift generated books from "well-argued teaching" to "bestseller-quality prose a reader devours", and package the plugin for one-click install on Claude Code (the plugin host — not claude.ai Desktop, which has no plugin installer).
+**Evidence base:** Eternally Secure Ch1 diagnostic — statistical opener, buried central image, 11 transliterated Greek words, zero author vulnerability, pulpit-seam transitions, generic reader anchors.
+**Phase 7 post-mortem driver:** Phase 7 verified framework *presence*, not output *quality*. v1.1 rules must be procedural and countable, not aspirational. Every acceptance criterion must be observable in generated output.
+
+### v1.1 Phases
+
+- [ ] **Phase 10: Writing Quality v2** — Seven countable craft rules, extracted/extended captivation rubric, voice profile subtractive audit, `--fresh` orchestrator mode, version stamps, per-chapter diagnostic report
+- [ ] **Phase 11: Distribution Packaging** — Marketplace.json, plugin.json v1.1.0 metadata, recipient README, LICENSE, CHANGELOG, fixture, release.sh with whitelist zip, sample skill
+- [ ] **Phase 12: Re-run + Release Gate** — Frozen baseline, `--fresh` re-run, seven-gap comparison, external review, sermon-adapter regression check, fresh-install smoke-test, ship decision, git tag
+
+### Phase 10: Writing Quality v2
+**Goal:** Generated chapters read as bestseller-quality prose — scene-first openers, disciplined Greek density, one dominant central image, an author vulnerability beat, and zero pulpit seams — enforced by procedural, countable rules rather than aspirational guidance.
+**Depends on:** Phase 9
+**Requirements:** CRAFT-01, CRAFT-02, CRAFT-03, CRAFT-04, CRAFT-05, CRAFT-06, CRAFT-07, CRAFT-08, CRAFT-09, CRAFT-10, CRAFT-11, CRAFT-12, CRAFT-13, CRAFT-14, CRAFT-15, CRAFT-16, CRAFT-17
+**Success Criteria** (what must be TRUE — observable in generated output):
+  1. Every generated chapter opens with a named human + time-marker + sensory detail in the first 150 words, with a provenance comment citing a source file or Book DNA line
+  2. No generated chapter contains more than 3 transliterated Greek/Hebrew terms, and each term receives at least 3 sentences of unpacking
+  3. Every generated chapter contains one dominant central image visible in the opening 200 words, middle third, and closing 200 words
+  4. Every generated chapter contains one first-person author vulnerability beat in the middle third, sourced (not fabricated) from voice profile or source material
+  5. No generated chapter starts paragraphs with pulpit-seam phrases ("So", "Now", "Let us", "Here's where", "And so") except via the permitted-usage counter-example list; every chapter ships with a bestseller diagnostic report showing CRAFT-01..CRAFT-08 pass/fail with line citations
+
+**Build order (from SUMMARY.md — do not reorder):**
+  1. Extract captivation rubric from inline editor sections (CRAFT-09) — regression-check scores unchanged
+  2. Create `references/bestseller-craft-rules.md` (CRAFT-11) BEFORE updating writer/editor skills that read it
+  3. Update writer skill (scene-first, Greek density, provenance comments)
+  4. Update editor Pass 1 sub-sections (craft density, tension-release, pulpit-seam detection — flag-only first)
+  5. Update editor Pass 2 (scene-first strictness, cross-chapter craft)
+  6. Extend captivation rubric with Craft Density + Cross-Chapter Craft components (CRAFT-10) — anchored to before/after exemplars
+  7. Create `references/bestseller-calibration.md` with paraphrased before/after at score levels 3, 6, 9 (CRAFT-12)
+  8. Subtractive voice-profile audit (CRAFT-13) — **runs in parallel with rule additions, not after**. Every addition paired with a v1 removal. Kill list tracked.
+  9. Add `--fresh` mode to orchestrator (CRAFT-14)
+  10. Add version stamps to all generated artefacts (CRAFT-15)
+  11. Add per-chapter bestseller diagnostic report to consistency-report.md (CRAFT-16)
+  12. Add 2-revision cap with divergent-improvement detection (CRAFT-17)
+
+**Anti-pattern reminder (from PITFALLS.md + Phase 7 post-mortem):** Do NOT repeat the Phase 7 failure mode — additive-only rule evolution where the voice profile becomes a kitchen sink and the model averages competing signals into blandness. Every v2 addition MUST pair with an explicit v1 removal; the voice profile is capped at 150 lines; the kill list is committed. Rules must be procedural ("if first 150 words contain zero sensory details, rewrite") not aspirational ("write vividly"). Scene openers without provenance comments must be flagged — an agent asked to invent a scene with no source material will hallucinate generic fiction.
+
+**Plans:** TBD (estimated 9 plans — rubric extract, craft rules file, writer update, editor Pass 1, editor Pass 2, rubric extend + calibration, voice profile audit, --fresh + version stamps, diagnostic report + revision cap)
+
+### Phase 11: Distribution Packaging
+**Goal:** A non-technical recipient can install the plugin into their Claude Code in three copy-paste slash commands, with all supporting release infrastructure (marketplace, manifest metadata, README, LICENSE, CHANGELOG, fixture, release script) in place.
+**Depends on:** Phase 10 (packaging must ship the quality improvements — cannot ship unverified prose)
+**Requirements:** PKG-01, PKG-02, PKG-03, PKG-04, PKG-05, PKG-06, PKG-07, PKG-08, PKG-09, PKG-10
+**Success Criteria** (what must be TRUE — observable installability outcomes):
+  1. Recipient can install the plugin into Claude Code using exactly three slash commands from the README (`/plugin marketplace add …`, `/plugin install …`, `/reload-plugins`) — zero terminal commands outside Claude Code
+  2. `claude plugin validate .` passes cleanly on the packaged plugin with no warnings
+  3. `scripts/release.sh` produces a zip artefact under 5MB with zero `/Users/David` personal-path matches, gated on CHANGELOG entry and plugin.json version match
+  4. `/book-crafter:sample` runs the full pipeline on the `fixtures/tiny-book/` brief end-to-end in ≤5 minutes and produces a valid .docx
+  5. Recipient README contains no "Claude Desktop" references — all plugin-host language says "Claude Code"
+
+**Build order (from SUMMARY.md):**
+  1. **Phase 11 Start gate: re-fetch `code.claude.com/docs/en/plugins` and `plugin-marketplaces` (PKG-10)** before writing marketplace.json — spec is actively evolving
+  2. Create `fixtures/tiny-book/` (PKG-06) and wire smoke-test path first
+  3. Create CHANGELOG.md (PKG-05), README.md (PKG-03), LICENSE (PKG-04)
+  4. Create `.claude-plugin/marketplace.json` — `source: "./"`, `strict: true`, no version field (PKG-01)
+  5. Bump `plugin.json` to 1.1.0 + add homepage/license/author/repository (PKG-02)
+  6. Create `scripts/release.sh` — explicit whitelist (never `zip -r .`), version gate, CHANGELOG gate, size check, personal-path grep gate (PKG-07)
+  7. Create `/book-crafter:sample` skill (PKG-09)
+  8. Verify `claude plugin validate .` passes (PKG-08) — dry-run before Phase 12
+
+**Anti-pattern reminder (from PITFALLS.md):** Do NOT `zip -r .` — always build from an explicit allow-list. The release script MUST fail-hard if the output exceeds 5MB, contains `/Users/David`, or ships `.planning/`, `evidence/`, or `books/`. Do NOT declare version in both `plugin.json` AND `marketplace.json` — the manifest silently wins and the marketplace version is ignored. Do NOT claim "bestseller quality" in the README until Phase 12 evidence exists (Phase 12 finalises README capability language). Do NOT use the term "Claude Desktop" anywhere — plugins live in Claude Code; claude.ai has no plugin installer.
+
+**Plans:** TBD (estimated 6 plans — schema re-verification + fixture + smoke-test path, README/LICENSE/CHANGELOG, marketplace.json + plugin.json bump, release.sh, sample skill, validate dry-run)
+
+### Phase 12: Re-run + Release Gate
+**Goal:** Prove the v1.1 rules actually improve output by re-running Eternally Secure in `--fresh` mode, producing a seven-gap before/after comparison with quoted paragraphs, verifying the fresh-install path, and recording David's explicit ship decision — all blocking on the v1.1.0 git tag.
+**Depends on:** Phase 11 (packaging must be complete before fresh-install smoke-test can run)
+**Requirements:** GATE-01, GATE-02, GATE-03, GATE-04, GATE-05, GATE-06, GATE-07, GATE-08, GATE-09
+**Success Criteria** (what must be TRUE — observable evidence outcomes):
+  1. `evidence/seven-gap-comparison.md` exists and every one of the seven gap areas (scene opener, Greek density, vulnerability, central image, tension-release, reader anchor, pulpit seams) shows a before/after quoted paragraph with measurable improvement
+  2. A fresh-install smoke-test (dev plugin removed, cache cleared, install via README commands, fixture brief run) produces a valid .docx on first attempt
+  3. `sources-adapted/` output byte-matches the pre-change baseline — sermon adapter regression is zero
+  4. `evidence/ship-decision.md` contains David's explicit "ship / don't ship" call, and `git tag v1.1.0` is applied only after that call is "ship"
+  5. `evidence/external-review.md` contains a fresh-Claude blind ranking of before vs after
+
+**Build order (from SUMMARY.md):**
+  1. Freeze baseline: commit `evidence/eternally-secure-ch1-before.md` as immutable Phase 7 output (GATE-01)
+  2. Re-run Eternally Secure in `--fresh` mode → `evidence/eternally-secure-ch1-after.md` (GATE-02)
+  3. Produce seven-gap comparison file (GATE-03) with before/after quoted paragraphs for every gap
+  4. Third-party fresh-Claude blind review (GATE-04) → `evidence/external-review.md`
+  5. Sermon-adapter regression byte-diff against pre-change baseline (GATE-05)
+  6. Fresh-install smoke-test: uninstall dev, clear cache, marketplace install via README commands, run fixture, verify .docx (GATE-06)
+  7. Finalise README capability language against comparison evidence — no claim without a matching evidence row (GATE-07)
+  8. David's explicit ship decision recorded (GATE-08) — **HARD GATE**
+  9. Apply and push `git tag v1.1.0` (GATE-09) — blocked on GATE-03 AND GATE-08
+
+**Anti-pattern reminder (from PITFALLS.md):** Phase 12 is the structural prevention against Phase 7's failure. Do NOT skip the re-run ("the rules look good, ship it") — Phase 7 shipped on that reasoning and produced the Eternally Secure Ch1 evidence this milestone exists to fix. Do NOT allow the README to claim capabilities that the comparison file does not substantiate (README overclaiming, Pitfall 22). Do NOT allow `git tag v1.1.0` to be applied before GATE-08 — the ship decision is David's explicit call, not an implicit "all plans green" inference. Phase 11 cannot mark complete until Phase 12 signs off.
+
+**Plans:** TBD (estimated 7 plans — baseline freeze, fresh re-run, seven-gap comparison, external review, adapter regression + smoke-test, README finalisation, ship decision + tag)
+
+### v1.1 Progress
+
+**Execution Order:** 10 → 11 → 12 (sequential, Phase 12 is a hard gate on release)
+
+| Phase | Plans Complete | Status | Completed |
+|-------|----------------|--------|-----------|
+| 10. Writing Quality v2 | 0/9 | Not started | - |
+| 11. Distribution Packaging | 0/6 | Not started | - |
+| 12. Re-run + Release Gate | 0/7 | Not started | - |
+
+### v1.1 Coverage
+
+- Total v1.1 requirements: 36 (CRAFT-01..17 + PKG-01..10 + GATE-01..09)
+- Mapped: 36 / 36 (100%)
+- Orphaned: 0

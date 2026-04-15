@@ -264,10 +264,53 @@ Which phases cover which requirements. Updated during roadmap creation.
 - New npm runtime dependencies
 - Fiction/narrative craft — preserved v1.0 exclusion
 
-### v1.1 Traceability (filled by roadmapper)
+### v1.1 Traceability
 
-Phase mapping TBD — gsd-roadmapper will complete this section after approval.
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| CRAFT-01 | Phase 10 | Pending |
+| CRAFT-02 | Phase 10 | Pending |
+| CRAFT-03 | Phase 10 | Pending |
+| CRAFT-04 | Phase 10 | Pending |
+| CRAFT-05 | Phase 10 | Pending |
+| CRAFT-06 | Phase 10 | Pending |
+| CRAFT-07 | Phase 10 | Pending |
+| CRAFT-08 | Phase 10 | Pending |
+| CRAFT-09 | Phase 10 | Pending |
+| CRAFT-10 | Phase 10 | Pending |
+| CRAFT-11 | Phase 10 | Pending |
+| CRAFT-12 | Phase 10 | Pending |
+| CRAFT-13 | Phase 10 | Pending |
+| CRAFT-14 | Phase 10 | Pending |
+| CRAFT-15 | Phase 10 | Pending |
+| CRAFT-16 | Phase 10 | Pending |
+| CRAFT-17 | Phase 10 | Pending |
+| PKG-01 | Phase 11 | Pending |
+| PKG-02 | Phase 11 | Pending |
+| PKG-03 | Phase 11 | Pending |
+| PKG-04 | Phase 11 | Pending |
+| PKG-05 | Phase 11 | Pending |
+| PKG-06 | Phase 11 | Pending |
+| PKG-07 | Phase 11 | Pending |
+| PKG-08 | Phase 11 | Pending |
+| PKG-09 | Phase 11 | Pending |
+| PKG-10 | Phase 11 | Pending |
+| GATE-01 | Phase 12 | Pending |
+| GATE-02 | Phase 12 | Pending |
+| GATE-03 | Phase 12 | Pending |
+| GATE-04 | Phase 12 | Pending |
+| GATE-05 | Phase 12 | Pending |
+| GATE-06 | Phase 12 | Pending |
+| GATE-07 | Phase 12 | Pending |
+| GATE-08 | Phase 12 | Pending |
+| GATE-09 | Phase 12 | Pending |
+
+**v1.1 Coverage:**
+- v1.1 requirements: 36 total (17 CRAFT + 10 PKG + 9 GATE)
+- Mapped to phases: 36
+- Unmapped: 0
+- Orphaned: 0
 
 ---
 *Requirements defined: 2026-03-27 (v1.0) / 2026-04-15 (v1.1)*
-*Last updated: 2026-03-27 after roadmap creation*
+*Last updated: 2026-04-15 after v1.1 roadmap creation*
