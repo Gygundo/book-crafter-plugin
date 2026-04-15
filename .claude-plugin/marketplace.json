@@ -1,0 +1,15 @@
+{
+  "name": "book-crafter-plugin",
+  "owner": {
+    "name": "David",
+    "email": "david@encounterchurch.co.za"
+  },
+  "plugins": [
+    {
+      "name": "book-crafter",
+      "source": "./",
+      "description": "Writes structured non-fiction books with enforced craft rules.",
+      "strict": true
+    }
+  ]
+}
