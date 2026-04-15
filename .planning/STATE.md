@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Bestseller Quality + Distribution
 status: executing
-stopped_at: Completed 10-01-PLAN.md
-last_updated: "2026-04-15T13:05:44.113Z"
+stopped_at: Completed 10-02-PLAN.md
+last_updated: "2026-04-15T13:08:23.231Z"
 last_activity: 2026-04-15
 progress:
   total_phases: 12
   completed_phases: 9
   total_plans: 28
-  completed_plans: 20
+  completed_plans: 21
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-15)
 ## Current Position
 
 Phase: 10 (writing-quality-v2) — EXECUTING
-Plan: 2 of 9
+Plan: 3 of 9
 Status: Ready to execute
 Last activity: 2026-04-15
 
@@ -79,6 +79,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 07 P04 | 3min | 2 tasks | 3 files |
 | Phase 08 P02 | 1min | 1 tasks | 1 files |
 | Phase 10-writing-quality-v2 P01 | 8min | 3 tasks | 12 files |
+| Phase 10-writing-quality-v2 P02 | 2min | 1 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -137,6 +138,7 @@ Recent decisions affecting current work:
 - [Phase 10-writing-quality-v2]: Plan 10-01: craft-check.js uses path.dirname(path.dirname(resolve(chapterPath))) for project root resolution; works with relative or absolute fixture paths
 - [Phase 10-writing-quality-v2]: Plan 10-01: Regression hash covers only the 5 captivation component bodies, not §4.5 aggregation, leaving Plan 6 free to extend aggregation without breaking the lock
 - [Phase 10-writing-quality-v2]: Plan 10-01: Each known-bad fixture isolates a single failure; 13 node:test cases include explicit fails-only-X assertions to prevent cross-check bleed
+- [Phase 10-writing-quality-v2]: Plan 10-02: bestseller-craft-rules.md is voice-agnostic single source of truth for CRAFT-01..08; writer and editor both read it to prevent Phase-7-style duplication drift
 
 ### Roadmap Evolution
 
@@ -156,6 +158,6 @@ None yet. Phase 12 is a pre-declared gate, not a blocker.
 
 ## Session Continuity
 
-Last session: 2026-04-15T13:05:35.859Z
-Stopped at: Completed 10-01-PLAN.md
+Last session: 2026-04-15T13:08:23.228Z
+Stopped at: Completed 10-02-PLAN.md
 Resume file: None

@@ -206,7 +206,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 - [ ] **CRAFT-08**: Editor enforces a concrete:abstract noun ratio ≥1:1 over any 4-paragraph window (show-don't-tell detector)
 - [x] **CRAFT-09**: Captivation rubric extracted from inline editor/writer sections into standalone `references/captivation-rubric.md`, unchanged scores on regression check
 - [ ] **CRAFT-10**: Captivation rubric extended from 5 components (0-10) to 7 components (0-14), with Craft Density and Cross-Chapter Craft components anchored to before/after exemplars from Eternally Secure
-- [ ] **CRAFT-11**: New `references/bestseller-craft-rules.md` reference file, read by both writer and editor, voice-agnostic, cap 200 lines
+- [x] **CRAFT-11**: New `references/bestseller-craft-rules.md` reference file, read by both writer and editor, voice-agnostic, cap 200 lines
 - [ ] **CRAFT-12**: New `references/bestseller-calibration.md` with paraphrased before/after paragraphs at score levels 3, 6, and 9
 - [ ] **CRAFT-13**: Voice profile audited and subtractively edited — every v2 addition paired with a v1 removal, cap 150 lines, tracked kill list committed
 - [ ] **CRAFT-14**: Orchestrator gains `--fresh` mode that deletes Book DNA, chapter-outline, research/, drafts/, revisions/, edited/, enrichments/, front-matter/, reports/, output/ before starting (preserves only `sources/`, `sources-adapted/`, `brief.md`, `voice-profile.md`)
@@ -278,7 +278,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CRAFT-08 | Phase 10 | Pending |
 | CRAFT-09 | Phase 10 | Complete |
 | CRAFT-10 | Phase 10 | Pending |
-| CRAFT-11 | Phase 10 | Pending |
+| CRAFT-11 | Phase 10 | Complete |
 | CRAFT-12 | Phase 10 | Pending |
 | CRAFT-13 | Phase 10 | Pending |
 | CRAFT-14 | Phase 10 | Pending |
