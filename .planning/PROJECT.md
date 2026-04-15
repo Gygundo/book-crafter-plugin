@@ -43,6 +43,14 @@ Every chapter must read like it was written by a bestselling author — hooks th
 
 **Key context:** Phase 7 already shipped captivation scoring, tension-release framework, and bestseller typography. v1.1 Writing Quality is a *second pass* driven by concrete evidence from the Eternally Secure Ch1 output, not a redo. Packaging optimises for a recipient who should never touch a terminal.
 
+### Validated (Phase 10)
+
+- [x] Writing Quality v2 — scene-first openers, Greek density cap, vulnerability beats, central-image lifting, tension-release enforcement, reader-anchor specificity, pulpit-seam detection (CRAFT-01..17) — Validated in Phase 10
+- [x] Deterministic craft-check.js scanner with regression-locked fixtures and baseline rubric hash — Validated in Phase 10
+- [x] Voice-agnostic bestseller-craft-rules.md and extended 7-component captivation rubric — Validated in Phase 10
+- [x] Orchestrator Mode 6 Fresh Run with locked delete/preserve lists and version stamping — Validated in Phase 10
+- [x] Hard 2-revision cap with divergent-improvement detection and per-chapter bestseller diagnostic report — Validated in Phase 10
+
 ### Validated (Phase 08)
 
 - [x] Voice builder skill that analyses a directory of markdown files and generates a custom voice profile conforming to voice-profile-spec.md — Validated in Phase 08
@@ -113,4 +121,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-15 — Milestone v1.1 started (Bestseller Quality + Distribution)*
+*Last updated: 2026-04-15 — Phase 10 (Writing Quality v2) complete; Phase 11 (Distribution Packaging) unblocked*
