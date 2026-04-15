@@ -794,12 +794,13 @@ If any of these phrases appear in the user's utterance during orchestrator invoc
 1. **Identify the project directory** from the user's request (same logic as Mode 3 Resume and Mode 5 Revision).
 
 2. **Compute the delete list and preserve list** against the project directory:
-   - **Delete list:** `book-dna.md`, `chapter-outline.md`, `research/`, `drafts/`, `edited/`, `revisions/`, `enrichments/`, `front-matter/`, `reports/`, `output/`
-   - **Preserve list:** `sources/`, `sources-adapted/`, `brief.md`, `voice-profile.md`
+   - **Delete list:** `chapter-outline.md`, `research/`, `drafts/`, `edited/`, `revisions/`, `enrichments/`, `front-matter/`, `reports/`, `output/`
+   - **Conditional delete — `book-dna.md`:** Delete by default. **EXCEPTION (Phase 13, D-09 fixture bypass):** If `book-dna.md` exists AND contains a `## Refrains` section with at least one non-comment entry (fenced yaml block with one or more `- phrase:` lines), preserve it. This is the pre-approved refrains block that the outliner's Refrain Candidate Gate bypass depends on — wiping it would make the fixture-bypass precondition unreachable. The outliner's §6 Generate Book DNA path will still overwrite the Chapter Map in the preserved file after outline approval; the Refrains block is what survives. Detect via: `awk '/^## Refrains/,/^## /' book-dna.md | grep -q '^- phrase:'`.
+   - **Preserve list:** `sources/`, `sources-adapted/`, `brief.md`, `voice-profile.md`, and `book-dna.md` iff the conditional clause above holds.
 
-3. **Mandatory confirmation prompt — never silent delete.** Present the specific paths about to be deleted and the specific paths that will be preserved, and wait for an explicit affirmative response:
+3. **Mandatory confirmation prompt — never silent delete.** Present the specific paths about to be deleted and the specific paths that will be preserved, and wait for an explicit affirmative response. If `book-dna.md` was moved to the preserve list via the D-09 clause, call it out explicitly so the user knows the refrains block is surviving:
 
-   > "Fresh mode will delete the following in `{project_path}`: book-dna.md, chapter-outline.md, research/, drafts/, edited/, revisions/, enrichments/, front-matter/, reports/, output/. Preserved: sources/, sources-adapted/, brief.md, voice-profile.md. Proceed? (yes/no)"
+   > "Fresh mode will delete the following in `{project_path}`: [dynamic delete list — omit book-dna.md if preserved]. Preserved: sources/, sources-adapted/, brief.md, voice-profile.md[, book-dna.md (pre-approved refrains block detected — Phase 13 D-09)]. Proceed? (yes/no)"
 
    Affirmative responses: `yes`, `y`, `proceed`, `confirm` (case-insensitive). Any other response aborts Mode 6 and falls through to Mode 3 (Resume), which presents the status dashboard from the current state without deleting anything.
 
@@ -810,6 +811,7 @@ If any of these phrases appear in the user's utterance during orchestrator invoc
 **Safety Invariants:**
 
 - **Never delete `sources/`, `sources-adapted/`, `brief.md`, or `voice-profile.md`.** These paths are hard-coded into the preserve list and no user instruction can override them inside Mode 6. If the user genuinely needs to wipe a source directory they must do so manually outside the orchestrator.
+- **Never delete `book-dna.md` when it carries a pre-approved refrains block (D-09 fixture bypass precondition).** If the file contains `## Refrains` with at least one `- phrase:` entry, it must survive Mode 6 so the outliner's Refrain Candidate Gate bypass remains reachable. The user can still manually wipe it outside the orchestrator if they want a genuine clean slate.
 - **Never delete without explicit user confirmation.** The confirmation prompt is mandatory on every Mode 6 invocation. There is no "remember my answer" mode. There is no `--yes` shortcut inside the orchestrator.
 - **Never re-prompt without showing the specific paths about to be deleted.** The confirmation prompt always enumerates the delete list and the preserve list in full. A vague "are you sure?" prompt is not compliant.
 - **Never delete files outside the identified project directory.** All paths in the delete list resolve relative to `{project_path}`. Mode 6 must never touch plugin files, other projects, or the user's home directory.
