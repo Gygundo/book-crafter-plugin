@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Bestseller Quality + Distribution
 status: executing
-stopped_at: Completed 13-07-PLAN.md
-last_updated: "2026-04-15T21:13:21.158Z"
+stopped_at: Completed 13-08-PLAN.md
+last_updated: "2026-04-15T21:16:35.255Z"
 last_activity: 2026-04-15
 progress:
   total_phases: 13
   completed_phases: 10
   total_plans: 45
-  completed_plans: 40
+  completed_plans: 42
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-15)
 ## Current Position
 
 Phase: 13 (repetition-and-novelty-enforcement) — EXECUTING
-Plan: 3 of 11
+Plan: 4 of 11
 Status: Ready to execute
 Last activity: 2026-04-15
 
@@ -99,6 +99,8 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 13-repetition-and-novelty-enforcement P07 | 5min | 2 tasks | 2 files |
 | Phase 13-repetition-and-novelty-enforcement P06 | 4min | 2 tasks | 1 files |
 | Phase 13-repetition-and-novelty-enforcement P05 | 12 | 1 tasks | 1 files |
+| Phase 13-repetition-and-novelty-enforcement P08 | 4min | 1 tasks | 1 files |
+| Phase 13-repetition-and-novelty-enforcement P09 | 6 | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -185,6 +187,7 @@ Recent decisions affecting current work:
 - [Phase 13-repetition-and-novelty-enforcement]: Plan 13-05: Vehicle distinctness uses dominant-word detection (content word in >=2 vehicles collapses family) before Jaccard fallback — adversarial fixture's three lamp vehicles share only one word so pure Jaccard would under-count
 - [Phase 13-repetition-and-novelty-enforcement]: Plan 13-05: Vulnerability signatures emit 10 words starting at the anchor (not 6 from first sentence) — first-sentence approach misses anchor-in-third-sentence paragraphs in the adversarial fixture
 - [Phase 13-repetition-and-novelty-enforcement]: Plan 13-05: Repeated spans are grown to maximal common substrings via lock-step token extension across shared shingles, then coverage-deduped so one row per maximal duplicate (matches test harness exact-phrase assertions)
+- [Phase 13-repetition-and-novelty-enforcement]: Plan 13-08: Mode 7 uses rewrite_reason parameter on Stage 3 wave-batching builder (no new skill); D-12 reason validation runs BEFORE any destructive operation; no auto-loop on persistent dedup failure honours D-10 editor-as-judge
 
 ### Roadmap Evolution
 
@@ -205,6 +208,6 @@ None yet. Phase 12 is a pre-declared gate, not a blocker.
 
 ## Session Continuity
 
-Last session: 2026-04-15T21:10:17.032Z
-Stopped at: Completed 13-07-PLAN.md
+Last session: 2026-04-15T21:16:29.522Z
+Stopped at: Completed 13-08-PLAN.md
 Resume file: None
