@@ -67,9 +67,52 @@ mkdir -p [project_directory]/edited [project_directory]/reports
 
 **Purpose:** Normalise each chapter's voice against the profile. This pass runs FIRST because subsequent passes need voice-normalised text.
 
-**Requirements addressed:** EDIT-01 (voice consistency), EDIT-03 (theological guardrails)
+**Requirements addressed:** EDIT-01 (voice consistency), EDIT-03 (theological guardrails), CRAFT-01, CRAFT-02, CRAFT-05, CRAFT-07, CRAFT-15
 
 For each chapter (parallel via subagents if 16+ chapters, sequential otherwise):
+
+### 2.0 Craft Check Invocation (deterministic)
+
+**Run this BEFORE any LLM work on the chapter.** This is the deterministic craft-rule gate for CRAFT-01, CRAFT-02, CRAFT-05, CRAFT-07, and CRAFT-15. LLM judgment sub-sections (§2.9-§2.12) run later in this pass on top of these results.
+
+**Invoke:**
+
+```bash
+node ${CLAUDE_PLUGIN_ROOT}/scripts/craft-check.js [project_directory]/drafts/ch[NN]-draft.md
+```
+
+**Parse JSON output.** Schema:
+
+```json
+{
+  "chapter_id": "ch01",
+  "checks": {
+    "CRAFT-01": { "pass": true, "evidence": "provenance: sources/sermon-2024-03.md:42", "citations": ["L1"] },
+    "CRAFT-02": { "pass": true, "evidence": "2 distinct terms: charis, dunamis", "citations": ["L87", "L112"] },
+    "CRAFT-05": { "pass": false, "evidence": "paragraph starts with 'So,'", "citations": ["L134"] },
+    "CRAFT-07": { "pass": false, "evidence": "1 reader-thought line", "citations": ["L201"] },
+    "CRAFT-15": { "pass": true, "evidence": "version stamp present", "citations": ["L1"] }
+  }
+}
+```
+
+**Merge every check result into the chapter's `<!-- VOICE AUDIT -->` metadata block under a new top-level field `craft_check`** (see §2.8 for the full block shape). Preserve the raw evidence and citations so Pass 2 and the CRAFT-16 diagnostic step can reuse them without re-invoking the script.
+
+**Enforcement policy (per D-06 / D-07 in 10-CONTEXT.md):**
+
+| Check | On fail | Action |
+|---|---|---|
+| CRAFT-01 | missing/malformed provenance OR unresolvable path | **Auto-revise** — request writer rewrite of the chapter opener only (keep the rest of the draft) |
+| CRAFT-02 | distinct transliterated terms > 3 | **Auto-revise** — request writer rewrite to cut terms to ≤3, each with ≥3 unpacking sentences |
+| CRAFT-05 | pulpit-seam phrase at chapter or paragraph start | **Auto-revise** — request writer rewrite of the specific paragraph(s) only (run §2.10 LLM override first) |
+| CRAFT-07 | <2 italicised/blockquote reader-thought lines | **Flag only** — add to diagnostic report. Do not auto-revise. |
+| CRAFT-15 | missing `<!-- generated-by: book-crafter vX.Y.Z -->` stamp | **Auto-fix** — prepend the stamp to the chapter (do not round-trip to writer) |
+
+**Revision request contract:** when auto-revising, write the writer instruction to `[project_directory]/revisions/ch[NN]-request.md` with fields `reason`, `failed_check`, `scope` (opener / paragraph-range / full-chapter), `evidence`, `citations`. The orchestrator (Plan 10-09, CRAFT-17) routes the request to the writer.
+
+**Revision cap:** All revision requests respect the 2-revision-per-chapter cap wired in Plan 10-09 (CRAFT-17). On exhaustion, keep the highest-scoring revision by captivation rubric total, append a flag to the diagnostic report with line citations, and continue — do not halt the pipeline.
+
+**Rule reference:** `${CLAUDE_PLUGIN_ROOT}/references/bestseller-craft-rules.md` — CRAFT-01, CRAFT-02, CRAFT-05, CRAFT-07, CRAFT-15.
 
 ### 2.1 Vocabulary Audit
 
@@ -170,15 +213,89 @@ theological_flags: [list or "none"]
 pacing_variety: [score 0-2, with dominant category and percentage]
 emotional_connection: [present|absent, with markers found or "none"]
 captivation_score: [1-10]
+craft_check:
+  CRAFT-01: pass
+  CRAFT-02: pass (2 distinct terms: charis, dunamis; unpacking OK)
+  CRAFT-05: pass
+  CRAFT-07: fail (1 reader-thought line; flagged)
+  CRAFT-15: pass
+  CRAFT-08: fail (window p12-p15 ratio 0.6; flagged)
 changes_made: [count]
 severity: clean | minor | significant
 -->
 ```
 
+The `craft_check` field aggregates the deterministic results from §2.0 (craft-check.js) PLUS the LLM judgment results from §2.9-§2.12. Each entry is `pass` or `fail` followed by inline evidence. Pass 2 and the CRAFT-16 diagnostic step read this block directly — do not duplicate the information elsewhere in the chapter.
+
 **Severity scale:**
 - **clean** -- 0 violations, sentence length within range, no anti-patterns, captivation score 5+
 - **minor** -- 1-3 total issues (vocabulary + anti-patterns), sentence length within range, captivation score 5+
-- **significant** -- 4+ total issues, OR sentence length outside range, OR theological flags present, OR captivation score below 4
+- **significant** -- 4+ total issues, OR sentence length outside range, OR theological flags present, OR captivation score below 4, OR any auto-revise-class craft_check failure (CRAFT-01/02/05) not overridden by §2.10
+
+### 2.9 Craft Density Check (CRAFT-02 unpacking adequacy)
+
+**LLM judgment layered on top of §2.0's deterministic CRAFT-02 result.** craft-check.js has already confirmed distinct transliterated-term count is ≤3 (or auto-revise was triggered). This sub-section performs the judgment the script cannot: for each transliterated term used, confirm the next 3 sentences after its introduction actually *unpack* it with explanatory context — meaning, etymology, or concrete illustration — not just mention the term in passing.
+
+**Procedure:**
+
+1. Re-read the citation lines from `craft_check.CRAFT-02.citations` in the VOICE AUDIT block (these mark the term-introduction lines).
+2. For each term, read the 3 sentences that follow and judge whether the term is genuinely unpacked. Indicators of real unpacking: a literal meaning ("charis literally means the joy of a received gift"), an etymology pointer ("from the same root as…"), or a concrete illustration that lands the idea in a scene or image.
+3. Indicators of failure: the term is dropped without explanation, the 3 sentences rephrase the surrounding argument without defining the term, or the "unpacking" is another abstract synonym ("charis, which is God's grace").
+
+**Failure mode:** Flag only. Add to the chapter's diagnostic report entry with the term, the line range, and a one-sentence note on what is missing. Update `craft_check.CRAFT-02` in the VOICE AUDIT block from `pass` to `pass (unpacking flagged: <term>)` so Pass 2 and CRAFT-16 see the nuance. Do NOT auto-revise — LLM judgment on unpacking quality is advisory per D-07 (forcing rewrites on judgment calls risks divergent-improvement regression).
+
+**Rule reference:** `${CLAUDE_PLUGIN_ROOT}/references/bestseller-craft-rules.md` § CRAFT-02.
+
+### 2.10 Pulpit Seam Detection (CRAFT-05 override pass)
+
+**LLM counterpart to craft-check.js's deterministic regex.** §2.0's craft-check.js has already flagged any paragraph whose first word(s) match the CRAFT-05 banned-start regex. This sub-section reviews each flagged paragraph against the **permitted-usage counter-example list** in `${CLAUDE_PLUGIN_ROOT}/references/bestseller-craft-rules.md` § CRAFT-05 and either confirms the fail or overrides it to a pass.
+
+**Permitted-usage whitelist (do not flag):**
+
+1. **Dialogue/quotation** -- the paragraph begins with a quoted speaker using the phrase (e.g. `"So," she said, "what do we do?"`).
+2. **Explicit block quote** -- markdown blockquote paragraph where the phrase appears after `>`.
+3. **Song/scripture citation lines** -- the paragraph is a direct citation, not exposition.
+4. **Deliberate fragment used as a titled section** -- the paragraph is itself a heading or heading-like title (the checker skips headings, but a subtitle-as-first-word can still slip through).
+5. **Second-person narration inside a remembered scene** -- e.g. "You see the light change" as a lived moment, not a sermon address.
+
+**Procedure:**
+
+1. Read each line in `craft_check.CRAFT-05.citations`.
+2. For each flagged paragraph, evaluate whether it matches any of the permitted-usage cases above.
+3. **If permitted usage applies:** override the craft-check fail to a pass. Note the override in the VOICE AUDIT block as `craft_check.CRAFT-05: pass (overridden at L<line>: <whitelist case>)` so the override is visible to Pass 2 and CRAFT-16. Cancel any auto-revise request queued by §2.0 for that paragraph.
+4. **If permitted usage does NOT apply:** confirm the fail. Leave the §2.0 auto-revise request in place -- writer will rewrite that paragraph only, per D-06 (scope: paragraph; if structural, full chapter).
+
+**Rule reference:** `${CLAUDE_PLUGIN_ROOT}/references/bestseller-craft-rules.md` § CRAFT-05.
+
+### 2.11 Tension-Release Enforcement (CRAFT-07)
+
+**Flag-only LLM pass layered on §2.0's deterministic regex count.** craft-check.js counts italicised or blockquote-wrapped reader-thought lines using the CRAFT-07 regex. If the count is <2, raise a flag; do not auto-revise (per D-07).
+
+**Procedure:**
+
+1. Read `craft_check.CRAFT-07.evidence` for the count and `citations` for any found lines.
+2. If the count is ≥2: no action.
+3. If the count is <2: append to the chapter's diagnostic report entry: "Chapter N has only X reader-thought lines; expected ≥2." Include the existing line citations (if any) for context.
+4. Optionally, note 2-3 candidate insertion points in the VOICE AUDIT block under `craft_check.CRAFT-07.candidate_points` -- paragraphs where a psychological-tension line would land naturally (moments of unresolved question, emotional pivot, or reader-doubt). These suggestions are consumed by Pass 2 rewrite windows only if a Pass 2 transition rewrite touches that region anyway -- do NOT insert reader-thought lines in Pass 1.
+
+**Rule reference:** `${CLAUDE_PLUGIN_ROOT}/references/bestseller-craft-rules.md` § CRAFT-07.
+
+### 2.12 Show-Don't-Tell Audit (CRAFT-08)
+
+**Pure LLM judgment -- craft-check.js does NOT evaluate CRAFT-08.** Over a sliding window of 4 paragraphs, the concrete-to-abstract noun ratio must be ≥1:1. The goal is to catch stretches where the chapter drifts into sermon abstraction without a sensory anchor.
+
+**Procedure:**
+
+1. Slide a 4-paragraph window through the chapter (paragraphs 1-4, 2-5, 3-6, …).
+2. In each window, count:
+   - **Concrete nouns** -- physical objects, named people, named places, sensory words. Hint lexicon from bestseller-craft-rules.md § CRAFT-08: *chair, coffee, phone, car, door, hospital, kitchen, window, table, street, bed, room, cup, hand, face, eye, voice, book, letter, rain, sunlight*.
+   - **Abstract nouns** -- theological or conceptual nouns with no physical referent. Hint lexicon: *grace, identity, righteousness, sonship, authority, kingdom, glory, anointing, faith, hope, love, peace, joy, salvation, redemption, sanctification, justification, mercy*.
+3. Compute the concrete:abstract ratio for each window.
+4. Any window where the ratio is <1:1 (abstract outnumbers concrete) is flagged with its paragraph range and the computed ratio.
+
+**Failure mode:** **Flag only.** Do not auto-revise. Add to the chapter's diagnostic report entry: "Chapter N, paragraphs P-P+3: concrete:abstract ratio <ratio> -- too abstract." Update `craft_check.CRAFT-08` in the VOICE AUDIT block to `fail (<N> windows flagged)` with the worst-offending window cited inline.
+
+**Rule reference:** `${CLAUDE_PLUGIN_ROOT}/references/bestseller-craft-rules.md` § CRAFT-08.
 
 ## 3. Pass 2 -- Flow and Transitions
 
