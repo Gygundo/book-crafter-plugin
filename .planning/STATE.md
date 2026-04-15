@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Bestseller Quality + Distribution
 status: executing
-stopped_at: Completed 13-01-PLAN.md
-last_updated: "2026-04-15T20:48:24.686Z"
+stopped_at: Completed 13-03-PLAN.md
+last_updated: "2026-04-15T20:49:43.674Z"
 last_activity: 2026-04-15
 progress:
   total_phases: 13
   completed_phases: 10
   total_plans: 45
-  completed_plans: 35
+  completed_plans: 36
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-15)
 ## Current Position
 
 Phase: 13 (repetition-and-novelty-enforcement) — EXECUTING
-Plan: 2 of 11
+Plan: 3 of 11
 Status: Ready to execute
 Last activity: 2026-04-15
 
@@ -94,6 +94,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 11-distribution-packaging P04 | 4min | 1 tasks | 1 files |
 | Phase 13-repetition-and-novelty-enforcement P02 | 4min | 2 tasks | 8 files |
 | Phase 13-repetition-and-novelty-enforcement P01 | 4min | 3 tasks | 7 files |
+| Phase 13-repetition-and-novelty-enforcement P03 | 4min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -171,6 +172,8 @@ Recent decisions affecting current work:
 - [Phase 11-distribution-packaging]: Plan 11-05: Sample skill owns the .docx output path override (fixtures/tiny-book/run/final/) via §3 invocation prompt; orchestrator stays unmodified
 - [Phase 11-distribution-packaging]: Plan 11-05: Captivation primary source is consistency-report.md N/14; craft-check.js is degraded fallback only (5 of 14 components)
 - [Phase 11-distribution-packaging]: Plan 11-04: cp -R drags .DS_Store stowaways; release.sh strips them post-copy via find -delete before Gate 4 to keep zip listings clean
+- [Phase 13-repetition-and-novelty-enforcement]: Plan 13-03: Wave 0 test harness extensions written BEFORE production — 5 novelty tests in test-craft-check.js + 8 schema v2 structural assertions in test-rubric-regression.js --extended, deliberately RED until Plans 13-01/02/04/05 land (Nyquist contract)
+- [Phase 13-repetition-and-novelty-enforcement]: Plan 13-03: Zero-dependency frontmatter assertions use string-match not YAML parser, matching the rest of the regression harness
 
 ### Roadmap Evolution
 
@@ -191,6 +194,6 @@ None yet. Phase 12 is a pre-declared gate, not a blocker.
 
 ## Session Continuity
 
-Last session: 2026-04-15T20:48:24.683Z
-Stopped at: Completed 13-01-PLAN.md
+Last session: 2026-04-15T20:49:37.135Z
+Stopped at: Completed 13-03-PLAN.md
 Resume file: None
