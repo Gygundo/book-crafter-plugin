@@ -239,6 +239,57 @@ After writing `chapter-outline.md`, report to the orchestrator:
 - "Momentum distribution: [N] Foundation, [N] Building, [N] Accelerating, [N] Climax, [N] Landing"
 - Mode used (Topic Brief or Source Ingestion)
 
+## Refrain Candidate Gate (Phase 13, D-08)
+
+> Refrains are whitelisted phrases that may appear verbatim across chapters without tripping the Phase 13 dedup audit. Because a naively-inferred refrain becomes a loophole (Phase 13's root cause was a phrase that was de-facto treated as a refrain but never declared), this gate is MANDATORY — refrains cannot be auto-inferred from the brief alone. The author must confirm each candidate phrase before it is written into the Book DNA refrains block.
+
+### Step 1: Extract refrain candidates
+
+Scan the brief and your draft outline for phrases that look like signature refrains. Candidate heuristics:
+
+- Any phrase explicitly marked signature, refrain, or recurring in the brief text
+- Any phrase ≥ 6 words that appears in 2 or more outline beats
+- The brief's declared tagline, subtitle, or book motto if present
+- Any phrase the outliner itself is tempted to thread through multiple chapters as a callback
+
+Produce a candidates list with each candidate's source location in the brief or outline. If zero candidates are found, the candidates list is empty and Step 2 still runs so the author can ADD refrains the outliner missed.
+
+### Step 2: Surface candidates to the author and block handoff
+
+BEFORE writing `book-dna.md`, present the candidates to the author in plain text. For each candidate, offer three options:
+
+1. **Keep as refrain.** Author specifies `max_uses` (integer or the string `unlimited`) and `scope` (one of `whole_book`, `chapter_endings`, `front_matter_only`, `body_only`).
+2. **Demote to normal prose.** The phrase is removed from the refrain block; `craft-check.js --novelty` will flag any repetition.
+3. **Ignore** (candidate is noise — do not include at all).
+
+Also offer: "Add a refrain I missed" — the author can specify a phrase the outliner did not propose.
+
+The gate BLOCKS outline-to-Book-DNA handoff until the author has answered every candidate. The orchestrator spawns writer subagents only after this gate resolves. This is a separate gate from the existing outline approval gate — both gates fire, both must be passed.
+
+### Step 3: Write refrains YAML block into Book DNA
+
+Once the author has confirmed candidates, write a YAML block into `[project_directory]/book-dna.md` under a `## Refrains` heading. Shape:
+
+```yaml
+refrains:
+  - phrase: confirmed phrase text
+    max_uses: 1
+    scope: whole_book
+  - phrase: another phrase
+    max_uses: unlimited
+    scope: chapter_endings
+```
+
+Every downstream skill that reads Book DNA (writer, editor, enricher, formatter, sample skill, `craft-check.js --dna`) sees this block via the existing single-source-of-truth pattern. No new skill contract, no new orchestrator wiring beyond this gate.
+
+### Fixture bypass (D-09)
+
+The `fixtures/tiny-book/` sample fixture ships with a pre-approved `book-dna.md` that already contains the refrains block. When the orchestrator is invoked by the sample skill (`skills/sample/SKILL.md`), the refrain candidate gate is SKIPPED — the pre-populated refrain block is authoritative. Detection signal: the orchestrator passes a project path pointing under `fixtures/tiny-book/` AND the `book-dna.md` at that path already contains a refrains YAML block. Under those two conditions, the gate bypasses non-interactively. This mirrors the outline-approval gate's fixture bypass in Phase 11 D-09.
+
+### Reinforcement of the distinctness rule
+
+The outliner's existing **Central Image Distinctness Check** (section 3, Step 5 area) is reinforced, not contradicted, by this gate. The old rule said "central images should be distinct across chapters." Phase 13 tightens this: same motif family is allowed, same descriptive vehicle is not. The refrain whitelist is the ONLY exception path. If a chapter's `central_image` field is near-identical to another chapter's, the outliner MUST propose one of them as a refrain candidate with `max_uses ≥ 2` OR rewrite one of the `central_image` values to use a distinct vehicle in the same family.
+
 ## 6. Post-Approval: Generate Book DNA
 
 This section executes ONLY after the orchestrator confirms the user has approved the outline. The orchestrator adds `<!-- APPROVED -->` to `chapter-outline.md` and then re-invokes the outliner for Book DNA generation.
