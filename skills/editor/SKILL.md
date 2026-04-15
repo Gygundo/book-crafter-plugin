@@ -499,15 +499,46 @@ Write `[project_directory]/reports/consistency-report.md` with this exact struct
 **Chapters analysed:** [N]
 **Overall assessment:** [Clean / Minor Issues / Significant Issues]
 
+## Captivation Score
+
+> Single canonical scoring surface per `references/captivation-rubric.md` schema_version: 2. Fields below are machine-readable; the sample gate and release.sh read them via column-0 line-anchored bash grep. Do not indent this block. Do not wrap it in a collapsible or conditional. Emit it unconditionally on every editor run.
+
+```yaml
+schema_version: 2
+captivation_total: <INT 0-16>
+novelty_dedup: <pass|fail>
+components:
+  pacing_variety: <INT 0-2>
+  emotional_connection: <INT 0-2>
+  reader_engagement: <INT 0-2>
+  opening_engagement: <INT 0-2>
+  chapter_ending_momentum: <INT 0-2>
+  craft_density: <INT 0-2>
+  cross_chapter_craft: <INT 0-2>
+  novelty_variation: <INT 0-2>
+novelty_dedup_flags: []
+```
+
+**Field contract:**
+- `schema_version: 2` — hard break from Phase 7/10/11 v1 shape. Never emit `schema_version: 1`.
+- `captivation_total` — sum of all 8 component scores, clamped to [0, 16].
+- `novelty_dedup` — binary verdict from §4.4.5 Novelty and Dedup Audit. `pass` if the hybrid deterministic + LLM judgment pass finds zero flags, else `fail`.
+- `components` — flat object with exactly 8 keys matching the rubric frontmatter `components.*.key` values. Every key MUST be present on every emit, even if 0.
+- `novelty_dedup_flags` — array of flag objects when `novelty_dedup: fail`, else empty array `[]`. Each entry shape: `{file, type, note}`. Type is one of: `repeated_span`, `vulnerability_beat_reuse`, `central_image_reuse`, `refrain_overuse`, `tier2_discussion_stem`, `tier2_prayer_point`, `tier2_vulnerability_bleed`, `tier2_vehicle_backmatter`.
+
+**Contract for bash grep readers:** All four anchor lines (`schema_version:`, `captivation_total:`, `novelty_dedup:`, `novelty_dedup_flags:`) MUST appear at column 0 of their own line. The fenced ```yaml block does not interfere with `grep -E '^captivation_total:'` because the fence characters are on their own lines.
+
 ## Voice Consistency (Pass 1)
 
 | Chapter | Violations | Avg Sentence Length | Fragment % | Captivation | Severity |
 |---------|-----------|--------------------|-----------:|:-----------:|----------|
-| Ch 1    | 0         | 15.2               | 22%        | 8/10        | clean    |
+| Ch 1    | 0         | 15.2               | 22%        | 14/16       | clean    |
 
 ### Captivation Score Breakdown
 
 Scoring aggregation and thresholds per `${CLAUDE_PLUGIN_ROOT}/references/captivation-rubric.md` § Scoring Aggregation.
+
+**Schema v2 canonicalisation (Phase 13):** The YAML block at `## Captivation Score` above is the single machine-readable surface for `skills/sample/SKILL.md §4` and any future release.sh gate. Prose references to `N/10` or `N/14` in this report are legacy and will be removed in a future phase. The rubric file at `${CLAUDE_PLUGIN_ROOT}/references/captivation-rubric.md` is the canonical schema (schema_version: 2, total_range [0, 16], 8 components, novelty_dedup binary dimension).
 
 ### Flagged Issues
 1. **Ch [N], ~line [N]:** "[description]"
@@ -678,7 +709,7 @@ After all passes complete (or after revision mode completes), return a summary t
 Editing complete for [Book Title].
 Chapters edited: [N]
 Voice consistency: [Clean/Minor/Significant] ([X] issues found, [Y] auto-resolved)
-Captivation: avg [X.X]/10 ([N] chapters below threshold)
+Captivation: avg [X.X]/16 ([N] chapters below threshold)
 Transitions: [X]/[N-1] smooth
 Cross-references: [X] validated, [Y] flagged
 Report: [project_directory]/reports/consistency-report.md
