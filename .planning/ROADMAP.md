@@ -241,7 +241,15 @@ Plans:
 
 **Anti-pattern reminder (from PITFALLS.md):** Do NOT `zip -r .` — always build from an explicit allow-list. The release script MUST fail-hard if the output exceeds 5MB, contains `/Users/David`, or ships `.planning/`, `evidence/`, or `books/`. Do NOT declare version in both `plugin.json` AND `marketplace.json` — the manifest silently wins and the marketplace version is ignored. Do NOT claim "bestseller quality" in the README until Phase 12 evidence exists (Phase 12 finalises README capability language). Do NOT use the term "Claude Desktop" anywhere — plugins live in Claude Code; claude.ai has no plugin installer.
 
-**Plans:** TBD (estimated 6 plans — schema re-verification + fixture + smoke-test path, README/LICENSE/CHANGELOG, marketplace.json + plugin.json bump, release.sh, sample skill, validate dry-run)
+**Plans:** 6 plans
+
+Plans:
+- [ ] 11-01-PLAN.md — Tiny-book fixture (brief.md + threshold) and .gitignore additions
+- [ ] 11-02-PLAN.md — GitHub repo creation, README, LICENSE, CHANGELOG
+- [ ] 11-03-PLAN.md — plugin.json v1.1.0 bump (dev name) + marketplace.json (repo-as-marketplace)
+- [ ] 11-04-PLAN.md — scripts/release.sh with 9 fail-hard gates and D-27 whitelist
+- [ ] 11-05-PLAN.md — /book-crafter:sample skill (end-to-end fixture demo)
+- [ ] 11-06-PLAN.md — Final validate + release.sh + sample smoke-test and threshold calibration
 
 ### Phase 12: Re-run + Release Gate
 **Goal:** Prove the v1.1 rules actually improve output by re-running Eternally Secure in `--fresh` mode, producing a seven-gap before/after comparison with quoted paragraphs, verifying the fresh-install path, and recording David's explicit ship decision — all blocking on the v1.1.0 git tag.
