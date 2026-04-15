@@ -198,7 +198,11 @@ For non-theological books, skip this sub-check entirely.
 
 ### 2.8 Pass 1 Output
 
-Save each edited chapter to `[project_directory]/edited/ch[NN]-pass1.md` with the voice audit metadata block appended at the end:
+Save each edited chapter to `[project_directory]/edited/ch[NN]-pass1.md` with the voice audit metadata block appended at the end.
+
+**Version stamp:** Every pass1 chapter file inherits its first two lines from the writer's draft — line 1 is `<!-- provenance: {source_path}:{line} -->` and line 2 is `<!-- generated-by: book-crafter v1.1.0 -->`. Preserve both lines exactly. If either is missing when the editor reads the draft, prepend it before writing the pass1 file (the `<!-- generated-by: book-crafter v1.1.0 -->` stamp must occupy line 2, immediately beneath the provenance comment). CRAFT-15 auto-fix is performed here, not rounded-tripped to the writer.
+
+Chapter file structure emitted by Pass 1:
 
 ```markdown
 <!-- VOICE AUDIT
@@ -360,7 +364,9 @@ Save each chapter to `[project_directory]/edited/ch[NN]-pass2.md`.
 
 If no changes were needed for a chapter, copy the pass1 file as-is to pass2.
 
-Write `[project_directory]/reports/flow-report.md`:
+**Version stamp:** Pass 2 preserves the two header comments inherited from Pass 1 — line 1 provenance and line 2 `<!-- generated-by: book-crafter v1.1.0 -->`. If either is missing when Pass 2 reads the pass1 file (e.g. because of an out-of-band edit), auto-fix by prepending the version stamp as line 2 (or line 1 if no provenance comment is present) before writing the pass2 file.
+
+Write `[project_directory]/reports/flow-report.md`. **Prepend `<!-- generated-by: book-crafter v1.1.0 -->` as the first line of `flow-report.md`** (line 1, above the `# Flow Report` heading). The flow report has no provenance comment, so the version stamp occupies line 1.
 
 ```markdown
 # Flow Report: [Book Title]
@@ -482,7 +488,9 @@ Cross-reference against Book DNA Running Themes section:
 
 Save final edited chapters to `[project_directory]/edited/ch[NN]-final.md`. If no changes were needed for a chapter in this pass, copy from pass2.
 
-Write `[project_directory]/reports/consistency-report.md` with this exact structure:
+**Version stamp:** Each `edited/ch[NN]-final.md` preserves the two header comments inherited from Pass 2 — line 1 provenance and line 2 `<!-- generated-by: book-crafter v1.1.0 -->`. If either is missing, auto-fix in place by prepending the missing comment(s) before writing the final file. The version stamp must end up as line 2 (or line 1 if the chapter truly has no provenance comment, which is itself a CRAFT-01 fail flagged in the VOICE AUDIT).
+
+Write `[project_directory]/reports/consistency-report.md` with this exact structure. **Prepend `<!-- generated-by: book-crafter v1.1.0 -->` as the first line of `consistency-report.md`** (line 1, above the `# Consistency Report` heading). The consistency report has no provenance comment, so the version stamp occupies line 1.
 
 ```markdown
 # Consistency Report: [Book Title]

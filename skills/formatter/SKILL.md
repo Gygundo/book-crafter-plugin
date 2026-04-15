@@ -112,6 +112,14 @@ function convertSmartQuotes(text) {
 }
 ```
 
+### Strip HTML Comments (CRAFT-15 / D-21)
+
+Before passing any chapter markdown to docx-js, the formatter MUST strip every HTML comment from the source. Chapters emitted upstream carry two mandatory header comments — `<!-- provenance: {source_path}:{line} -->` on line 1 and `<!-- generated-by: book-crafter v1.1.0 -->` on line 2 — plus trailing `<!-- METADATA -->` and (from the editor) `<!-- VOICE AUDIT -->` blocks. None of these comments may reach the final `.docx`.
+
+**Rule:** Run `content = content.replace(/<!--[\s\S]*?-->/g, '')` over the chapter text immediately after reading the file and before any other parsing. This single regex covers provenance comments, `generated-by` version stamps, METADATA blocks, VOICE AUDIT blocks, and any other HTML comment an upstream skill may emit. Use `[\s\S]` (not `.`) so the pattern matches across newlines; use the non-greedy `*?` so adjacent comments do not collapse into one match.
+
+**Post-condition assertion:** After the final `.docx` is written, the formatter asserts that the rendered document contains zero occurrences of the literal strings `generated-by` and `provenance:` in any text run. If either string survives into the document body, the .docx is considered corrupted and the formatter reports a CRAFT-15 formatter failure.
+
 ### parseChapterMarkdown(content)
 
 Parses an entire chapter markdown file into an array of `Paragraph` objects. Detects three content types: normal paragraphs (rendered as Normal style), scripture block quotes (rendered as ScriptureBlockQuote + ScriptureReference styles), and pull quotes (rendered as PullQuote style):
@@ -131,6 +139,13 @@ function parseChapterMarkdown(content) {
 
   // Also strip VOICE AUDIT blocks from edited chapters
   content = content.replace(/<!--\s*VOICE AUDIT[\s\S]*?-->/, '').trim();
+
+  // Strip ALL remaining HTML comments (provenance, generated-by version stamps,
+  // and any other upstream comments). This covers both
+  // <!-- provenance: sources/ch01.md:12 --> and
+  // <!-- generated-by: book-crafter v1.1.0 -->.
+  // Per CRAFT-15 / D-21, no HTML comment may survive into the .docx.
+  content = content.replace(/<!--[\s\S]*?-->/g, '').trim();
 
   const lines = content.split('\n');
   const paragraphs = [];
@@ -982,6 +997,10 @@ function parseChapterMarkdown(content) {
 
   // Also strip VOICE AUDIT blocks from edited chapters
   content = content.replace(/<!--\s*VOICE AUDIT[\s\S]*?-->/, '').trim();
+
+  // Strip ALL remaining HTML comments (provenance + generated-by version stamps).
+  // Per CRAFT-15 / D-21, no HTML comment may survive into the .docx.
+  content = content.replace(/<!--[\s\S]*?-->/g, '').trim();
 
   const lines = content.split('\n');
   const paragraphs = [];

@@ -142,7 +142,10 @@ Default to author-voice mode unless the Book DNA metadata contains a "Foreword m
 
 **Output format for foreword (`front-matter/foreword.md`):**
 
+**Prepend `<!-- generated-by: book-crafter v1.1.0 -->` as the first line of `front-matter/foreword.md`** (line 1, above the `# Foreword` heading). The version stamp is required on every generated artefact; the formatter strips all HTML comments before .docx emission.
+
 ```markdown
+<!-- generated-by: book-crafter v1.1.0 -->
 # Foreword
 
 [500-800 word foreword text]
@@ -157,9 +160,10 @@ generated: [date]
 
 ## 7. Output Format
 
-For each chapter, write `enrichments/ch[NN]-enrichments.md` with this exact structure:
+For each chapter, write `enrichments/ch[NN]-enrichments.md` with this exact structure. **Prepend `<!-- generated-by: book-crafter v1.1.0 -->` as the first line of every `enrichments/ch[NN]-enrichments.md` file** (line 1, above the `# Enrichments` heading). The version stamp is required on every generated artefact; the formatter strips all HTML comments before .docx emission.
 
 ```markdown
+<!-- generated-by: book-crafter v1.1.0 -->
 # Enrichments: Chapter [N] - [Chapter Title]
 
 ## Discussion Questions
