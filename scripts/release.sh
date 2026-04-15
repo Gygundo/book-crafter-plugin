@@ -44,6 +44,18 @@ mkdir -p "$STAGING/fixtures/tiny-book"
 cp fixtures/tiny-book/brief.md "$STAGING/fixtures/tiny-book/"
 cp fixtures/tiny-book/expected-captivation-score.txt "$STAGING/fixtures/tiny-book/"
 
+# --- Adversarial fixture exclusion (Phase 13 D-22 / D-18) ---
+# fixtures/tiny-book/adversarial/ and adversarial-enricher/ are test-only
+# hand-authored known-bad manuscripts used by test-craft-check.js to prove
+# the FAIL path. They MUST NEVER ship in the release zip. The explicit
+# whitelist above already excludes them by omission; this assertion guards
+# against a future widening of the copy logic.
+if [ -d "$STAGING/fixtures/tiny-book/adversarial" ] || [ -d "$STAGING/fixtures/tiny-book/adversarial-enricher" ]; then
+  echo "FAIL (Gate 3b): adversarial fixture leaked into staging" >&2
+  exit 1
+fi
+echo "Gate 3b OK: adversarial fixtures excluded"
+
 # Top-level docs
 cp README.md "$STAGING/"
 cp LICENSE "$STAGING/"
