@@ -536,6 +536,94 @@ f. **Return to review gate:** After all requested revisions complete, present th
 **On Option 3 (Read full draft):**
 Compile all `edited/ch[NN]-final.md` files into a single markdown document and present it to the user (or tell them the file paths to read). Then return to the review gate.
 
+##### Revision Cap and Divergent-Improvement Detection (CRAFT-17)
+
+This subsection wires the hard 2-revision cap and divergent-improvement detection into the chapter revision loop above. It applies to BOTH the Stage 4 Option 2 user-driven revision flow (steps a-f) AND every editor-triggered auto-revise call (CRAFT-01 scene-first failure, CRAFT-02 Greek density failure, CRAFT-05 pulpit-seam failure, and Pass 2 §3.3 scene-first strictness failure). Flag-only failures (CRAFT-03, CRAFT-04, CRAFT-06, CRAFT-07, CRAFT-08) do NOT trigger the revision loop — they only append to the diagnostic report assembled by editor §4.6.
+
+**Per-chapter revision state.**
+
+The orchestrator tracks per-chapter revision state in `reports/revision-log.md` (created on first revision, append-only). Each chapter has an entry of the form:
+
+```
+## Ch [NN] revision history
+
+revision_count: <integer, 0..2>
+revision_history:
+  - revision_n: 0
+    captivation_total: <0..14>
+    component_scores: {pacing: N, emotional: N, opening: N, ending: N, language: N, craft_density: N, cross_chapter: N}
+    craft_check_failures: [CRAFT-XX, ...]
+    source_file: drafts/ch[NN]-draft.md
+  - revision_n: 1
+    captivation_total: <0..14>
+    component_scores: {...}
+    craft_check_failures: [...]
+    source_file: revisions/ch[NN]-v01-draft.md
+  - revision_n: 2
+    captivation_total: <0..14>
+    component_scores: {...}
+    craft_check_failures: [...]
+    source_file: revisions/ch[NN]-v02-draft.md
+status: capped | converged | divergent | accepted
+final_revision: <integer index into revision_history>
+```
+
+`revision_count` starts at 0 (the original draft) and increments by 1 each time the writer is re-invoked for that chapter. `component_scores` is harvested from the editor's Pass 1 captivation rubric output (the 7 components from `references/captivation-rubric.md`). `craft_check_failures` is harvested from the deterministic `scripts/craft-check.js` JSON written into the chapter's `<!-- VOICE AUDIT -->` `craft_check` block.
+
+**Hard cap.**
+
+`revision_count` must NEVER exceed 2. After the second revision (revision_n == 2), no further revision is attempted even if hard-gate checks still fail. This is the structural prevention against Pitfall 4 (Auto-Revise Infinite Loop) and the locked policy from Phase 10 D-08.
+
+If a user explicitly requests a third revision on the same chapter via Stage 4 Option 2 or Mode 5, the orchestrator MUST refuse with this exact message and return to the review gate without spawning a writer subagent:
+
+> "Chapter [NN] has already used the 2-revision cap (CRAFT-17). The highest-scoring revision is currently in place. To revise further, you'll need to manually edit the file or restart the chapter via Mode 6 (Fresh)."
+
+**Divergent-improvement detection.**
+
+After each revision N where N ≥ 1 (i.e. after revision_count increments to 1 or 2), the orchestrator compares the new revision's `component_scores` against the previous revision's `component_scores` BEFORE accepting the new revision as the working draft.
+
+1. For each of the 7 captivation components, compute `delta = scores[N] - scores[N-1]`.
+2. If ANY single component has `delta < 0` (revision N scores LOWER than revision N-1 on that sub-component, even if the total went up), declare **divergent improvement**.
+3. On divergent improvement: roll back to revision N-1 — restore `drafts/ch[NN]-draft.md` from the previous `revisions/ch[NN]-v[VV]-draft.md`, re-run editor Pass 1 on the rolled-back draft to restore `edited/ch[NN]-final.md`, set `status: divergent` and `final_revision: N-1` in the revision log, and STOP the revision loop for this chapter.
+4. Append a flag to the `Bestseller Diagnostic` section of `reports/consistency-report.md` (the section editor §4.6 assembles) using exactly this format so §4.6 can render it under "Revision Cap Notes":
+
+   ```
+   Chapter [NN]: divergent improvement detected at revision [N]. Accepted revision [N-1] (component [X] dropped from [A] to [B]).
+   ```
+
+The detection is intentionally STRICT: any single sub-component regression trips it. The rationale (D-09 + Pitfall 4) is that "total went up but one component dropped" is the signature failure mode of forced rewrites on judgment checks — the rewrite trades depth in one dimension for surface gains in another.
+
+**Revision exhaustion handling (cap hit).**
+
+If `revision_count == 2` and hard-gate `craft_check_failures` remain non-empty after editor Pass 1 reruns on the v02 draft, the orchestrator does NOT spawn a third writer call. Instead, it picks the highest-scoring revision from the recorded history:
+
+1. Compare `captivation_total` across all entries in `revision_history`.
+2. The winner is the entry with the highest `captivation_total`. Ties are broken by lowest `craft_check_failures` length, then by lowest `revision_n` (earliest wins).
+3. Restore the winner's `source_file` as the working draft, re-run editor Pass 1/2/3 against it so `edited/ch[NN]-final.md` reflects the chosen revision, set `status: capped` and `final_revision: <winner index>` in the revision log.
+4. Append a flag to the `Bestseller Diagnostic` section of `reports/consistency-report.md` using exactly this format so §4.6 can render it under "Revision Cap Notes":
+
+   ```
+   Chapter [NN] hit the 2-revision cap. Accepted revision [M] (captivation total [T], craft check failures [F]). Human review recommended at Stage 4 review gate.
+   ```
+
+5. Continue the pipeline. Do NOT halt. The user sees the flag at the Stage 4 review gate alongside all other diagnostics and decides whether to manually intervene.
+
+**Auto-revise trigger integration.**
+
+Editor Pass 1 §2.0 (CRAFT-01 provenance fail), §2.1-§2.7 (CRAFT-02 density, CRAFT-05 pulpit-seam hard fails), and Pass 2 §3.3 (scene-first strictness) write revision requests to `[project_directory]/revisions/ch[NN]-request.md`. The orchestrator detects this file at the top of each revision iteration and treats it as an auto-revise trigger:
+
+1. Read the request, version-backup the current draft (same v[VV] scheme as Stage 4 Option 2 step a).
+2. Increment `revision_count` and re-spawn the writer with the request's `failed_check`, `scope`, and `evidence` fields appended to the standard arguments.
+3. Re-run editor Pass 1 on the new draft, harvest the new `component_scores` and `craft_check_failures`, append to `revision_history`.
+4. Apply divergent-improvement detection (above). If divergent, roll back and stop. Otherwise:
+5. If hard-gate failures remain AND `revision_count < 2`, loop. If `revision_count == 2` and failures remain, apply revision exhaustion handling (above). If failures cleared, set `status: converged` and `final_revision: <current N>`, stop the loop.
+
+Flag-only checks (CRAFT-03, CRAFT-04, CRAFT-06, CRAFT-07, CRAFT-08) do NOT write revision requests and do NOT enter this loop. They are surfaced exclusively through editor §4.6 diagnostic assembly.
+
+**State persistence.**
+
+`reports/revision-log.md` survives across orchestrator restarts and across Mode 3 (Resume) re-entries. On Resume, the orchestrator reads the revision log and restores per-chapter `revision_count` before deciding whether further revision is permitted. Mode 6 (Fresh) deletes `reports/` (per CRAFT-14) which clears the log — fresh runs start every chapter at `revision_count: 0`.
+
 #### Stage 4.5: Content Enrichment
 
 **Step 1: Verify readiness**
