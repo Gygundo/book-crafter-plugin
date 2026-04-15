@@ -4,13 +4,13 @@ milestone: v1.1
 milestone_name: Bestseller Quality + Distribution
 status: executing
 stopped_at: Completed 13-07-PLAN.md
-last_updated: "2026-04-15T21:10:40.000Z"
+last_updated: "2026-04-15T21:13:21.158Z"
 last_activity: 2026-04-15
 progress:
   total_phases: 13
   completed_phases: 10
   total_plans: 45
-  completed_plans: 39
+  completed_plans: 40
   percent: 0
 ---
 
@@ -98,6 +98,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 13-repetition-and-novelty-enforcement P04 | 6min | 2 tasks | 2 files |
 | Phase 13-repetition-and-novelty-enforcement P07 | 5min | 2 tasks | 2 files |
 | Phase 13-repetition-and-novelty-enforcement P06 | 4min | 2 tasks | 1 files |
+| Phase 13-repetition-and-novelty-enforcement P05 | 12 | 1 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -181,6 +182,9 @@ Recent decisions affecting current work:
 - [Phase 13-repetition-and-novelty-enforcement]: Plan 13-04: regenerated rubric sha256 baseline matches Phase 10 hash byte-identically because all Phase 13 edits landed outside the 5 legacy component bodies; schema v2 structural assertions in --extended are the primary drift detector going forward
 - [Phase 13-repetition-and-novelty-enforcement]: Plan 13-07: Writer Anti-Loop Clause lands between CRAFT-04 and §5 Voice Consistency, deliberately outside CRAFT-* numbering so Phase 10 legacy hash lock stays intact; Refrain Candidate Gate is a SECOND outliner gate (separate from outline approval), blocks book-dna.md emission until author confirms each candidate, with fixtures/tiny-book/ bypass detecting pre-populated refrain block
 - [Phase 13-repetition-and-novelty-enforcement]: Plan 13-06: Editor emits single canonical schema v2 YAML block at column 0 (## Captivation Score); §4.4.5 hybrid deterministic + LLM novelty audit with rewrite_targets.yaml mirror for Mode 7; editor is judge not author; novelty_dedup fail is a hard gate, no soft-warn
+- [Phase 13-repetition-and-novelty-enforcement]: Plan 13-05: Vehicle distinctness uses dominant-word detection (content word in >=2 vehicles collapses family) before Jaccard fallback — adversarial fixture's three lamp vehicles share only one word so pure Jaccard would under-count
+- [Phase 13-repetition-and-novelty-enforcement]: Plan 13-05: Vulnerability signatures emit 10 words starting at the anchor (not 6 from first sentence) — first-sentence approach misses anchor-in-third-sentence paragraphs in the adversarial fixture
+- [Phase 13-repetition-and-novelty-enforcement]: Plan 13-05: Repeated spans are grown to maximal common substrings via lock-step token extension across shared shingles, then coverage-deduped so one row per maximal duplicate (matches test harness exact-phrase assertions)
 
 ### Roadmap Evolution
 
