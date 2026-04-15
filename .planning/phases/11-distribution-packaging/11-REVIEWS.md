@@ -1,7 +1,6 @@
 ---
 phase: 11
-reviewers: [codex]
-gemini_status: unavailable (429 - capacity exhausted on all tried models)
+reviewers: [codex, gemini-2.5-flash]
 reviewed_at: 2026-04-15
 plans_reviewed: [11-01-PLAN.md, 11-02-PLAN.md, 11-03-PLAN.md, 11-04-PLAN.md, 11-05-PLAN.md, 11-06-PLAN.md]
 focus: repetition blindspot — sample scored 14/14 but reader flagged looping lamp image and duplicated vulnerability beat across foreword and ch2
@@ -9,13 +8,37 @@ focus: repetition blindspot — sample scored 14/14 but reader flagged looping l
 
 # Cross-AI Plan Review — Phase 11
 
-## Gemini Review
+## Gemini Review (gemini-2.5-flash)
 
-_Unavailable._ All Gemini models (default, `gemini-2.5-pro`, `gemini-2.5-flash`) returned HTTP 429 "No capacity available" / "exhausted capacity" during this review window. Retry once quota resets with:
+Summary: The core issue of repetitiveness stems from a captivation rubric that rewards the consistent *presence* of specific craft elements (central image, vulnerability beat) across chapters without penalising verbatim or near-verbatim repetition, especially across artefacts (foreword vs chapter). The writer and editor diligently enforce presence as per the rubric but lack mechanisms for enforcing *variation* or cross-artefact deduplication, producing a looping effect for the human reader despite high rubric scores. Phase 11 (distribution/packaging) does not directly address this — it is a content-quality issue, not a packaging one.
 
-```bash
-cat /tmp/gsd-review/prompt-11.md | gemini -m gemini-2.5-pro -p "review" >> .planning/phases/11-distribution-packaging/11-REVIEWS.md
-```
+**Strengths**
+- Robust craft-rule enforcement (14/14 proves the rules themselves work)
+- Structured editor pipeline (Pass 1/2/3) and detailed `bestseller-craft-rules.md` provide a solid base
+- Clear project goal articulation
+- Deterministic `craft-check.js` checks (CRAFT-01/02/05/07/15) are verifiable
+
+**HIGH severity concerns**
+
+1. **Captivation rubric rewards verbatim repetition.** `references/captivation-rubric.md` → "Central image zonal presence" (CRAFT-03) rewards presence in 2 of 3 zones *per chapter*. "Cross-Chapter Craft → Central-image distinctness across chapters" checks image *concept* distinctness, not description. Evidence: the consistency-report line "one small lamp refusing the whole dark present in opening/middle/closing of every chapter" scores 1/1 — the rubric encourages exact repetition.
+
+2. **No cross-artefact dedup in editor.** Pass 3 checks Term Index, Reference Validation, Scripture Consistency, Theme Tracking — nothing for narrative repetition. Evidence: foreword "stood at a kitchen counter at 3am with both hands flat on the wood and nothing spiritual to say" vs ch2 "stood at the counter and I put both hands flat on the wood and I did not try to say anything spiritual" — editor cannot catch this.
+
+3. **Writer skill is explicitly instructed to repeat the central image.** `skills/writer/SKILL.md` CRAFT-03 tells it to thread the central_image through three zones of *every* chapter, and the fixture brief mandates "appears in opening/middle/closing of every chapter." The writer is doing exactly what it is told.
+
+**MEDIUM severity concerns**
+
+4. **Vulnerability beat sourcing encourages replication.** CRAFT-04 requires the beat to be "sourced, not fabricated" — good for anti-hallucination, bad for variation. A prominent `vulnerability_beat_seed` reused across chapters gets reproduced verbatim.
+
+5. **Cross-Chapter Craft component is too narrow.** Only checks central-image distinctness + transliterated-term variety. Silent on narrative prose and vulnerability-beat repetition.
+
+**Suggestions**
+
+- **Rubric:** add new "Narrative Element Variation" (0-1 pt) to Cross-Chapter Craft — penalise >80% phrase-match across chapters/artefacts for central-image and vulnerability-beat passages. Refine "Central-image distinctness" to cover *how the image is described*, not just the concept. Cap points in Craft Density / Emotional Connection when the same exact phrase is used in multiple zones of a single chapter.
+- **Editor Pass 3:** add "Narrative Repetition Check" — extract vulnerability-beat passages and central-image zone passages from each chapter and foreword, compare for high textual similarity, flag in consistency report. Judgment call, not auto-revise.
+- **Writer prompt:** add anti-pattern "Do NOT repeat verbatim narrative descriptions or vulnerability beats across chapters or Foreword. If the concept must recur, rephrase with different words, metaphors, or contextual details." Refine CRAFT-03/04 instructions to emphasise *echo* and *recontextualise* over *repeat*.
+
+**Risk level: HIGH.** The current implementation optimises for a checklist rather than a human reading experience. Shipping this compromises the core value of "bestseller quality prose a reader devours."
 
 ---
 
@@ -116,7 +139,19 @@ The architecture is close, but the current system is optimising for recurrence a
 
 ## Consensus Summary
 
-Only one reviewer (Codex) responded, so "consensus" is single-voice. The findings below are what Codex raised; they align directly with the human reader's complaint and should be treated as high-signal even without a second reviewer.
+**Both reviewers agree, independently, on the same root causes and the same fixes.** This is a strong signal — two different models, fed the same artefacts, converged on the same diagnosis as the human reader.
+
+### Agreed diagnosis
+- The rubric is a presence checklist, not a variation check — and the rubric *rewards* the exact behaviour that produced the loop.
+- The fixture brief mandates the loop upstream (codex flagged this; gemini flagged the writer skill's symmetric instruction).
+- No cross-artefact dedup exists anywhere in the pipeline (editor, rubric, or writer).
+- The captivation score the release gate trusts is not canonically defined.
+
+### Agreed fixes
+- Add a novelty/dedup dimension to the rubric.
+- Add a manuscript-level repetition audit to editor Pass 3 (scanning `front-matter/*.md` + `edited/ch*-final.md` for repeated N-grams, reused vulnerability scenes, reused central-image phrasings).
+- Add anti-loop instructions to the writer prompt (no 6+ word phrase reuse across artefacts unless whitelisted as refrain; spent vulnerability seeds cannot be reused).
+- Rewrite the tiny-book fixture as "one motif family, distinct vehicles per chapter" (codex-specific — gemini agrees in spirit via the writer prompt fix).
 
 ### Top concerns (HIGH)
 
