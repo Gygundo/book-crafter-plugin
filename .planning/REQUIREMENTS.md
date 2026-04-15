@@ -205,9 +205,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 - [x] **CRAFT-07**: Editor enforces ≥2 quoted/italicised reader-thought lines per chapter (psychological tension, not structural)
 - [x] **CRAFT-08**: Editor enforces a concrete:abstract noun ratio ≥1:1 over any 4-paragraph window (show-don't-tell detector)
 - [x] **CRAFT-09**: Captivation rubric extracted from inline editor/writer sections into standalone `references/captivation-rubric.md`, unchanged scores on regression check
-- [ ] **CRAFT-10**: Captivation rubric extended from 5 components (0-10) to 7 components (0-14), with Craft Density and Cross-Chapter Craft components anchored to before/after exemplars from Eternally Secure
+- [x] **CRAFT-10**: Captivation rubric extended from 5 components (0-10) to 7 components (0-14), with Craft Density and Cross-Chapter Craft components anchored to before/after exemplars from Eternally Secure
 - [x] **CRAFT-11**: New `references/bestseller-craft-rules.md` reference file, read by both writer and editor, voice-agnostic, cap 200 lines
-- [ ] **CRAFT-12**: New `references/bestseller-calibration.md` with paraphrased before/after paragraphs at score levels 3, 6, and 9
+- [x] **CRAFT-12**: New `references/bestseller-calibration.md` with paraphrased before/after paragraphs at score levels 3, 6, and 9
 - [x] **CRAFT-13**: Voice profile audited and subtractively edited — every v2 addition paired with a v1 removal, cap 150 lines, tracked kill list committed
 - [x] **CRAFT-14**: Orchestrator gains `--fresh` mode that deletes Book DNA, chapter-outline, research/, drafts/, revisions/, edited/, enrichments/, front-matter/, reports/, output/ before starting (preserves only `sources/`, `sources-adapted/`, `brief.md`, `voice-profile.md`)
 - [x] **CRAFT-15**: All generated artefacts carry a version stamp (`<!-- generated-by: book-crafter v1.1.0 -->`)
@@ -277,9 +277,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CRAFT-07 | Phase 10 | Complete |
 | CRAFT-08 | Phase 10 | Complete |
 | CRAFT-09 | Phase 10 | Complete |
-| CRAFT-10 | Phase 10 | Pending |
+| CRAFT-10 | Phase 10 | Complete |
 | CRAFT-11 | Phase 10 | Complete |
-| CRAFT-12 | Phase 10 | Pending |
+| CRAFT-12 | Phase 10 | Complete |
 | CRAFT-13 | Phase 10 | Complete |
 | CRAFT-14 | Phase 10 | Complete |
 | CRAFT-15 | Phase 10 | Complete |
