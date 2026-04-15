@@ -40,9 +40,26 @@
 
 ## Chapter Map
 
-| Ch | Title | Core Argument | Opening Hook Strategy | Key Scriptures | Connects To |
-|----|-------|---------------|-----------------------|----------------|-------------|
-| 1  | ...   | ...           | ...                   | ...            | Ch 3, Ch 7  |
+Use one sub-list block per chapter. Every chapter MUST carry all fields below, including `central_image` and `vulnerability_beat_seed` (Phase 10 craft fields):
+
+- **Ch 1: [Title]**
+  - Core argument: [one sentence]
+  - Opening hook strategy: [type -- 1-2 sentence description]
+  - Key scriptures: [comma-separated references]
+  - Connects to: [Ch X (foreshadows ...), Ch Y (builds on ...)]
+  - Momentum position: [Foundation | Building | Accelerating | Climax | Landing]
+  - central_image: [one dominant sensory anchor -- distinct across all chapters]
+  - vulnerability_beat_seed: [source_path:line OR empty with note "no vulnerability seed available -- skip beat"]
+- **Ch 2: [Title]**
+  - Core argument: ...
+  - Opening hook strategy: ...
+  - Key scriptures: ...
+  - Connects to: ...
+  - Momentum position: ...
+  - central_image: ...
+  - vulnerability_beat_seed: ...
+
+The writer reads `central_image` and `vulnerability_beat_seed` as hard constraints at draft time. See `references/bestseller-craft-rules.md` § CRAFT-03 and § CRAFT-04.
 
 ## Running Themes
 
