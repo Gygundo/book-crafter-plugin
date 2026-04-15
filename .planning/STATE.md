@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Bestseller Quality + Distribution
 status: executing
-stopped_at: Completed 13-03-PLAN.md
-last_updated: "2026-04-15T20:49:43.674Z"
+stopped_at: Completed 13-04-PLAN.md
+last_updated: "2026-04-15T21:06:00.849Z"
 last_activity: 2026-04-15
 progress:
   total_phases: 13
   completed_phases: 10
   total_plans: 45
-  completed_plans: 36
+  completed_plans: 37
   percent: 0
 ---
 
@@ -95,6 +95,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 13-repetition-and-novelty-enforcement P02 | 4min | 2 tasks | 8 files |
 | Phase 13-repetition-and-novelty-enforcement P01 | 4min | 3 tasks | 7 files |
 | Phase 13-repetition-and-novelty-enforcement P03 | 4min | 2 tasks | 3 files |
+| Phase 13-repetition-and-novelty-enforcement P04 | 6min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -174,6 +175,8 @@ Recent decisions affecting current work:
 - [Phase 11-distribution-packaging]: Plan 11-04: cp -R drags .DS_Store stowaways; release.sh strips them post-copy via find -delete before Gate 4 to keep zip listings clean
 - [Phase 13-repetition-and-novelty-enforcement]: Plan 13-03: Wave 0 test harness extensions written BEFORE production — 5 novelty tests in test-craft-check.js + 8 schema v2 structural assertions in test-rubric-regression.js --extended, deliberately RED until Plans 13-01/02/04/05 land (Nyquist contract)
 - [Phase 13-repetition-and-novelty-enforcement]: Plan 13-03: Zero-dependency frontmatter assertions use string-match not YAML parser, matching the rest of the regression harness
+- [Phase 13-repetition-and-novelty-enforcement]: Plan 13-04: schema_version 2 locked in references/captivation-rubric.md frontmatter as single source of captivation scoring; 8 components + binary novelty_dedup dimension + sample_gate threshold captivation_total_min: 10
+- [Phase 13-repetition-and-novelty-enforcement]: Plan 13-04: regenerated rubric sha256 baseline matches Phase 10 hash byte-identically because all Phase 13 edits landed outside the 5 legacy component bodies; schema v2 structural assertions in --extended are the primary drift detector going forward
 
 ### Roadmap Evolution
 
@@ -194,6 +197,6 @@ None yet. Phase 12 is a pre-declared gate, not a blocker.
 
 ## Session Continuity
 
-Last session: 2026-04-15T20:49:37.135Z
-Stopped at: Completed 13-03-PLAN.md
+Last session: 2026-04-15T21:05:54.339Z
+Stopped at: Completed 13-04-PLAN.md
 Resume file: None
