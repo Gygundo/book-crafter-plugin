@@ -328,6 +328,20 @@ Check:
 
 Apply the Opening Engagement check as defined in `${CLAUDE_PLUGIN_ROOT}/references/captivation-rubric.md` (Components → Opening Engagement).
 
+**Scene-First Strictness (CRAFT-01 quality)**
+
+`scripts/craft-check.js` has already verified the provenance comment exists and resolves (Pass 1 §2.0). In Pass 2, the editor performs LLM judgment on scene quality in the first 150 words of the chapter. Count words (whitespace-split) up to 150, then confirm ALL of:
+
+1. A proper-noun human OR first-person narrator ("I", "me", "my") is present by word 150.
+2. A time-marker phrase is present (examples: "at 2am", "last Tuesday", "the summer I was fourteen", "when I was eight", "three years ago").
+3. A sensory or physical detail is present — light ("sunlight", "streetlight", "dim", "bright"), sound ("hum", "click", "silence", "rustle"), texture ("cold", "damp", "rough"), smell ("coffee", "rain", "smoke"), or a specifically named concrete object ("chair", "phone", "coffee cup", "window", "door", "car").
+
+If any of (1)(2)(3) is missing, trigger auto-revise of the chapter opener only (per D-06): request the writer rewrite the first paragraph(s) up to 150 words to include the missing element, while preserving the provenance comment and the rest of the chapter. Write the revision request to `[project_directory]/revisions/ch[NN]-request.md` with `scope: opener`, `failed_check: CRAFT-01-scene-quality`, and the specific missing element(s) in `evidence`.
+
+The 2-revision-per-chapter cap (CRAFT-17, wired in Plan 10-09) still applies. On exhaustion, keep the highest-scoring revision by captivation rubric total, flag the missing scene element in the diagnostic report, and continue.
+
+**Rule reference:** `${CLAUDE_PLUGIN_ROOT}/references/bestseller-craft-rules.md` § CRAFT-01.
+
 ### 3.4 Chapter-Ending Momentum Check
 
 Apply the Chapter-Ending Momentum check as defined in `${CLAUDE_PLUGIN_ROOT}/references/captivation-rubric.md` (Components → Chapter-Ending Momentum).
@@ -356,6 +370,66 @@ Write `[project_directory]/reports/flow-report.md`:
 | Ch 1 -> Ch 2 | smooth | none |
 | Ch 2 -> Ch 3 | jarring | rewrote Ch 2 ending to bridge to Ch 3's argument |
 ```
+
+**Pass 2 VOICE AUDIT extension.** For every chapter processed in Pass 2, append a `craft_pass2` block to its `<!-- VOICE AUDIT -->` metadata aggregating the §3.3 scene-first strictness result and the §3.7/§3.8/§3.9 audit results:
+
+```
+craft_pass2:
+  central_image: pass | flag (zones missing: [opening | middle | closing])
+  vulnerability_beat: pass | flag (missing | fabricated | seed_unresolved) | skipped_no_seed
+  reader_moments: pass | flag (count: N; missing: [...]) | skipped_no_section
+  scene_first_strictness: pass | revised
+```
+
+The CRAFT-16 diagnostic step (Plan 10-09) reads both `craft_check` (Pass 1, §2.8) and `craft_pass2` (Pass 2, this block) from each chapter's VOICE AUDIT to build the final per-chapter Bestseller Diagnostic matrix. Do not duplicate the information elsewhere.
+
+### 3.7 Central Image Audit (CRAFT-03)
+
+Read the chapter's `central_image` field from the outline (`chapter-outline.md`) and/or Book DNA (`book-dna.md`). Locate three zones in the chapter:
+
+- **Opening:** first 200 words
+- **Middle third:** from word `floor(total_words / 3)` through word `floor(2 * total_words / 3)` (word-count-based, not paragraph-count-based)
+- **Closing:** final 200 words
+
+Confirm the central image — or a semantically equivalent reference to it — appears in ALL THREE zones. Different registers are fine and expected: literal in the opening (the physical object), metaphor in the middle (the idea carried by the object), echo in the closing (a callback phrase or sensory repeat).
+
+**Failure mode:** **Flag only** (per D-07). Add to the chapter's diagnostic report entry with the zones the image was missing from and the line ranges checked. Update `craft_pass2.central_image` in the VOICE AUDIT block from `pass` to `flag (zones missing: [...])`. Do NOT auto-revise — forcing rewrites here causes divergent-improvement failures (see 10-RESEARCH § Pitfall 4).
+
+**Rule reference:** `${CLAUDE_PLUGIN_ROOT}/references/bestseller-craft-rules.md` § CRAFT-03.
+
+### 3.8 Vulnerability Beat Audit (CRAFT-04)
+
+Read the chapter's `vulnerability_beat_seed` field from the outline and/or Book DNA.
+
+1. **Seed empty:** If the seed field is absent or empty, skip this audit and note `vulnerability_beat: skipped_no_seed` in `craft_pass2` of the VOICE AUDIT block. No diagnostic report entry needed beyond the skip marker.
+2. **Seed present:** Resolve the seed pointer. `vulnerability_beat_seed` uses the same path:line syntax as provenance comments (D-19). Parse `source_path:line`, read the file, confirm the line exists.
+   - If the path or line does not resolve, flag `vulnerability_beat: seed_unresolved` with the failing pointer in the diagnostic report entry.
+3. **Locate the beat:** Search the chapter's middle third (per §3.7 word-count-based zone definition) for a first-person vulnerability beat — a named confession, doubt, or struggle in the narrator's voice ("I", "me", "my").
+   - If no first-person beat is present in the middle third, flag `vulnerability_beat: missing`.
+4. **Authenticity judgment:** If a beat is present, confirm it references or paraphrases the seed material. LLM judgment: does the beat traceably draw on the seed (shared specific detail, same named person/place/moment, paraphrased language), or does it appear fabricated (unrelated to the seed, generic confession, no shared detail)?
+   - If the beat does not trace to the seed, flag `vulnerability_beat: fabricated`.
+
+**Failure mode:** **Flag only.** Fabricated beats are the most serious flag but still flag-only, not auto-revise, because auto-revise on judgment checks risks divergent improvement (D-07 rationale and Pitfall 5: forcing a rewrite loops back to fabrication). Update `craft_pass2.vulnerability_beat` in the VOICE AUDIT block accordingly and add the specific flag to the chapter's diagnostic report entry with line citations and, for `fabricated`, a one-sentence note on why the beat does not trace to the seed.
+
+**Rule reference:** `${CLAUDE_PLUGIN_ROOT}/references/bestseller-craft-rules.md` § CRAFT-04.
+
+### 3.9 Reader Moment Audit (CRAFT-06)
+
+Read the voice profile's `Reader Moments` section (from `[project_directory]/voice-profile.md`).
+
+1. **No section:** If the voice profile has no `Reader Moments` section, skip this audit and note `reader_moments: skipped_no_section` in `craft_pass2` of the VOICE AUDIT block (per D-16 — user-supplied custom profiles may omit the section). No diagnostic report entry needed beyond the skip marker.
+2. **Section present:** Read the chapter's METADATA `reader_moments_used` field (written by the writer at draft time). Confirm ALL of:
+   - **(a)** At least 2 moments are claimed in `reader_moments_used`.
+   - **(b)** Each claimed moment actually appears in the chapter text (grep the chapter body for the moment phrase or a close paraphrase — LLM judgment on paraphrase equivalence).
+   - **(c)** Each claimed moment is one of the moments listed in the voice profile's `Reader Moments` section (not an invented moment the writer made up mid-draft).
+3. If any of (a)(b)(c) fails, record the specific failure:
+   - Too few claimed: `flag (count: N < 2)`
+   - Claimed but missing from text: `flag (missing: [moment names])`
+   - Not in voice profile list: `flag (unlisted: [moment names])`
+
+**Failure mode:** **Flag only.** Add to the chapter's diagnostic report entry with the count and list of missing/extra moments. Update `craft_pass2.reader_moments` in the VOICE AUDIT block accordingly. Do NOT auto-revise.
+
+**Rule reference:** `${CLAUDE_PLUGIN_ROOT}/references/bestseller-craft-rules.md` § CRAFT-06.
 
 ## 4. Pass 3 -- Cross-Chapter Validation
 
