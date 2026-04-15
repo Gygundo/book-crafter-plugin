@@ -59,6 +59,15 @@ Read `[project_directory]/research/ch[NN]-research.md` (zero-padded chapter numb
 
 Use this material throughout the chapter. The research artefact is your depth toolkit -- weave it into the narrative rather than treating it as a checklist to work through.
 
+**Step 5: Read craft constraints for this chapter**
+
+Read the chapter's `central_image` and `vulnerability_beat_seed` from the chapter outline (and cross-check the Book DNA Chapter Map). These are **constraints, not suggestions**:
+
+- `central_image` MUST be threaded through the opening 200 words, middle third, and closing 200 words of the chapter (see Section 4 "Central Image Discipline (CRAFT-03)" below).
+- `vulnerability_beat_seed` MUST resolve to a real `source_path:line` pointing at existing source material. Before drafting, open that file and read the referenced line. Compose the chapter's vulnerability beat from that material. **Do NOT invent a vulnerability beat.** If `vulnerability_beat_seed` is empty or carries the note `no vulnerability seed available -- skip beat`, skip the beat for this chapter and record `vulnerability_beat: skipped` in the METADATA block. Fabricating a beat is a CRAFT-04 hard fail.
+
+Also read `${CLAUDE_PLUGIN_ROOT}/references/bestseller-craft-rules.md` before drafting. This file is the authoritative spec for the craft rules enforced in the sections below (CRAFT-01 through CRAFT-08).
+
 ## 2. Word Count Targets
 
 The specific target word count comes from the chapter's outline section (passed via arguments). Use the outline target. The table below is for reference if the outline target is missing.
@@ -107,6 +116,24 @@ Example: "We pray for patience and then complain when God gives us situations th
 
 **After the opening story,** the next 1-2 paragraphs must bridge from the narrative to the chapter's core argument. The reader should know within the first 300 words what this chapter is about and why it matters to THEM personally.
 
+### Scene-First Opener Requirements (CRAFT-01)
+
+Mandatory first line of every chapter draft (exact format):
+
+```
+<!-- provenance: {source_path}:{line} -->
+```
+
+where `source_path` is one of `sources/{file}.md`, `sources-adapted/{file}.md`, `book-dna.md`, or `voice-profile.md`, and `line` is the integer line number you drew the opening scene from. If your scene is synthesised from multiple sources, pick the primary one. The comment is stripped by the formatter before .docx emission — it exists only for craft verification.
+
+Within the first 150 words of the chapter body you MUST include all three of the following:
+
+1. A **named human** (proper noun) or a **first-person narrator** (use of "I", "me", "my").
+2. A **time-marker** (examples: "at 2am", "last Tuesday", "the summer I was fourteen", "the morning of the funeral").
+3. A **sensory or physical detail** — light, sound, texture, smell, or a specifically named concrete object (not an abstract noun).
+
+See `${CLAUDE_PLUGIN_ROOT}/references/bestseller-craft-rules.md` § CRAFT-01 for the authoritative spec. Missing provenance comment = editor auto-revise. Missing any of (1), (2), or (3) = editor flag and possible auto-revise.
+
 ## 4. Chapter Structure
 
 The chapter flows as one continuous narrative, NOT as visible sections with headers. Structure it internally using tension-release cycles:
@@ -143,6 +170,28 @@ Read the ending style from the chapter outline and follow it. Do NOT default to 
 Do NOT use heading markers (##, ###) within the chapter body. The chapter title is the only heading. Use paragraph breaks and natural transitions instead.
 
 **Transitions between arguments:** Each argument must flow naturally into the next. Use transitional phrases, rhetorical questions, or "But here's where it gets deeper..." patterns. The reader should never feel a jarring topic shift.
+
+### Central Image Discipline (CRAFT-03)
+
+Thread the chapter's `central_image` (from the outline / Book DNA) through three zones:
+
+1. **Opening 200 words** — present the image literally. Describe it as a physical thing the reader can see, feel, or hear.
+2. **Middle third** — return to the image as a metaphor. The argument borrows the image's shape to carry meaning.
+3. **Closing 200 words** — echo the image one more time. A brief callback is enough; do not over-explain.
+
+Do NOT pick a new image mid-chapter. Do NOT drop the image after the opening. Each zone presents the image in a different register (literal → metaphor → echo), but it stays the same image throughout. See `${CLAUDE_PLUGIN_ROOT}/references/bestseller-craft-rules.md` § CRAFT-03.
+
+### Vulnerability Beat (CRAFT-04)
+
+Place **exactly one** first-person vulnerability beat in the **middle third** of the chapter. A vulnerability beat is a named confession, doubt, fear, or struggle written in first person — not a generalised "we all struggle" observation.
+
+Source requirement: The beat MUST be sourced from the chapter outline's `vulnerability_beat_seed`. Before drafting the beat:
+
+1. Open the `source_path` the seed points to.
+2. Read the referenced line (and surrounding context).
+3. Compose the beat from that material — you may paraphrase and adapt for voice, but the substance must trace to the real source.
+
+**Never fabricate a vulnerability beat.** If `vulnerability_beat_seed` is empty or explicitly says `no vulnerability seed available -- skip beat`, skip the beat entirely for this chapter and record `vulnerability_beat: skipped` in the METADATA block. Fabrication is a CRAFT-04 hard fail. See `${CLAUDE_PLUGIN_ROOT}/references/bestseller-craft-rules.md` § CRAFT-04.
 
 ## 5. Voice Consistency
 
@@ -212,9 +261,31 @@ Throughout every chapter, regardless of momentum position, use direct reader eng
 
 The book speaks TO the reader personally, not lectures at them. If you can read a paragraph aloud and it sounds like a monologue, rewrite it as a conversation.
 
+### Reader Moments Selection (CRAFT-06)
+
+Read the voice profile's `Reader Moments` section (if present — it's a list of concrete reader-life moments like "the 2am phone-check" or "the grocery-aisle grief flash"). Select **at least 2** concrete moments and weave them into the chapter as specific anchors for any abstract claim. A reader moment is specific enough to be picturable in one beat — "the 2am phone-check" passes; "everyday struggles" does not.
+
+Record which moments you selected in the METADATA block using this exact key:
+
+```
+reader_moments_used: ["the 2am phone-check", "the grocery-aisle grief flash"]
+```
+
+If the voice profile has no Reader Moments section, skip this rule and record `reader_moments_used: []` in METADATA. The editor then runs CRAFT-06 in flag-only mode (no hard fail). See `${CLAUDE_PLUGIN_ROOT}/references/bestseller-craft-rules.md` § CRAFT-06.
+
 ## 7. Theological Depth Techniques
 
 For theological books (voice profile contains a Theological/Domain Framework section):
+
+### Transliterated Term Density Cap (CRAFT-02)
+
+**Maximum 3 distinct transliterated Greek/Hebrew terms per chapter.** Each term MUST receive at least **3 sentences of unpacking** in the same paragraph block (the next 3 sentences after you introduce the term). Unpacking sentences must contain explanatory markers such as: "means", "carries", "literally", "in Greek", "in Hebrew", "the word", "this is", "it's" (contextual explanation).
+
+**Terms counted against the cap** (authoritative lexicon — kept in sync with `scripts/craft-check.js` and `references/bestseller-craft-rules.md`):
+
+charis, agape, phileo, eros, storge, dunamis, exousia, logos, rhema, pneuma, sarx, kairos, chronos, sunergeo, pas, shalom, hesed, chesed, ruach, yada, ahavah, nephesh, echad, koinonia, metanoia.
+
+Distinct > 3 = editor auto-revise. Any term under-unpacked (fewer than 3 explanatory sentences in the same block) = editor flag. **Prefer English over transliteration whenever semantic fidelity is preserved** — do not reach for a Greek word just to sound deep.
 
 ### Scripture Integration
 
@@ -311,9 +382,20 @@ Write the chapter in markdown and save to `[project_directory]/drafts/ch[NN]-dra
 
 **Create the `drafts/` directory** if it does not exist (use `mkdir -p`).
 
-Output format:
+Output format — the first two lines of every chapter draft MUST be, in this exact order:
+
+```
+<!-- provenance: {source_path}:{line} -->
+<!-- generated-by: book-crafter v1.1.0 -->
+```
+
+Followed by the chapter heading `# Chapter N: Title` on line 3 or later. Both comments are stripped by the formatter before .docx emission — they exist for craft verification and version tracking only.
+
+Full file layout:
 
 ```markdown
+<!-- provenance: sources/{file}.md:{line} -->
+<!-- generated-by: book-crafter v1.1.0 -->
 # Chapter [N]: [Title]
 
 [Chapter content -- continuous narrative, no sub-headings]
@@ -326,6 +408,11 @@ ending_style: [cliffhanger_seed|reflective_hook]
 hook_type: [story_with_declaration|story_with_question|story_with_claim|story_with_tension]
 scriptures_used: [comma-separated list of references]
 pull_quotes: [count of :::pullquote blocks in the chapter]
+central_image: [the dominant sensory anchor you threaded through opening/middle/closing]
+vulnerability_beat: [present | skipped]
+vulnerability_beat_source: [source_path:line OR empty if skipped]
+reader_moments_used: ["moment 1", "moment 2"]
+provenance: [source_path:line -- must match the first-line provenance comment]
 -->
 ```
 
@@ -349,3 +436,6 @@ The `<!-- METADATA -->` block at the end allows the orchestrator and editor to a
 - Do NOT use vocabulary from the "Avoid" list in the voice profile, even once
 - Do NOT write in an academic, hedged, or overly balanced tone unless the voice profile explicitly requires it
 - Do NOT front-load all scripture in the first half and then trail off -- distribute depth throughout the chapter
+- Do NOT start any paragraph (or any chapter) with: "So", "Now", "And so", "Let us", "Let me", "Here's where", "Here's the thing", "You see", "Listen", "Church", "Friend". Mid-paragraph uses of these words are fine — the restriction is paragraph-initial only. See `${CLAUDE_PLUGIN_ROOT}/references/bestseller-craft-rules.md` § CRAFT-05.
+- Do NOT fabricate a first-person vulnerability beat. If the chapter's `vulnerability_beat_seed` is empty or flagged `no vulnerability seed available -- skip beat`, skip the beat entirely and mark `vulnerability_beat: skipped` in METADATA.
+- Do NOT exceed 3 distinct transliterated Greek/Hebrew terms per chapter. Prefer English whenever semantic fidelity is preserved.
