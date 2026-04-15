@@ -120,41 +120,66 @@ All four anchor lines (`schema_version:`, `captivation_total:`, `novelty_dedup:`
 
 ## §5. Compare to Threshold and Emit PASS/FAIL
 
-Read the threshold integer from the fixture:
+Read the threshold integer from the fixture. PASS requires BOTH captivation_total >= threshold AND novelty_dedup == pass. Either condition failing emits a specific FAIL reason per the D-05 four-variant contract.
 
 ```bash
 M=$(cat "${CLAUDE_PLUGIN_ROOT}/fixtures/tiny-book/expected-captivation-score.txt" | tr -d '[:space:]')
+
+if ! echo "$M" | grep -qE '^[0-9]+$'; then
+  echo "SAMPLE FAIL — fixture threshold missing or malformed at fixtures/tiny-book/expected-captivation-score.txt"
+  exit 1
+fi
+
+# Evaluate the gate
+CAPTIVATION_OK=0
+NOVELTY_OK=0
+if [ "$N" -ge "$M" ]; then CAPTIVATION_OK=1; fi
+if [ "$DEDUP" = "pass" ]; then NOVELTY_OK=1; fi
+
+DOCX_REL="fixtures/tiny-book/run/final/$(basename "$DOCX")"
+
+if [ $CAPTIVATION_OK -eq 1 ] && [ $NOVELTY_OK -eq 1 ]; then
+  echo "SAMPLE PASS — .docx at ${DOCX_REL}, captivation ${N}/16 (threshold ${M}), novelty_dedup pass"
+  exit 0
+fi
+
+# At least one gate failed — pick the reason(s) per D-05 four-variant format
+if [ $CAPTIVATION_OK -eq 0 ] && [ $NOVELTY_OK -eq 0 ]; then
+  echo "SAMPLE FAIL — captivation ${N}/16 below threshold ${M} AND novelty_dedup fail: ${FLAG_COUNT} flags (see ${REPORT})"
+  exit 1
+fi
+if [ $CAPTIVATION_OK -eq 0 ]; then
+  echo "SAMPLE FAIL — captivation ${N}/16 below threshold ${M} (see ${REPORT})"
+  exit 1
+fi
+if [ $NOVELTY_OK -eq 0 ]; then
+  echo "SAMPLE FAIL — novelty_dedup fail: ${FLAG_COUNT} flags (see ${REPORT} §novelty_dedup_flags)"
+  exit 1
+fi
 ```
 
-**PASS condition (both MUST hold):**
+D-05 output line format (verbatim):
+- PASS: `SAMPLE PASS — .docx at <path>, captivation N/16 (threshold M), novelty_dedup pass`
+- FAIL captivation: `SAMPLE FAIL — captivation N/16 below threshold M (see consistency-report.md)`
+- FAIL novelty: `SAMPLE FAIL — novelty_dedup fail: K flags (see consistency-report.md §novelty_dedup_flags)`
+- FAIL both: `SAMPLE FAIL — captivation N/16 below threshold M AND novelty_dedup fail: K flags`
 
-1. The final `.docx` exists in `fixtures/tiny-book/run/final/`
-2. Captivation total `N >= M`
+This format is machine-greppable. Any future release.sh gate that sources this skill's output MUST use `grep -E '^SAMPLE (PASS|FAIL) — '` as the parse anchor. Do not add banners, decoration, or multi-line output — exactly one summary line per invocation (D-10 from Phase 11, superseded and re-stated as D-05 in Phase 13).
 
-**PASS output (exact format — machine-greppable per D-12):**
-
-```
-SAMPLE PASS — .docx at fixtures/tiny-book/run/final/<name>.docx, captivation N/14 (threshold M)
-```
-
-Substitute `<name>` with the actual filename, and `N`/`M` with the real integers.
-
-**FAIL output (exact format):**
-
-```
-SAMPLE FAIL — <specific reason> (see fixtures/tiny-book/run/reports/consistency-report.md)
-```
-
-Pick the **first** matching failure reason from this ordered list:
+Possible failure reasons across §1–§5 (each emits a specific FAIL line via the bash blocks above):
 
 1. `fixture brief missing`
-2. `fixture threshold missing`
+2. `fixture threshold missing` (or malformed)
 3. `orchestrator did not complete (no .docx produced)`
 4. `.docx missing at fixtures/tiny-book/run/final/`
 5. `consistency-report.md missing`
-6. `captivation N below threshold M` (substitute the real integers for `N` and `M`)
+6. `schema_version mismatch` (editor emitting stale v1 format)
+7. `could not parse captivation_total`
+8. `novelty_dedup not pass/fail`
+9. **`captivation N/16 below threshold M`** (new in Phase 13 — D-05)
+10. **`novelty_dedup fail: K flags`** (new in Phase 13 — D-05)
 
-Emit exactly **one** PASS or FAIL line per invocation (D-12). No additional summary lines, no decoration, no banners.
+Emit exactly **one** PASS or FAIL line per invocation (D-05, superseding D-12). No additional summary lines, no decoration, no banners.
 
 ## §6. Exit Code (D-13)
 
