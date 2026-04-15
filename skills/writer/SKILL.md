@@ -193,6 +193,37 @@ Source requirement: The beat MUST be sourced from the chapter outline's `vulnera
 
 **Never fabricate a vulnerability beat.** If `vulnerability_beat_seed` is empty or explicitly says `no vulnerability seed available -- skip beat`, skip the beat entirely for this chapter and record `vulnerability_beat: skipped` in the METADATA block. Fabrication is a CRAFT-04 hard fail. See `${CLAUDE_PLUGIN_ROOT}/references/bestseller-craft-rules.md` § CRAFT-04.
 
+## Anti-Loop Clause (Phase 13, D-30)
+
+> Phase 13 closed a repetition blindspot where the system scored 14 out of 14 on its own captivation rubric while the reader experienced the output as a loop. Root cause: the writer was rewarded for presence (central image in every zone of every chapter, vulnerability beat in every chapter) but never told "do not reuse a scene, phrase, or beat already spent elsewhere." This clause is the structural fix on the writer side.
+
+You MUST honour these five rules when drafting any chapter, foreword, or front-matter artefact.
+
+1. **No 6 plus word phrase reuse across chapters or foreword unless whitelisted as a refrain.** Before committing any sentence, check whether this 6-or-more-word span appears in the foreword, in another already-drafted chapter, or in any other front-matter artefact. If yes, and the span is NOT in the Book DNA refrains YAML block, REWRITE the sentence using different words. Editor Pass 3 §4.4.5 Novelty and Dedup Audit fails the entire release if any non-whitelisted 6-plus-word span appears in 2 or more artefacts.
+
+2. **Spent vulnerability seeds cannot be reused.** Book DNA lists vulnerability_beat_seed pointers per chapter (CRAFT-04). Each seed is a specific sourced moment from sources/, sources-adapted/, voice-profile.md, or book-dna.md. Once a seed has been spent by a foreword or an earlier chapter, you MUST choose a different sourced detail for later chapters, OR skip the vulnerability beat entirely for that chapter. Reusing a seed produces the foreword to chapter duplication that triggered Phase 13.
+
+3. **Motif family may be shared, but image vehicle MUST differ per chapter.** If the Book DNA declares a motif family (example: light in the night), you may thread that family through every chapter. But the descriptive VEHICLE — the concrete sensory rendering — MUST differ per chapter. The editor §4.4.5 Step B judges this paraphrase-level; even declaring distinct central_image field values does not save you if every chapter's prose renders as "a lamp on a table in the dark." Examples of distinct vehicles in the same family: phone glow over the ceiling (ch1), yellow pool on the kitchen counter (ch2), grey seam of dawn overtaking artificial light (ch3). All three are "light in the night"; none is a lamp.
+
+4. **Echo and recontextualise — do not repeat.** If a concept, phrase, or image must recur across chapters because the book builds a cumulative argument, rephrase with different words, metaphors, or contextual details. A callback is a recontextualisation, not a reuse. An echo names the earlier image in new language; a loop repeats it verbatim.
+
+5. **Refrains are the ONLY permitted verbatim cross-artefact reuse.** Before drafting, read the refrains YAML block from `[project_directory]/book-dna.md`. Each entry has phrase, max_uses, and scope. You may use each refrain phrase up to its max_uses budget in the declared scope. Every verbatim reuse outside the refrain block is a violation. If you want a phrase to recur verbatim, it MUST be in the refrain block — otherwise rewrite.
+
+### Refrain schema the writer reads
+
+```yaml
+refrains:
+  - phrase: "one small lamp refusing the whole dark"
+    max_uses: 1
+    scope: whole_book
+```
+
+`max_uses` is an integer or the string `unlimited`. `scope` is one of `whole_book`, `chapter_endings`, `front_matter_only`, `body_only`. You MUST count your own uses of a refrain phrase as you draft — `craft-check.js --novelty` will flag the `max_uses+1` occurrence and fail the release. Counting across chapters drafted in parallel is hard: when in doubt, use the refrain phrase LESS than its max_uses budget, never more.
+
+### Consequence of violation
+
+The editor Pass 3 §4.4.5 emits `novelty_dedup: fail` and a `rewrite_targets` block. The orchestrator Mode 7 `--rewrite-targets` re-runs writer and editor for ONLY the flagged chapters, with the `reason` field from the target injected as directional guidance. You (the writer) will be called back with a specific reason like "verbatim overlap with front-matter/foreword.md line 12-18 — rewrite the vulnerability beat using a different sourced detail." Your rewrite MUST address that reason — producing the same text is a hard fail that halts the pipeline per D-10.
+
 ## 5. Voice Consistency
 
 This is the most critical section. Every parallel agent reads these same instructions, so they must produce output that reads as one voice.
