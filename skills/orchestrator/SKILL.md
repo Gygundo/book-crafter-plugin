@@ -282,6 +282,10 @@ For partially complete stages, list each chapter's status individually so the us
 
 When executing the next stage in the pipeline:
 
+### Step 0: Fresh Mode Preprocessing
+
+When Mode 6 (Fresh Run) is active, the fresh preprocessing steps in Section 6 (Mode 6) run BEFORE normal state detection. After the user confirms the delete list and the locked delete operation completes, fall through to Step 1 below and proceed with normal state detection — because every downstream artefact has been deleted, state detection will correctly identify the earliest pipeline stage as the next stage.
+
 ### Step 1: Identify the Next Stage
 
 Use the state detection algorithm (section 3) to determine which stage to run next.
@@ -682,6 +686,45 @@ Triggered when the user requests revision of specific chapters on an existing pr
    d. Editor runs Pass 1 on revised chapters, Pass 2 on revised chapters + immediate neighbours (one hop), targeted Pass 3
    e. Update `reports/consistency-report.md` with revision results
 5. Return to the review gate (present updated summary with approve/revise/read options)
+
+### Mode 6: Fresh Run
+
+Triggered when the user wants to re-run the pipeline from scratch on an existing project while preserving the original inputs (sources, adapted sources, brief, and voice profile).
+
+**Trigger phrases (natural-language detection):**
+
+- "start fresh"
+- "rerun from scratch"
+- "fresh build"
+- "regenerate everything"
+- "--fresh"
+
+If any of these phrases appear in the user's utterance during orchestrator invocation, enter Mode 6 BEFORE running the state detection algorithm in Section 3.
+
+**Mode 6 preprocessing steps:**
+
+1. **Identify the project directory** from the user's request (same logic as Mode 3 Resume and Mode 5 Revision).
+
+2. **Compute the delete list and preserve list** against the project directory:
+   - **Delete list:** `book-dna.md`, `chapter-outline.md`, `research/`, `drafts/`, `edited/`, `revisions/`, `enrichments/`, `front-matter/`, `reports/`, `output/`
+   - **Preserve list:** `sources/`, `sources-adapted/`, `brief.md`, `voice-profile.md`
+
+3. **Mandatory confirmation prompt — never silent delete.** Present the specific paths about to be deleted and the specific paths that will be preserved, and wait for an explicit affirmative response:
+
+   > "Fresh mode will delete the following in `{project_path}`: book-dna.md, chapter-outline.md, research/, drafts/, edited/, revisions/, enrichments/, front-matter/, reports/, output/. Preserved: sources/, sources-adapted/, brief.md, voice-profile.md. Proceed? (yes/no)"
+
+   Affirmative responses: `yes`, `y`, `proceed`, `confirm` (case-insensitive). Any other response aborts Mode 6 and falls through to Mode 3 (Resume), which presents the status dashboard from the current state without deleting anything.
+
+4. **On affirmative response, perform the deletes.** The delete operation is idempotent — items in the delete list that do not exist in the project directory are skipped silently. Non-empty directories are removed recursively (`rm -rf`). Every item in the preserve list is left untouched regardless of the delete list order.
+
+5. **Re-enter state detection (Section 3).** Because the delete list covers every downstream artefact, state detection will identify the earliest pipeline stage as the next stage (Stage 0.5 if `sources-adapted/` is absent but `sources/` contains sermon-format material, otherwise Stage 1 Outline). From here the orchestrator proceeds in whichever execution mode the user requested alongside Mode 6 (Guided by default, or Full Pipeline if the user said "rerun the whole book from scratch").
+
+**Safety Invariants:**
+
+- **Never delete `sources/`, `sources-adapted/`, `brief.md`, or `voice-profile.md`.** These paths are hard-coded into the preserve list and no user instruction can override them inside Mode 6. If the user genuinely needs to wipe a source directory they must do so manually outside the orchestrator.
+- **Never delete without explicit user confirmation.** The confirmation prompt is mandatory on every Mode 6 invocation. There is no "remember my answer" mode. There is no `--yes` shortcut inside the orchestrator.
+- **Never re-prompt without showing the specific paths about to be deleted.** The confirmation prompt always enumerates the delete list and the preserve list in full. A vague "are you sure?" prompt is not compliant.
+- **Never delete files outside the identified project directory.** All paths in the delete list resolve relative to `{project_path}`. Mode 6 must never touch plugin files, other projects, or the user's home directory.
 
 ## 7. Error Handling
 
