@@ -29,7 +29,19 @@ Every chapter must read like it was written by a bestselling author — hooks th
 
 ### Active
 
-(None — all v1.0 requirements validated)
+(Milestone v1.1 — see Current Milestone below. Requirements defined in REQUIREMENTS.md.)
+
+## Current Milestone: v1.1 Bestseller Quality + Distribution
+
+**Goal:** Lift generated books from "well-argued teaching" to "bestseller-quality prose a reader devours", and package the plugin for one-click install on Claude Desktop.
+
+**Target features:**
+- Writing Quality v2 — evidence-driven second pass targeting gaps Phase 7 missed: scene-first openers, Greek-word density cap, author vulnerability beats, central-image lifting, enforced tension-release, reader-anchor specificity, pulpit-seam detection
+- Re-run Eternally Secure through the updated pipeline as proof
+- Marketplace + zip packaging for one-click Claude Desktop install (non-technical recipient)
+- Version stamping, CHANGELOG, recipient README, release smoke-test checklist
+
+**Key context:** Phase 7 already shipped captivation scoring, tension-release framework, and bestseller typography. v1.1 Writing Quality is a *second pass* driven by concrete evidence from the Eternally Secure Ch1 output, not a redo. Packaging optimises for a recipient who should never touch a terminal.
 
 ### Validated (Phase 08)
 
@@ -101,4 +113,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-28 after Phase 09 completion (outliner wired to sermon adapter via sources-adapted/ preference — last v1.0 milestone gap closed)*
+*Last updated: 2026-04-15 — Milestone v1.1 started (Bestseller Quality + Distribution)*
