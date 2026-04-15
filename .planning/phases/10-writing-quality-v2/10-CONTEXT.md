@@ -44,7 +44,11 @@ Writer, editor, **and outliner** are touched. Research summary previously said o
 - **D-18:** Editor pass of spiritual-default.md in Plan 7 must cap the profile at 150 lines total. Every v2 craft-driven addition requires a documented v1 removal. Net-zero-or-negative line count change.
 
 ### Provenance Comment Syntax (CRAFT-01)
-- **D-19:** Writer emits an HTML comment as the first line of each chapter: `<!-- provenance: sources/{file}.md:{line} -->` OR `<!-- provenance: book-dna.md:{line} -->`. The comment references the source file+line the scene opener was derived from.
+- **D-19:** Writer emits an HTML comment as the first line of each chapter referencing the source file+line the scene opener was derived from. Four permitted provenance forms (any one of):
+  - `<!-- provenance: sources/{file}.md:{line} -->` — raw source material
+  - `<!-- provenance: sources-adapted/{file}.md:{line} -->` — sermon-adapter output (adapted source content)
+  - `<!-- provenance: book-dna.md:{line} -->` — book DNA pointer (when scene derives from cross-chapter DNA fragment)
+  - `<!-- provenance: voice-profile.md:{line} -->` — voice-profile anecdote (required path for vulnerability beats per D-12, since voice-profile is a permitted seed source for vulnerability_beat_seed)
 - **D-20:** craft-check.js verifies presence and that the referenced path exists (resolution only, not semantic validation).
 - **D-21:** Formatter strips ALL HTML comments before .docx emission. Editor passes leave comments intact for verification. This makes stripping the formatter's responsibility, not the editor's.
 - **D-22:** Missing provenance = CRAFT-01 hard fail = auto-revise (per D-06).
