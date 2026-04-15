@@ -1,5 +1,8 @@
 {
   "name": "book-crafter-plugin",
+  "metadata": {
+    "description": "Book Crafter marketplace — installs the book-crafter plugin, a multi-skill pipeline that turns a brief or source material into a bestseller-quality non-fiction .docx."
+  },
   "owner": {
     "name": "David",
     "email": "david@encounterchurch.co.za"
