@@ -484,6 +484,85 @@ Cross-reference against Book DNA Running Themes section:
 - Verify each theme reaches its climax in the designated chapter
 - Flag themes that appear to be dropped or never resolved
 
+### 4.4.5 Novelty and Dedup Audit
+
+> Hybrid deterministic + LLM judgment pass. Follows the CRAFT-02/05/07 layering pattern (§2.0 → §2.9-§2.12 verbatim shape): deterministic script anchors the verdict, LLM judgment layer catches paraphrase and semantic reuse the regex can't see. Combined verdict: script-fail OR LLM-fail → `novelty_dedup: fail`. This section is the editor's structural fix for the repetition blindspot that triggered Phase 13.
+
+**Scope:** `front-matter/*.md` + `edited/ch*-final.md` (Tier 1) AND `enrichments/*.md` / `enriched/*.md` (Tier 2). Both tiers feed the same `novelty_dedup` verdict. Run this audit exactly once per editor invocation — it is manuscript-level, not per-chapter.
+
+**Step A — Deterministic invocation:**
+
+```bash
+node "${CLAUDE_PLUGIN_ROOT}/scripts/craft-check.js" \
+  --novelty \
+  --tier both \
+  --dna "[project_directory]/book-dna.md" \
+  "[project_directory]"
+```
+
+Parse the JSON output. The shape is:
+```
+{ mode: "novelty", tier, project_dir, repeated_spans, cross_artefact_hits, central_image_reuse, refrain_overuse, tier2_hits, flag, novelty_dedup }
+```
+
+If `result.flag` is true, Step C must emit a `rewrite_targets` block per D-12. Even if `result.flag` is false, continue to Step B — the LLM judgment layer can still fail the chapter for semantic reuse the script could not catch.
+
+**Step B — LLM judgment layer (editor reads manuscript directly):**
+
+Read `front-matter/*.md` and every `edited/ch*-final.md` in the project directory. For each pair (foreword ↔ chapter, and every chapter pair), judge:
+
+1. **Vulnerability-beat scene reuse (paraphrase-level):** Does the same *named moment* (same person, same remembered setting, same emotional beat) appear in two artefacts, even if the exact words differ? Example: foreword describes "standing at the kitchen counter at 3am with hands flat on the wood and nothing to say" and chapter 2 describes "I was at the counter, palms down, silent." These are the SAME SCENE in different phrasing — the deterministic 6-word shingler cannot see this, but a reader does.
+
+2. **Central-image vehicle semantic collision:** For every chapter pair, read the opening 200 words, middle third, and closing 200 words (already extracted in Pass 2 §3.7). Judge whether the DOMINANT vehicle is the same even if the `central_image` field values differ. Example: ch1 declares `unlit bedside lamp` and ch3 declares `reading lamp on the nightstand`. Both render as "a lamp on a table in the dark" — same vehicle family, flag.
+
+3. **Reader-moment reuse in adjacent chapters:** Did chapter N and chapter N+1 both use the same sourced reader moment (e.g. "the 2am phone-check")? Same-chapter reuse is legitimate; adjacent-chapter reuse is a flag.
+
+Emit LLM-judgment flags as a parallel array:
+```
+llm_flags: [
+  { type: "vulnerability_beat_scene_reuse", source: "front-matter/foreword.md", duplicate: "edited/ch02-final.md", note: "same 3am kitchen counter scene, paraphrased" },
+  { type: "central_image_semantic_collision", files: ["edited/ch01-final.md", "edited/ch03-final.md"], note: "both render as a lamp on a table" },
+  { type: "reader_moment_reuse_adjacent", files: ["edited/ch02-final.md", "edited/ch03-final.md"], moment: "the 2am phone-check" }
+]
+```
+
+**Step C — Combined verdict and emit:**
+
+Let `script_flag = result.flag`, `llm_flag = llm_flags.length > 0`. The verdict is:
+```
+novelty_dedup = (script_flag || llm_flag) ? "fail" : "pass"
+```
+
+**If `novelty_dedup == "pass"`:**
+- Set `novelty_dedup_flags: []` in the `## Captivation Score` YAML block (see §504 template).
+- Do not emit `rewrite_targets`.
+- Continue to §4.5.
+
+**If `novelty_dedup == "fail"`:**
+- Populate `novelty_dedup_flags:` in the `## Captivation Score` YAML block with a merged list of script flags (from `repeated_spans`, `cross_artefact_hits`, `central_image_reuse`, `refrain_overuse`, `tier2_hits`) and LLM flags (from Step B). Each entry shape: `{file, type, note}`.
+- Emit a `rewrite_targets` block into the consistency report, AND write the same block to `[project_directory]/reports/rewrite_targets.yaml` as a separate file (Research Open Q 2 — both inline for human review at the Stage 4 review gate AND separate file for Mode 7 machine consumption).
+- Do NOT rewrite any chapter yourself. The editor is a judge, not an author (D-10). The orchestrator's Mode 7 `--rewrite-targets` (§skills/orchestrator/SKILL.md Mode 7) is the only path that re-runs flagged chapters.
+
+**Rewrite targets block format (emit into consistency-report.md under the `## Rewrite Targets` heading, AND mirror into reports/rewrite_targets.yaml):**
+
+```yaml
+rewrite_targets:
+  - file: edited/ch02-final.md
+    span: "L21-L28"
+    reason: "verbatim overlap with front-matter/foreword.md:L12-L18 — rewrite the vulnerability beat using a different sourced detail from the author notes at voice-profile.md:45"
+    flagged_by: craft-check
+  - file: edited/ch03-final.md
+    span: "L40-L47"
+    reason: "same central-image vehicle ('reading lamp') dominates ch01 and ch03 — substitute with a distinct vehicle from the motif family (grey seam of dawn per brief.md:37)"
+    flagged_by: editor-pass3
+```
+
+**Mandatory `reason:` field contract (D-12):** every target MUST include a specific cross-reference to the duplicated location AND a directional instruction. Generic reasons like "too similar" or "rewrite this" are REJECTED — the orchestrator's Mode 7 will refuse to run if a target's reason does not contain both a source location (file or span reference) and the words "rewrite" / "substitute" / "replace" / "different".
+
+`flagged_by:` must be one of `craft-check` (deterministic flag from Step A) or `editor-pass3` (LLM judgment flag from Step B).
+
+**Hard-fail semantics (D-10):** `novelty_dedup: fail` is not a warning. It is a hard gate. The consistency report emits it, the sample skill's gate reads it and emits `SAMPLE FAIL — novelty_dedup fail: K flags`, and release.sh (when wired in Phase 12 or later) will refuse to build a release zip. There is no `--strict` override, no soft-warn mode, no "ship anyway" escape hatch. The phase 13 premise is that soft gates become invisible.
+
 ### 4.5 Pass 3 Output
 
 Save final edited chapters to `[project_directory]/edited/ch[NN]-final.md`. If no changes were needed for a chapter in this pass, copy from pass2.
