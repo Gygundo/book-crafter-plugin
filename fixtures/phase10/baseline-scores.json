@@ -34,8 +34,10 @@
     }
   ],
   "total_max": 10,
-  "scoring_logic_hash": "b78477f42a59f3d758964162bfc987567e559fa4690333f45b20ebcea9559356",
+  "scoring_logic_hash": "PHASE_13_PENDING",
+  "phase_13_regenerated": false,
   "hash_algorithm": "sha256",
   "hash_input_description": "Concatenation of the five section bodies (heading line excluded), each trimmed, joined with '\\n', LF-normalised. Body = lines after the heading up to (but not including) the next heading of equal-or-higher level.",
-  "regression_rule": "After CRAFT-09 extraction, concatenating the equivalent sections of references/captivation-rubric.md MUST yield an identical sha256 OR the move is impure and Plan 1 Task 4 must be reworked."
+  "regression_rule": "After CRAFT-09 extraction, concatenating the equivalent sections of references/captivation-rubric.md MUST yield an identical sha256 OR the move is impure and Plan 1 Task 4 must be reworked.",
+  "phase_13_note": "Plan 13-04 rewrites the rubric body for schema v2 (0-16 range, 8 components, novelty_dedup dimension). This breaks the byte-identical lock by design. Hash is marked PHASE_13_PENDING until Plan 13-04 executor regenerates it per the Regeneration Protocol at the top of scripts/test-rubric-regression.js."
 }

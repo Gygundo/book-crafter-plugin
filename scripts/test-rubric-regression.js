@@ -14,6 +14,28 @@
 // Usage:
 //   node scripts/test-rubric-regression.js              # legacy 5-component lock
 //   node scripts/test-rubric-regression.js --extended   # + CRAFT-10 additions
+//
+// ## Regeneration Protocol (Phase 13 / schema v2)
+//
+// The Phase 13 rubric rewrite (Plan 13-04) changes the rubric body bytes
+// because 0-14 references become 0-16 and the schema v2 frontmatter + 8th
+// component land. This breaks the legacy 5-component sha256 lock by design.
+//
+// After Plan 13-04 ships references/captivation-rubric.md (schema v2), the
+// executor for that plan MUST:
+//
+//   1. Run: `node scripts/test-rubric-regression.js`
+//   2. Capture the "current: <hash>" line from the FAIL branch stdout.
+//   3. Update fixtures/phase10/baseline-scores.json:
+//        - scoring_logic_hash:  <hash>           (the real new hash)
+//        - phase_13_regenerated: true            (flip flag)
+//   4. Re-run the script to confirm PASS.
+//   5. Run with --extended to confirm the 8 structural assertions also pass.
+//
+// Until step 3 is performed, the base hash check will intentionally fail
+// with "PHASE_13_PENDING" != <computed>. The --extended structural
+// assertions are the primary drift detector for schema v2; the hash lock
+// is a secondary tripwire.
 
 const fs = require('node:fs');
 const path = require('node:path');
@@ -72,16 +94,25 @@ function main() {
   const concat = bodies.join('\n');
   const hash = crypto.createHash('sha256').update(concat).digest('hex');
 
+  // Phase 13 / schema v2: The legacy 5-component body text is rewritten
+  // to reference 0-16 and the schema v2 frontmatter. The baseline hash
+  // below was regenerated during Plan 13-03 Task 2 for the new body.
+  // Structural assertions in --extended are the primary drift detector;
+  // the hash lock is a secondary tripwire.
   if (hash !== baseline.scoring_logic_hash) {
     console.error('FAIL: rubric hash drifted from baseline.');
     console.error(`  baseline: ${baseline.scoring_logic_hash}`);
     console.error(`  current:  ${hash}`);
     console.error('  The original 5 captivation components must stay byte-identical.');
     console.error('  If you intended to add new components, append them — do not edit the originals.');
+    console.error('  See ## Regeneration Protocol at top of this file for Phase 13 hand-off steps.');
     process.exit(1);
   }
 
-  console.log(`PASS: 5-component rubric hash matches baseline (${hash})`);
+  if (baseline.phase_13_regenerated === true) {
+    console.log('NOTE: baseline regenerated for Phase 13 schema v2');
+  }
+  console.log(`PASS: rubric hash matches baseline (${hash})`);
 
   // Extended checks for CRAFT-10 additions.
   const extended = process.argv.includes('--extended');
@@ -89,29 +120,68 @@ function main() {
     process.exit(0);
   }
 
-  const extendedHeadings = ['Craft Density', 'Cross-Chapter Craft'];
+  // Phase 13 / schema v2 structural assertions. These replace the CRAFT-10
+  // 7-heading / 0-14 assertions. The legacy Craft Density + Cross-Chapter
+  // Craft heading-present checks are retained — they must still pass in v2.
   const failures = [];
 
-  for (const heading of extendedHeadings) {
+  // 1. YAML frontmatter exists and parses (string-level only).
+  const fmMatch = rubricText.match(/^---\n([\s\S]*?)\n---\n/);
+  if (!fmMatch) {
+    failures.push('missing YAML frontmatter at top of rubric file');
+  }
+  const fmBody = fmMatch ? fmMatch[1] : '';
+
+  // 2. schema_version: 2
+  if (!/^schema_version:\s*2\s*$/m.test(fmBody)) {
+    failures.push('frontmatter missing schema_version: 2');
+  }
+
+  // 3. total_range: [0, 16]
+  if (!/^total_range:\s*\[\s*0\s*,\s*16\s*\]\s*$/m.test(fmBody)) {
+    failures.push('frontmatter missing total_range: [0, 16]');
+  }
+
+  // 4. novelty_dedup binary dimension present in frontmatter.
+  if (!/novelty_dedup/.test(fmBody) || !/type:\s*binary/.test(fmBody)) {
+    failures.push('frontmatter missing novelty_dedup binary dimension');
+  }
+
+  // 5. Exactly 8 level-3 component headings.
+  const level3Count = lines.filter((l) => /^###\s+\S/.test(l)).length;
+  if (level3Count !== 8) {
+    failures.push(
+      `expected 8 level-3 component headings (schema v2), found ${level3Count}`
+    );
+  }
+
+  // 6. Novelty / Variation component present with non-empty body.
+  const noveltyBody = extractBody(lines, 'Novelty / Variation');
+  if (noveltyBody === null || noveltyBody.length === 0) {
+    failures.push('missing or empty ### Novelty / Variation component body');
+  }
+
+  // 7. 0-16 total-range marker documented in rubric prose.
+  if (!rubricText.includes('0-16')) {
+    failures.push('missing "0-16" total-range marker in rubric prose');
+  }
+
+  // 8. output_fields region references both captivation_total and novelty_dedup.
+  if (!/captivation_total/.test(fmBody) || !/novelty_dedup/.test(fmBody)) {
+    failures.push(
+      'frontmatter output_fields missing captivation_total or novelty_dedup'
+    );
+  }
+
+  // Retained from CRAFT-10: Craft Density + Cross-Chapter Craft headings
+  // must still exist in schema v2 (they are two of the eight components).
+  for (const heading of ['Craft Density', 'Cross-Chapter Craft']) {
     const body = extractBody(lines, heading);
     if (body === null) {
       failures.push(`missing heading: ### ${heading}`);
-      continue;
-    }
-    if (body.length === 0) {
+    } else if (body.length === 0) {
       failures.push(`empty body under: ### ${heading}`);
     }
-  }
-
-  // Assert total-range marker for 0-14 is documented.
-  if (!rubricText.includes('0-14')) {
-    failures.push('missing "0-14" total-range marker in rubric file');
-  }
-
-  // Assert the file now has exactly 7 level-3 component headings.
-  const level3Count = lines.filter(l => /^###\s+\S/.test(l)).length;
-  if (level3Count !== 7) {
-    failures.push(`expected 7 level-3 component headings, found ${level3Count}`);
   }
 
   if (failures.length > 0) {
@@ -122,7 +192,9 @@ function main() {
     process.exit(1);
   }
 
-  console.log('PASS: extended rubric checks (CRAFT-10 additions present, 0-14 documented, 7 components)');
+  console.log(
+    'PASS: extended rubric checks (schema v2: 8 components, 0-16 range, novelty_dedup dimension, novelty_variation component)'
+  );
   process.exit(0);
 }
 
