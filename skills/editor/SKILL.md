@@ -534,9 +534,67 @@ Scoring aggregation and thresholds per `${CLAUDE_PLUGIN_ROOT}/references/captiva
 ### Scripture Consistency
 [Any translation mismatches]
 
+## Bestseller Diagnostic
+[Per-chapter CRAFT-01..08 + CRAFT-15 pass/fail matrix appended by §4.6]
+
 ## Unresolved Issues (Requires User Decision)
 [Issues the editor could not auto-resolve]
 ```
+
+### 4.6 Bestseller Diagnostic Assembly (CRAFT-16)
+
+After Pass 3 cross-chapter validation completes, assemble the per-chapter bestseller diagnostic and append it to `reports/consistency-report.md`. This is the CRAFT-16 deliverable: every CRAFT-01..08 + CRAFT-15 result for every chapter, surfaced at the Stage 4 review gate alongside voice consistency flags.
+
+**Step 1 — Re-invoke craft-check.js per chapter.** For each chapter, run the deterministic checker against the edited final file:
+
+```
+node ${CLAUDE_PLUGIN_ROOT}/scripts/craft-check.js [project_directory]/edited/ch[NN]-final.md
+```
+
+Parse the JSON output. The JSON shape is `{chapter_id, checks: {CRAFT-XX: {pass, evidence, citations}}}` per Plan 10-01. The deterministic checks covered are CRAFT-01 (provenance presence), CRAFT-02 (Greek/Hebrew density), CRAFT-05 (pulpit-seam), CRAFT-07 (reader-thought lines), and CRAFT-15 (version stamp).
+
+**Step 2 — Gather Pass 2 judgment results.** Read each chapter's `<!-- VOICE AUDIT -->` metadata block from `edited/ch[NN]-final.md`. Extract the `craft_pass2:` block (written by Pass 2 §3.3, §3.7, §3.8, §3.9 and the §2.12 carry-through). It supplies the LLM judgment results for CRAFT-03 (central image), CRAFT-04 (vulnerability beat), CRAFT-06 (reader moments), and CRAFT-08 (concrete:abstract ratio carries from Pass 1 §2.12 via the merged `craft_check` block).
+
+**Step 3 — Merge into a per-check matrix.** For each chapter, build a row per check by combining the deterministic and judgment results. Use the unified status set:
+
+- `PASS` — all assertions for this check passed.
+- `FAIL` — a hard-gate check failed (CRAFT-01 provenance, CRAFT-02 density, CRAFT-05 pulpit-seam, CRAFT-15 version stamp).
+- `FLAG` — a flag-only judgment check did not pass (CRAFT-03, CRAFT-04, CRAFT-06, CRAFT-07, CRAFT-08, plus CRAFT-01 scene-quality strictness from Pass 2 §3.3).
+- `SKIP` — check skipped because the prerequisite is absent (e.g. CRAFT-06 with no Reader Moments section in the voice profile, CRAFT-04 with empty `vulnerability_beat_seed`).
+
+**Step 4 — Append `## Bestseller Diagnostic` to consistency-report.md.** Insert the section AFTER `## Cross-Chapter Consistency` (the Pass 3 Cross-Chapter block) and BEFORE `## Unresolved Issues` (if present). For each chapter, emit a sub-section in this exact shape:
+
+```markdown
+### Ch N: {title}
+
+| Check | Pass/Fail | Evidence | Line |
+|---|---|---|---|
+| CRAFT-01 Scene-first opener | PASS/FAIL/FLAG | <evidence> | ch{NN}:<line> |
+| CRAFT-02 Greek density | PASS/FAIL | <evidence> | ch{NN}:<line> |
+| CRAFT-03 Central image | PASS/FLAG | <evidence> | ch{NN}:<range> |
+| CRAFT-04 Vulnerability beat | PASS/FLAG/SKIP | <evidence> | ch{NN}:<line> |
+| CRAFT-05 Pulpit seam | PASS/FAIL | <evidence> | ch{NN}:<line> or — |
+| CRAFT-06 Reader moments | PASS/FLAG/SKIP | <evidence> | ch{NN}:<line> |
+| CRAFT-07 Reader-thought lines | PASS/FLAG | <evidence> | ch{NN}:<line> |
+| CRAFT-08 Concrete:abstract ratio | PASS/FLAG | <evidence> | ch{NN}:p<start>-p<end> |
+| CRAFT-15 Version stamp | PASS/FAIL | <evidence> | ch{NN}:<line> |
+
+**Severity:** <count> flags (judgment-only). Chapter meets/misses hard gates.
+```
+
+The "Evidence" column should quote the offending phrase or cite the JSON `evidence` field from craft-check.js for deterministic checks, and a one-clause judgment summary for flag-only checks. The "Line" column uses the `chNN:<line>` chapter-relative line citation pattern shared with the rest of the consistency report.
+
+**Step 5 — Append revision-cap notes.** After the per-chapter sub-sections, append a `### Revision Cap Notes` block listing any chapters that hit the orchestrator's 2-revision cap (CRAFT-17, wired in this plan — see `skills/orchestrator/SKILL.md` "Revision Cap and Divergent-Improvement Detection"). Each note uses this shape:
+
+```
+- Chapter N hit the 2-revision cap on [check]. Accepted revision {M} (highest-scoring). Human review recommended at Stage 4.
+```
+
+If a chapter triggered divergent-improvement detection instead of cap exhaustion, use the alternate phrasing emitted by the orchestrator: `Chapter N: divergent improvement detected at revision {N}. Accepted revision {N-1} (component X dropped from A to B).`
+
+**Step 6 — No auto-revise.** §4.6 is purely an assembly step. It re-invokes `scripts/craft-check.js` for the final pass/fail matrix but does NOT trigger any new revision passes — the 2-revision cap (CRAFT-17) has already been enforced upstream by the orchestrator's per-chapter revision loop. If §4.6 detects a hard-gate FAIL on a chapter that did not exhaust the revision cap, log the failure in the diagnostic report and let the Stage 4 review gate surface it to the user.
+
+**Rule reference:** `${CLAUDE_PLUGIN_ROOT}/references/bestseller-craft-rules.md` § CRAFT-16.
 
 ## 5. Rolling Window Pattern (16+ Chapters)
 
