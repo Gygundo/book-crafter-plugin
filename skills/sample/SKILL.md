@@ -76,7 +76,7 @@ fi
 
 ## §4. Compute the Captivation Score
 
-The editor emits `reports/consistency-report.md` during Phase 4 with the captivation total in `N/14` format. Read it first:
+The editor emits `reports/consistency-report.md` during Stage 4. Phase 13 canonicalised the scoring surface: the editor writes a fenced YAML block under a `## Captivation Score` heading with schema_version, captivation_total, novelty_dedup, and per-component scores — all at column 0 so bash grep readers work without jq or any other parsing dependency. See `references/captivation-rubric.md` for schema v2 details, and `skills/editor/SKILL.md ## Captivation Score` for the emit template.
 
 ```bash
 REPORT="${CLAUDE_PLUGIN_ROOT}/fixtures/tiny-book/run/reports/consistency-report.md"
@@ -84,16 +84,39 @@ if [ ! -f "$REPORT" ]; then
   echo "SAMPLE FAIL — consistency-report.md missing (see ${REPORT})"
   exit 1
 fi
-N=$(grep -Eo 'Captivation[^0-9]*([0-9]+)/14' "$REPORT" | grep -Eo '[0-9]+/14' | head -1 | cut -d/ -f1)
+
+# Phase 13: read structured YAML fields (column-0 anchored, no prose grep).
+SCHEMA=$(grep -E '^schema_version:' "$REPORT" | head -1 | cut -d: -f2 | tr -d ' ')
+N=$(grep -E '^captivation_total:' "$REPORT" | head -1 | cut -d: -f2 | tr -d ' ')
+DEDUP=$(grep -E '^novelty_dedup:' "$REPORT" | head -1 | cut -d: -f2 | tr -d ' ')
+
+# Validate: schema_version MUST be 2 (Phase 13 hard break from v1).
+if [ "$SCHEMA" != "2" ]; then
+  echo "SAMPLE FAIL — consistency-report.md schema_version is '${SCHEMA}' (expected 2) — editor is emitting stale v1 format"
+  exit 1
+fi
+
+# Validate: captivation_total parsed successfully
+if ! echo "$N" | grep -qE '^[0-9]+$'; then
+  echo "SAMPLE FAIL — could not parse captivation_total from consistency-report.md"
+  exit 1
+fi
+
+# Validate: novelty_dedup is pass or fail
+if [ "$DEDUP" != "pass" ] && [ "$DEDUP" != "fail" ]; then
+  echo "SAMPLE FAIL — novelty_dedup is '${DEDUP}' (expected pass or fail)"
+  exit 1
+fi
+
+# Count novelty_dedup_flags for FAIL messaging
+FLAG_COUNT=$(awk '/^novelty_dedup_flags:/{flag=1; next} flag && /^[^ ]/{flag=0} flag && /^  - /{count++} END{print count+0}' "$REPORT")
 ```
 
-If the report exists but the total line cannot be parsed, **fall back** to running `craft-check.js` against the first edited chapter:
+No fallback to craft-check.js. Phase 11 used craft-check.js as a degraded fallback for the 5-of-14 rubric components; Phase 13 removes this fallback because craft-check.js is neither schema v2 aware nor authoritative for captivation scoring. The `## Captivation Score` YAML block is the single canonical surface per D-24. If the block is missing or malformed, the sample gate hard-fails with a specific reason — there is no degraded path.
 
-```bash
-node "${CLAUDE_PLUGIN_ROOT}/scripts/craft-check.js" "${CLAUDE_PLUGIN_ROOT}/fixtures/tiny-book/run/edited/ch01-final.md"
-```
+### §4.1 Column-0 contract
 
-`craft-check.js` emits JSON. Note that craft-check only covers CRAFT-01/02/05/07/15 — it is **not** a substitute for the full 14-point captivation rubric. The primary source of truth is the consistency-report total; craft-check is only a degraded fallback so the sample skill can still emit a meaningful PASS/FAIL line if the report is malformed.
+All four anchor lines (`schema_version:`, `captivation_total:`, `novelty_dedup:`, `novelty_dedup_flags:`) MUST appear at column 0 of their own line inside the report. The editor template at `skills/editor/SKILL.md ## Captivation Score` enforces this contract by emitting a fenced yaml block where the fence characters are on their own lines (so the fence does not consume a grep line start). Any future editor edit that indents these fields or moves them inside a nested structure will break the sample gate immediately — this is intentional per Pitfall 4 (early failure over silent drift).
 
 ## §5. Compare to Threshold and Emit PASS/FAIL
 
