@@ -232,7 +232,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 - [x] **GATE-01**: Frozen baseline `evidence/eternally-secure-ch1-before.md` committed (immutable Phase 7 output)
 - [x] **GATE-02**: Eternally Secure re-run through updated pipeline in `--fresh` mode, `evidence/eternally-secure-ch1-after.md` produced
 - [x] **GATE-03**: Seven-gap comparison file `evidence/seven-gap-comparison.md` — scene opener, Greek density, vulnerability, central image, tension-release, reader anchor, pulpit seams — with before/after quoted paragraphs for each
-- [ ] **GATE-04**: Third-party review — fresh Claude session ranks before vs after blind, logged to `evidence/external-review.md`
+- [x] **GATE-04**: Third-party review — fresh Claude session ranks before vs after blind, logged to `evidence/external-review.md`
 - [x] **GATE-05**: Sermon-adapter regression check — `sources-adapted/` byte-diff against pre-change baseline (must be unchanged)
 - [ ] **GATE-06**: Fresh-install smoke-test — dev plugin removed, cache cleared, marketplace install via README commands, fixture brief run, .docx verified
 - [ ] **GATE-07**: README capability language finalised against comparison evidence (no "bestseller quality" claim without matching evidence rows)
@@ -298,7 +298,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | GATE-01 | Phase 12 | Complete |
 | GATE-02 | Phase 12 | Complete |
 | GATE-03 | Phase 12 | Complete |
-| GATE-04 | Phase 12 | Pending |
+| GATE-04 | Phase 12 | Complete |
 | GATE-05 | Phase 12 | Complete |
 | GATE-06 | Phase 12 | Pending |
 | GATE-07 | Phase 12 | Pending |
