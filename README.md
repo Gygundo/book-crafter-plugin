@@ -2,10 +2,11 @@
 
 > **Requires:** Claude Code + Node ≥18. Check with `node -v`.
 
-Writes structured non-fiction books with enforced craft rules.
+Writes non-fiction books with scene-driven openers, controlled theological density, voice-consistent prose, and novelty-enforced imagery -- backed by 8 countable craft rules and a blind A/B review.
 
-<!-- TODO(phase-12): replace with fixture paragraph from first successful /book-crafter:sample run -->
-> *A 3–4 line quoted prose sample will be inserted here after the tiny-book fixture runs for the first time. Phase 12 GATE-07 finalises this block against real output.*
+> It is 11:47 at night. The house is quiet. The lamp is off. And somewhere in the dark of a bedroom you have never seen, a woman is lying on her back with her hands folded across her chest, staring at a ceiling she cannot quite make out, running a mental inventory of the day. The sharp word to her husband at breakfast. The thought she should not have entertained at lunchtime. The prayer she meant to pray and forgot. And underneath all of it, the low hum of a question that never fully goes away.
+>
+> *-- Generated sample (Eternally Secure, Ch 1)*
 
 ## Install
 
