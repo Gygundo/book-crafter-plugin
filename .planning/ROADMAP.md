@@ -174,7 +174,7 @@ Plans:
 ### v1.1 Phases
 
 - [x] **Phase 10: Writing Quality v2** — Seven countable craft rules, extracted/extended captivation rubric, voice profile subtractive audit, `--fresh` orchestrator mode, version stamps, per-chapter diagnostic report (completed 2026-04-15)
-- [ ] **Phase 11: Distribution Packaging** — Marketplace.json, plugin.json v1.1.0 metadata, recipient README, LICENSE, CHANGELOG, fixture, release.sh with whitelist zip, sample skill
+- [x] **Phase 11: Distribution Packaging** — Marketplace.json, plugin.json v1.1.0 metadata, recipient README, LICENSE, CHANGELOG, fixture, release.sh with whitelist zip, sample skill (completed 2026-04-16)
 - [ ] **Phase 12: Re-run + Release Gate** — Frozen baseline, `--fresh` re-run, seven-gap comparison, external review, sermon-adapter regression check, fresh-install smoke-test, ship decision, git tag
 
 ### Phase 10: Writing Quality v2
@@ -240,7 +240,7 @@ Plans:
 
 **Anti-pattern reminder (from PITFALLS.md):** Do NOT `zip -r .` — always build from an explicit allow-list. The release script MUST fail-hard if the output exceeds 5MB, contains `/Users/David`, or ships `.planning/`, `evidence/`, or `books/`. Do NOT declare version in both `plugin.json` AND `marketplace.json` — the manifest silently wins and the marketplace version is ignored. Do NOT claim "bestseller quality" in the README until Phase 12 evidence exists (Phase 12 finalises README capability language). Do NOT use the term "Claude Desktop" anywhere — plugins live in Claude Code; claude.ai has no plugin installer.
 
-**Plans:** 5/6 plans executed
+**Plans:** 6/6 plans complete
 
 Plans:
 - [x] 11-01-PLAN.md — Tiny-book fixture (brief.md + threshold) and .gitignore additions
@@ -248,7 +248,7 @@ Plans:
 - [x] 11-03-PLAN.md — plugin.json v1.1.0 bump (dev name) + marketplace.json (repo-as-marketplace)
 - [x] 11-04-PLAN.md — scripts/release.sh with 9 fail-hard gates and D-27 whitelist
 - [x] 11-05-PLAN.md — /book-crafter:sample skill (end-to-end fixture demo)
-- [ ] 11-06-PLAN.md — Final validate + release.sh + sample smoke-test and threshold calibration
+- [x] 11-06-PLAN.md — Final validate + release.sh + sample smoke-test and threshold calibration
 
 ### Phase 12: Re-run + Release Gate
 **Goal:** Prove the v1.1 rules actually improve output by re-running Eternally Secure in `--fresh` mode, producing a seven-gap before/after comparison with quoted paragraphs, verifying the fresh-install path, and recording David's explicit ship decision — all blocking on the v1.1.0 git tag.
@@ -283,7 +283,7 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 10. Writing Quality v2 | 9/9 | Complete    | 2026-04-15 |
-| 11. Distribution Packaging | 5/6 | In Progress|  |
+| 11. Distribution Packaging | 6/6 | Complete    | 2026-04-16 |
 | 12. Re-run + Release Gate | 0/7 | Not started | - |
 
 ### v1.1 Coverage
