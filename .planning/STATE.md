@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Bestseller Quality + Distribution
 status: executing
-stopped_at: Completed 12-02-PLAN.md
-last_updated: "2026-04-16T21:02:22.396Z"
+stopped_at: Completed 12-03-PLAN.md
+last_updated: "2026-04-16T21:09:00.135Z"
 last_activity: 2026-04-16
 progress:
   total_phases: 13
   completed_phases: 11
   total_plans: 54
-  completed_plans: 49
+  completed_plans: 50
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-15)
 ## Current Position
 
 Phase: 12 (re-run-release-gate) — EXECUTING
-Plan: 3 of 6
+Plan: 4 of 6
 Status: Ready to execute
 Last activity: 2026-04-16
 
@@ -106,6 +106,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 13-repetition-and-novelty-enforcement P13 | 2min | 1 tasks | 1 files |
 | Phase 12-re-run-release-gate P01 | 1min | 1 tasks | 2 files |
 | Phase 12-re-run-release-gate P02 | 3min | 2 tasks | 1 files |
+| Phase 12-re-run-release-gate P03 | 5min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -197,6 +198,7 @@ Recent decisions affecting current work:
 - [Phase 13-repetition-and-novelty-enforcement]: Plan 13-13: Stage 4.6 complements editor §4.4.5 rather than replacing it — editor continues body-chapter audit during Stage 4, Stage 4.6 adds foreword coverage after Stage 4.5
 - [Phase 12-re-run-release-gate]: Byte-identical copy of ch01-final.md (no modifications) as immutable baseline
 - [Phase 12-re-run-release-gate]: Version stamp deviation accepted: pipeline does not emit generated-by comment; evidence validity confirmed by content diff instead
+- [Phase 12-re-run-release-gate]: 8th gap section (Novelty/Dedup) added per D-07 discretion; sermon-adapter regression PASS with byte-identical checksums
 
 ### Roadmap Evolution
 
@@ -217,6 +219,6 @@ None yet. Phase 12 is a pre-declared gate, not a blocker.
 
 ## Session Continuity
 
-Last session: 2026-04-16T21:02:22.392Z
-Stopped at: Completed 12-02-PLAN.md
+Last session: 2026-04-16T21:09:00.131Z
+Stopped at: Completed 12-03-PLAN.md
 Resume file: None
