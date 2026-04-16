@@ -191,7 +191,58 @@ And what has been done cannot be undone.
 
 ## Response
 
-[To be filled after the review session]
+# Ranking: Version A vs Version B
+
+## 1. Opening Engagement — **Version A wins decisively**
+
+Version A opens in scene: "It is 11:47 at night. The house is quiet. The lamp is off." You're inside a specific woman's bedroom before you know what the book is about. The sensory specifics — "hands folded across her chest, staring at a ceiling she cannot quite make out" — pull you in before the argument begins. The single-line paragraph "Multiply her by millions" lands because you've already been with *her*.
+
+Version B opens with a statistic-style abstraction: "Millions of believers will go to bed tonight unsure whether they will wake up in heaven or hell." It's true, but it's told, not shown. You're being briefed, not invited. The very next move is a thesis statement about why the question matters, which is the kind of opening that signals "settle in for a lecture."
+
+## 2. Prose Quality — **Version A wins**
+
+Version A varies its rhythm deliberately. Long building sentences collapse into short punches: "Multiply her by millions." "It never was." "The one who shut the door was never going to come back and open it." The triple repetition "Not at the beginning. Not in the middle. Not at the end." hits because the surrounding sentences are longer and more meandering. There's a working ear here.
+
+Version B is competent but uniform. Sentences tend to land at similar lengths, and the rhythm is argumentative throughout — claim, support, claim, support. Phrases like "Get this wrong, and everything downstream tilts. Your prayer life. Your identity. Your confidence before God." attempt the same staccato move A uses, but they feel like bullet points rather than earned emphasis because the surrounding prose hasn't built tension to release.
+
+Version B also over-relies on Greek word studies ("*orthotomeo*," "*dokimos*," "*sesosmenoi*," "*charis*," "*oudepote*," "*ginosko*," "*pisteuo*," "*pistis*") stacked close together. That's not prose — that's a lexicon in paragraph form. A uses Greek sparingly (*soter*, *sozo*) and only where it genuinely drives the argument.
+
+## 3. Concrete Imagery — **Version A wins by a wide margin**
+
+Version A gives you:
+- A specific clock time (11:47), a specific woman, a specific tenure ("thirty-two years")
+- Noah's ark with the door sealed from outside — developed into a full theological image
+- The lifeguard scene rendered dramatically: "two hundred metres from shore, exhausted, coughing salt, going under for the third time. A lifeguard hits the water, reaches the body, locks an arm under the chin, and drags the swimmer back to the boat."
+- Jesus "walked through storms like they were hallways"
+- The *soter* word picture rendered historically: "the physician who snatched you back from death when the fever broke. A *soter* was the general who pulled the soldiers out of the ambush."
+
+Version B attempts similar imagery — the drowning swimmer reappears — but it's compressed and abstract: "They cannot tell the rescue boat, 'I'll do the first 200 metres myself, and you bring me the last 50.'" No salt, no coughing, no arm under the chin. Version B also skips the Noah picture entirely, which is one of A's strongest theological moves.
+
+## 4. Reader Connection — **Version A wins**
+
+A addresses *you* as a person who has had that 11:47 night: "And if you are honest, you have had a version of that night yourself." It moves between the woman on the ceiling, the reader, and the argument in a way that keeps the human in frame throughout. The closing — "the question that has kept you up at night turns into the answer that lets you finally sleep" — circles back to the opening scene.
+
+B addresses you as a student: "So let us handle it." "This matters because..." "Look at what Paul does in that sentence." It's the voice of an instructor walking you through material. When B does turn personal ("So what does this mean for you?"), it arrives two-thirds of the way in and reads like a transition beat in a sermon rather than a sustained connection.
+
+B also does something revealing in its method section — it talks about method for several paragraphs before getting to content. That's a lecturer's move, not a writer's. Readers don't want to be told how they'll be taught; they want to be taught.
+
+## 5. Overall — **Version A, and it isn't close**
+
+I would keep reading A. By the end of the chapter I've met a woman, sat inside her insomnia, walked the shore with a lifeguard, stood outside Noah's ark, and heard "I never knew you" land as four specific words rather than a proof text. The final paragraph — promising "a word we have to look at" and teasing the next chapter — makes me want to turn the page.
+
+B makes the same theological case, sometimes with more technical precision (the perfect passive participle note on *sesosmenoi* is genuinely good). But precision isn't what pulls a reader through Chapter 1. B reads like a well-organised sermon manuscript; A reads like a book. If I picked both up in a bookshop, I'd put B down after three paragraphs and buy A.
+
+## Summary Table
+
+| Dimension | Winner |
+|---|---|
+| Opening engagement | A |
+| Prose quality | A |
+| Concrete imagery | A |
+| Reader connection | A |
+| Would keep reading | A |
+
+**One caveat worth naming:** B has genuine strengths A lacks — tighter exegetical apparatus, the *dokimos* and perfect-tense observations, the 1 John 2:19 citation. If the goal is to *merge* them, A is the spine and B is a quarry for two or three technical insights to graft in sparingly. Don't let B's word studies colonise A's voice.
 
 ## Reveal
 
