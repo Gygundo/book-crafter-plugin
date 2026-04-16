@@ -1,6 +1,7 @@
 ---
 name: sample
 description: "Run a full Book Crafter pipeline end-to-end on the built-in tiny-book fixture and print a one-line PASS/FAIL summary with captivation score. Use when the user says 'run sample', 'try book crafter', 'demo', 'sample book', 'smoke test', or wants a quick end-to-end verification after install."
+user-invocable: true
 allowed-tools: Read, Write, Bash, Grep, Glob, Agent
 ---
 

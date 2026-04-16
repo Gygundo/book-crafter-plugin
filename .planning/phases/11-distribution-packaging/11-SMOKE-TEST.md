@@ -67,3 +67,40 @@ SUCCESS: dist/book-crafter-v1.1.0.zip built (153878 bytes, version 1.1.0)
 </details>
 
 **Result:** PASS
+
+## Gate 3: `/book-crafter:sample` end-to-end
+
+**First run:**
+- Duration: < 5 minutes
+- PASS/FAIL: PASS
+- Captivation: 16/16 (threshold 10)
+- Novelty/dedup: pass (0 flags)
+- Schema v2: validated
+- .docx path: `fixtures/tiny-book/run/final/The 2am Prayer.docx`
+
+**Threshold recalibration:**
+- Starting value: 10
+- First-run captivation: 16
+- Decision: bump to 11 (captivation >= 13, leaves regression headroom per D-07)
+
+**Result:** PASS
+
+## Phase 11 Verification Summary
+
+| Gate | Requirement | Status |
+|------|-------------|--------|
+| 1 | `claude plugin validate .` clean (PKG-08, SC-2) | PASS |
+| 2 | `scripts/release.sh` produces <5MB zip with no PII (PKG-07, SC-3) | PASS |
+| 3 | `/book-crafter:sample` runs end-to-end in ≤5 min (PKG-09, SC-4) | PASS |
+| — | README has 3-command install block (PKG-03, SC-1) | PASS (Plan 02 Task 2) |
+| — | README zero "Claude Desktop" references (SC-5) | PASS (Plan 02 Task 2) |
+
+All Phase 11 success criteria observable in the shipped repo state.
+
+**Phase 11 → Phase 12 handoff:**
+- `evidence/eternally-secure-ch1-before.md` baseline freeze — Phase 12 GATE-01
+- Fresh-install smoke test (uninstall dev, install from marketplace) — Phase 12 GATE-06
+- README capability language evidence-anchoring — Phase 12 GATE-07
+- `git tag v1.1.0` — Phase 12 GATE-09 (blocked on GATE-08 ship decision)
+
+Phase 11 does NOT tag, does NOT finalise README capability line, does NOT run the Eternally Secure re-run. Those are Phase 12 owned.
