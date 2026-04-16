@@ -1,0 +1,3 @@
+bbdb5e73532b8aee257ad8d811437f070e4ad586fe33a34224c5ce114907361c  /Users/David/Documents/Books/Eternally Secure/sources-adapted/source-01-20-reasons.md
+bf353f6446fec8f5716a9e5b4774adbba82049f7bb8255753eeee488168eeaf5  /Users/David/Documents/Books/Eternally Secure/sources-adapted/source-02-4-signs.md
+03e8fbee86a39400c509de267c3c02ea4213a5bda99c4c3b98401bf7456156e9  /Users/David/Documents/Books/Eternally Secure/sources-adapted/source-03-can-you-lose.md
