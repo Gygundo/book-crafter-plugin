@@ -310,7 +310,7 @@ Plans:
 5. Tiny-book fixture brief rewritten from "same exact central image every chapter" to "one motif family, three distinct vehicles" (phone glow / kitchen counter / grey dawn). The phrase "one small lamp refusing the whole dark" appears at most once in the whole booklet.
 6. A fresh `/book-crafter:sample` run against the rewritten fixture passes the new canonical gate, produces zero dedup flags, and reads as visibly non-repetitive.
 
-**Plans:** 12/14 plans executed
+**Plans:** 13/14 plans complete
 
 Plans:
 - [x] 13-01-PLAN.md — Adversarial Tier 1 fixture (known-bad foreword + chapters with deliberate duplication)
