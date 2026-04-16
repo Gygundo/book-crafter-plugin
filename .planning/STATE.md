@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Bestseller Quality + Distribution
 status: executing
-stopped_at: Completed 13-10-PLAN.md
-last_updated: "2026-04-15T21:21:27.465Z"
-last_activity: 2026-04-15
+stopped_at: Completed 13-12-PLAN.md
+last_updated: "2026-04-16T05:42:17.067Z"
+last_activity: 2026-04-16
 progress:
   total_phases: 13
   completed_phases: 10
-  total_plans: 45
-  completed_plans: 43
+  total_plans: 48
+  completed_plans: 44
   percent: 0
 ---
 
@@ -26,9 +26,9 @@ See: .planning/PROJECT.md (updated 2026-04-15)
 ## Current Position
 
 Phase: 13 (repetition-and-novelty-enforcement) — EXECUTING
-Plan: 5 of 11
+Plan: 2 of 3
 Status: Ready to execute
-Last activity: 2026-04-15
+Last activity: 2026-04-16
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -102,6 +102,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 13-repetition-and-novelty-enforcement P08 | 4min | 1 tasks | 1 files |
 | Phase 13-repetition-and-novelty-enforcement P09 | 6 | 2 tasks | 2 files |
 | Phase 13-repetition-and-novelty-enforcement P10 | 4min | 2 tasks | 2 files |
+| Phase 13-repetition-and-novelty-enforcement P12 | 1min | 1 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -189,6 +190,7 @@ Recent decisions affecting current work:
 - [Phase 13-repetition-and-novelty-enforcement]: Plan 13-05: Vulnerability signatures emit 10 words starting at the anchor (not 6 from first sentence) — first-sentence approach misses anchor-in-third-sentence paragraphs in the adversarial fixture
 - [Phase 13-repetition-and-novelty-enforcement]: Plan 13-05: Repeated spans are grown to maximal common substrings via lock-step token extension across shared shingles, then coverage-deduped so one row per maximal duplicate (matches test harness exact-phrase assertions)
 - [Phase 13-repetition-and-novelty-enforcement]: Plan 13-08: Mode 7 uses rewrite_reason parameter on Stage 3 wave-batching builder (no new skill); D-12 reason validation runs BEFORE any destructive operation; no auto-loop on persistent dedup failure honours D-10 editor-as-judge
+- [Phase 13-repetition-and-novelty-enforcement]: Plan 13-12: Anti-Loop Clause inserted as Section 6.1 between quality rules and output format, preserving all existing enricher content
 
 ### Roadmap Evolution
 
@@ -209,6 +211,6 @@ None yet. Phase 12 is a pre-declared gate, not a blocker.
 
 ## Session Continuity
 
-Last session: 2026-04-15T21:21:27.461Z
-Stopped at: Completed 13-10-PLAN.md
+Last session: 2026-04-16T05:42:17.064Z
+Stopped at: Completed 13-12-PLAN.md
 Resume file: None

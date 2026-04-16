@@ -310,7 +310,7 @@ Plans:
 5. Tiny-book fixture brief rewritten from "same exact central image every chapter" to "one motif family, three distinct vehicles" (phone glow / kitchen counter / grey dawn). The phrase "one small lamp refusing the whole dark" appears at most once in the whole booklet.
 6. A fresh `/book-crafter:sample` run against the rewritten fixture passes the new canonical gate, produces zero dedup flags, and reads as visibly non-repetitive.
 
-**Plans:** 14 plans (10 executed + 1 failed + 3 gap closure)
+**Plans:** 11/14 plans executed
 
 Plans:
 - [x] 13-01-PLAN.md — Adversarial Tier 1 fixture (known-bad foreword + chapters with deliberate duplication)
@@ -324,6 +324,6 @@ Plans:
 - [x] 13-09-PLAN.md — Sample skill YAML reader (structured gate replaces prose grep)
 - [x] 13-10-PLAN.md — Fixture brief and Book DNA rewrite (motif family, 3 vehicles, refrain)
 - [ ] 13-11-PLAN.md — SC-6 proof run (FAILED — 4 repeated_spans, foreword-to-ch01 bleed)
-- [ ] 13-12-PLAN.md — Gap closure: enricher Anti-Loop Clause (foreword generation branch)
+- [x] 13-12-PLAN.md — Gap closure: enricher Anti-Loop Clause (foreword generation branch)
 - [ ] 13-13-PLAN.md — Gap closure: post-enricher novelty gate (orchestrator Stage 4.6)
 - [ ] 13-14-PLAN.md — Gap closure: SC-6 proof re-run after fixes
