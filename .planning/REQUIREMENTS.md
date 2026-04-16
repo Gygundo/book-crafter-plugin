@@ -229,7 +229,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ### Re-run + Release Gate
 
-- [ ] **GATE-01**: Frozen baseline `evidence/eternally-secure-ch1-before.md` committed (immutable Phase 7 output)
+- [x] **GATE-01**: Frozen baseline `evidence/eternally-secure-ch1-before.md` committed (immutable Phase 7 output)
 - [ ] **GATE-02**: Eternally Secure re-run through updated pipeline in `--fresh` mode, `evidence/eternally-secure-ch1-after.md` produced
 - [ ] **GATE-03**: Seven-gap comparison file `evidence/seven-gap-comparison.md` — scene opener, Greek density, vulnerability, central image, tension-release, reader anchor, pulpit seams — with before/after quoted paragraphs for each
 - [ ] **GATE-04**: Third-party review — fresh Claude session ranks before vs after blind, logged to `evidence/external-review.md`
@@ -295,7 +295,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PKG-08 | Phase 11 | Complete |
 | PKG-09 | Phase 11 | Complete |
 | PKG-10 | Phase 11 | Complete |
-| GATE-01 | Phase 12 | Pending |
+| GATE-01 | Phase 12 | Complete |
 | GATE-02 | Phase 12 | Pending |
 | GATE-03 | Phase 12 | Pending |
 | GATE-04 | Phase 12 | Pending |

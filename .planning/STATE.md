@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Bestseller Quality + Distribution
 status: executing
-stopped_at: Phase 12 context gathered
-last_updated: "2026-04-16T15:06:41.851Z"
+stopped_at: Completed 12-01-PLAN.md
+last_updated: "2026-04-16T15:22:30.287Z"
 last_activity: 2026-04-16
 progress:
   total_phases: 13
   completed_phases: 11
-  total_plans: 48
-  completed_plans: 47
+  total_plans: 54
+  completed_plans: 48
   percent: 0
 ---
 
@@ -21,13 +21,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-15)
 
 **Core value:** Every chapter must read like it was written by a bestselling author -- hooks that grab, revelation-driven depth that stays accessible, seamless flow between chapters, and a voice so consistent the reader forgets multiple agents touched it.
-**Current focus:** Phase 11 — distribution-packaging
+**Current focus:** Phase 12 — re-run-release-gate
 
 ## Current Position
 
-Phase: 13
-Plan: Not started
-Status: Executing Phase 11
+Phase: 12 (re-run-release-gate) — EXECUTING
+Plan: 2 of 6
+Status: Ready to execute
 Last activity: 2026-04-16
 
 Progress: [░░░░░░░░░░] 0%
@@ -104,6 +104,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 13-repetition-and-novelty-enforcement P10 | 4min | 2 tasks | 2 files |
 | Phase 13-repetition-and-novelty-enforcement P12 | 1min | 1 tasks | 1 files |
 | Phase 13-repetition-and-novelty-enforcement P13 | 2min | 1 tasks | 1 files |
+| Phase 12-re-run-release-gate P01 | 1min | 1 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -193,6 +194,7 @@ Recent decisions affecting current work:
 - [Phase 13-repetition-and-novelty-enforcement]: Plan 13-08: Mode 7 uses rewrite_reason parameter on Stage 3 wave-batching builder (no new skill); D-12 reason validation runs BEFORE any destructive operation; no auto-loop on persistent dedup failure honours D-10 editor-as-judge
 - [Phase 13-repetition-and-novelty-enforcement]: Plan 13-12: Anti-Loop Clause inserted as Section 6.1 between quality rules and output format, preserving all existing enricher content
 - [Phase 13-repetition-and-novelty-enforcement]: Plan 13-13: Stage 4.6 complements editor §4.4.5 rather than replacing it — editor continues body-chapter audit during Stage 4, Stage 4.6 adds foreword coverage after Stage 4.5
+- [Phase 12-re-run-release-gate]: Byte-identical copy of ch01-final.md (no modifications) as immutable baseline
 
 ### Roadmap Evolution
 
@@ -213,6 +215,6 @@ None yet. Phase 12 is a pre-declared gate, not a blocker.
 
 ## Session Continuity
 
-Last session: 2026-04-16T15:06:41.843Z
-Stopped at: Phase 12 context gathered
-Resume file: .planning/phases/12-re-run-release-gate/12-CONTEXT.md
+Last session: 2026-04-16T15:22:30.283Z
+Stopped at: Completed 12-01-PLAN.md
+Resume file: None
