@@ -140,6 +140,24 @@ Default to author-voice mode unless the Book DNA metadata contains a "Foreword m
 - The foreword TEASES the journey without revealing destinations
 - Match the book's voice profile for tone and vocabulary
 
+## 6.1 Anti-Loop Clause (Foreword)
+
+> The SC-6 proof run revealed that the enricher copies verbatim sentences from edited chapters into the foreword. Three 6+ word spans from ch01 bled into front-matter/foreword.md, causing craft-check.js --novelty to flag 4 repeated_spans. This clause is the structural fix on the enricher side — mirroring the writer's Anti-Loop Clause (Phase 13, D-30).
+
+When generating the foreword, you read all edited chapters for context. You MUST NOT copy from them. Honour these rules:
+
+1. **No 6+ word phrase reuse from any chapter or enrichment file.** Before committing any sentence in the foreword, check whether a 6-or-more-word span appears in any `edited/ch*-final.md` file or any `enrichments/ch*-enrichments.md` file. If yes, REWRITE the sentence using different words. The foreword frames PURPOSE — it does not quote chapters.
+
+2. **No vulnerability beat reproduction.** If an edited chapter contains a first-person vulnerability beat (a named confession, doubt, fear, or struggle in the middle third), the foreword MUST NOT reproduce that scene — even paraphrased. The foreword may reference the THEME of vulnerability (e.g., "this book doesn't hide from the hard moments") but must not retell the specific scene. Vulnerability beats are single-use per Phase 13 D-30 rule 2.
+
+3. **Central image vehicle distinctness.** If the foreword uses imagery from the book's motif family, it must use a DIFFERENT vehicle from any chapter's central_image. Read the Book DNA Chapter Map to see which vehicles are already assigned. The foreword's imagery should complement, not duplicate.
+
+4. **Refrains are the ONLY permitted verbatim reuse.** Read the refrains YAML block from `[project_directory]/book-dna.md`. Each entry has phrase, max_uses, and scope. You may use each refrain phrase up to its max_uses budget in the declared scope. Every other verbatim span copied from a chapter is a violation.
+
+### Consequence of violation
+
+The orchestrator's post-enricher novelty gate (Stage 4.6) runs `craft-check.js --novelty --tier both` against the full corpus including the foreword. Any 6+ word span shared between the foreword and a chapter triggers `novelty_dedup: fail`, which hard-fails the sample gate. There is no override.
+
 **Output format for foreword (`front-matter/foreword.md`):**
 
 **Prepend `<!-- generated-by: book-crafter v1.1.0 -->` as the first line of `front-matter/foreword.md`** (line 1, above the `# Foreword` heading). The version stamp is required on every generated artefact; the formatter strips all HTML comments before .docx emission.
