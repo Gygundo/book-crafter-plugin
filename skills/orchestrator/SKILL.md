@@ -36,6 +36,9 @@ USER INPUT (topic brief OR existing content)
     |-- Stage 4.5: ENRICH (enricher skill)
     |   Output: enrichments/ch01-enrichments.md, ..., front-matter/foreword.md
     |
+    |-- Stage 4.6: POST-ENRICHER NOVELTY GATE (craft-check.js --novelty)
+    |   Gate: novelty_dedup pass/fail against full corpus including foreword
+    |
     |-- Stage 5: FORMAT (formatter skill)
     |   Output: output/[Book Title].docx
 ```
@@ -170,6 +173,12 @@ Work backwards from the most advanced stage:
    -> If enrichment count > 0 but less than chapter count: Stage 4.5 PARTIALLY COMPLETE
    -> If no enrichments but edited files exist with no revision marker: Stage 4.5 NOT STARTED (proceed to Stage 4.5)
 
+1.6. If Stage 4.5 COMPLETE, check post-enricher novelty gate status:
+   -> Read reports/consistency-report.md, extract novelty_dedup field value
+   -> If novelty_dedup: pass AND front-matter/foreword.md exists: Stage 4.6 COMPLETE
+   -> If novelty_dedup: fail: Stage 4.6 FAILED (pipeline halted, needs Mode 7 or manual fix)
+   -> If no novelty_dedup field but enrichments exist: Stage 4.6 NOT RUN (re-run Stage 4.6)
+
 2. Check for edited/ch*-final.md
    -> If count matches outline chapter count:
       -> Check reports/consistency-report.md for <!-- REVISION IN PROGRESS --> marker:
@@ -263,6 +272,8 @@ When Stage 4 is in review (revisions requested), display:
     [ ] Chapter summaries: 0/[N] chapters
     [ ] Prayer points: 0/[N] chapters [or "N/A -- non-theological"]
     [ ] Foreword: pending
+
+[ ] Stage 4.6: Post-Enricher Novelty Gate (craft-check.js --novelty)
 
 [ ] Stage 5: Formatting (formatter)
     [ ] .docx generation
@@ -650,9 +661,33 @@ After the enricher returns:
 3. Verify `front-matter/foreword.md` exists and contains `<!-- FOREWORD METADATA` marker
 4. Display: "Stage 4.5 complete: [N] chapter enrichments + foreword generated"
 
-**Step 4: Proceed to Stage 5**
+**Step 4: Post-enricher novelty gate (Stage 4.6)**
 
-Proceed to Stage 5 (Format). No approval gate for enrichments -- users can request revision through Mode 5 after reviewing the .docx.
+> The editor's §4.4.5 Novelty and Dedup Audit runs during Stage 4, before the foreword exists. This gate runs AFTER Stage 4.5 so the full corpus — including the enricher-generated foreword — is checked for verbatim overlap. It is the structural fix for the SC-6 proof run failure where three 6+ word spans bled from ch01 into the foreword undetected.
+
+Run the deterministic novelty check against the full corpus:
+
+```bash
+node "${CLAUDE_PLUGIN_ROOT}/scripts/craft-check.js" \
+  --novelty \
+  --tier both \
+  --dna "[project_directory]/book-dna.md" \
+  "[project_directory]"
+```
+
+Parse the JSON output.
+
+**If `flag: false` (novelty_dedup: pass):**
+- Display: "Stage 4.6 post-enricher novelty gate: PASS. Proceeding to Stage 5."
+- Proceed to Stage 5 (Format). No approval gate for enrichments -- users can request revision through Mode 5 after reviewing the .docx.
+
+**If `flag: true` (novelty_dedup: fail):**
+- Display the flag summary: "Stage 4.6 post-enricher novelty gate: FAIL. [N] flags detected."
+- List each flag (repeated_spans, cross_artefact_hits, central_image_reuse, refrain_overuse, tier2 hits).
+- Write the flags to `[project_directory]/reports/rewrite_targets.yaml` in the D-12 format (each target with file, span, reason, flagged_by: craft-check). For foreword-to-chapter overlaps, the reason MUST include the specific span and a directional instruction like "rewrite the foreword sentence at L[N] to avoid verbatim overlap with edited/ch[NN]-final.md:L[M]".
+- Update the `## Captivation Score` YAML block in `reports/consistency-report.md`: set `novelty_dedup: fail` and populate `novelty_dedup_flags` with the flag array. This OVERWRITES any `novelty_dedup: pass` the editor emitted during Stage 4 (the editor could not see the foreword at that point).
+- Display: "Pipeline halted. Use Mode 7 (`--rewrite-targets`) to re-run flagged artefacts, or manually edit the foreword at `front-matter/foreword.md` and re-run the orchestrator."
+- HALT. Do NOT proceed to Stage 5.
 
 #### Stage 5: Format
 
