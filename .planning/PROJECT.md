@@ -27,6 +27,13 @@ Every chapter must read like it was written by a bestselling author — hooks th
 - [x] Three-pass editing pipeline (voice+theological, flow/transitions, cross-chapter validation) with rolling window for large books — Validated in Phase 04
 - [x] Review gate with approve/revise/read options, chapter-level revision workflow with one-hop adjacency checks, version management — Validated in Phase 04
 
+### Validated (Phase 11)
+
+- [x] Marketplace manifest, plugin.json v1.1.0 metadata, recipient README with 3-command install block, LICENSE, CHANGELOG — Validated in Phase 11
+- [x] Release script (release.sh) with 9 fail-hard gates, whitelist zip builder, <5MB cap, no PII leaks — Validated in Phase 11
+- [x] Tiny-book fixture with captivation threshold and `/book-crafter:sample` end-to-end demo skill — Validated in Phase 11
+- [x] `claude plugin validate .` passes clean with zero warnings — Validated in Phase 11
+
 ### Active
 
 (Milestone v1.1 — see Current Milestone below. Requirements defined in REQUIREMENTS.md.)
@@ -121,4 +128,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-16 — Phase 13 (Repetition & Novelty Enforcement) complete; all 6 SCs verified, gap closure landed, SC-6 proof run passed with human approval*
+*Last updated: 2026-04-16 — Phase 11 (Distribution Packaging) complete; all 5 SCs verified, 3 gates green (validate, release.sh, sample PASS 16/16), threshold recalibrated 10→11*
