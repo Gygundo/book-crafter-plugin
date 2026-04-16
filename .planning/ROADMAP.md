@@ -274,11 +274,11 @@ Plans:
 
 **Anti-pattern reminder (from PITFALLS.md):** Phase 12 is the structural prevention against Phase 7's failure. Do NOT skip the re-run ("the rules look good, ship it") — Phase 7 shipped on that reasoning and produced the Eternally Secure Ch1 evidence this milestone exists to fix. Do NOT allow the README to claim capabilities that the comparison file does not substantiate (README overclaiming, Pitfall 22). Do NOT allow `git tag v1.1.0` to be applied before GATE-08 — the ship decision is David's explicit call, not an implicit "all plans green" inference. Phase 11 cannot mark complete until Phase 12 signs off.
 
-**Plans:** 1/6 plans executed
+**Plans:** 2/6 plans executed
 
 Plans:
 - [x] 12-01-PLAN.md — Freeze Ch1 baseline + capture sources-adapted checksums
-- [ ] 12-02-PLAN.md — Re-run Eternally Secure in --fresh mode + capture after evidence
+- [x] 12-02-PLAN.md — Re-run Eternally Secure in --fresh mode + capture after evidence
 - [ ] 12-03-PLAN.md — Seven-gap comparison + sermon-adapter regression check
 - [ ] 12-04-PLAN.md — External blind review (fresh Claude session, randomised A/B)
 - [ ] 12-05-PLAN.md — README finalisation + GitHub push + fresh-install smoke test
@@ -292,7 +292,7 @@ Plans:
 |-------|----------------|--------|-----------|
 | 10. Writing Quality v2 | 9/9 | Complete    | 2026-04-15 |
 | 11. Distribution Packaging | 6/6 | Complete    | 2026-04-16 |
-| 12. Re-run + Release Gate | 1/6 | In Progress|  |
+| 12. Re-run + Release Gate | 2/6 | In Progress|  |
 
 ### v1.1 Coverage
 
