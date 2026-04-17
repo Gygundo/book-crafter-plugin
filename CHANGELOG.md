@@ -5,6 +5,24 @@ All notable changes to Book Crafter will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.1] - 2026-04-17
+
+### Added
+- Novelty detection engine (`craft-check.js --novelty`) — deterministic Tier 1 (cross-chapter) and Tier 2 (enricher) rules catch repeated 6+ word spans, vulnerability-beat duplication, and metaphor-vehicle reuse
+- Editor Pass 3 §4.4.5 Novelty and Dedup Audit — manuscript-level scan with structured `rewrite_targets.yaml` emit
+- Captivation rubric v2: 8 components (0–16 scale) with new `novelty_variation` dimension
+- Writer anti-loop clause: no 6+ word phrase reuse, spent vulnerability seeds, distinct motif vehicles per chapter
+- Enricher anti-loop clause: foreword generation branch prevents verbatim copies from chapters
+- Post-enricher novelty gate (orchestrator Stage 4.6) — catches overlaps after foreword generation
+- Orchestrator Mode 7 (`--rewrite-targets`) — scoped re-run for novelty-flagged chapters only
+- Adversarial test fixtures for Tier 1 and Tier 2 rule validation
+
+### Changed
+- Captivation rubric schema bumped to v2 (YAML frontmatter, 8 components, total range 0–16)
+- Sample skill reads captivation score via structured YAML instead of prose grep
+- Outliner gains refrain candidate gate with `max_uses` enforcement
+- Tiny-book fixture rewritten from single repeated image to motif family with 3 distinct vehicles
+
 ## [1.1.0] - 2026-04-15
 
 ### Added
