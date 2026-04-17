@@ -234,8 +234,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 - [x] **GATE-03**: Seven-gap comparison file `evidence/seven-gap-comparison.md` — scene opener, Greek density, vulnerability, central image, tension-release, reader anchor, pulpit seams — with before/after quoted paragraphs for each
 - [x] **GATE-04**: Third-party review — fresh Claude session ranks before vs after blind, logged to `evidence/external-review.md`
 - [x] **GATE-05**: Sermon-adapter regression check — `sources-adapted/` byte-diff against pre-change baseline (must be unchanged)
-- [ ] **GATE-06**: Fresh-install smoke-test — dev plugin removed, cache cleared, marketplace install via README commands, fixture brief run, .docx verified
-- [ ] **GATE-07**: README capability language finalised against comparison evidence (no "bestseller quality" claim without matching evidence rows)
+- [x] **GATE-06**: Fresh-install smoke-test — dev plugin removed, cache cleared, marketplace install via README commands, fixture brief run, .docx verified
+- [x] **GATE-07**: README capability language finalised against comparison evidence (no "bestseller quality" claim without matching evidence rows)
 - [ ] **GATE-08**: David's explicit "ship / don't ship" call recorded in `evidence/ship-decision.md`
 - [ ] **GATE-09**: `git tag v1.1.0` applied and pushed — blocked on GATE-03 + GATE-08
 
@@ -300,8 +300,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | GATE-03 | Phase 12 | Complete |
 | GATE-04 | Phase 12 | Complete |
 | GATE-05 | Phase 12 | Complete |
-| GATE-06 | Phase 12 | Pending |
-| GATE-07 | Phase 12 | Pending |
+| GATE-06 | Phase 12 | Complete |
+| GATE-07 | Phase 12 | Complete |
 | GATE-08 | Phase 12 | Pending |
 | GATE-09 | Phase 12 | Pending |
 

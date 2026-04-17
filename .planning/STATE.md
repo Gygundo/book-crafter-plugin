@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Bestseller Quality + Distribution
 status: executing
-stopped_at: Completed 12-04-PLAN.md
-last_updated: "2026-04-16T21:21:42.146Z"
-last_activity: 2026-04-16
+stopped_at: Completed 12-05-PLAN.md
+last_updated: "2026-04-17T05:31:53.427Z"
+last_activity: 2026-04-17
 progress:
   total_phases: 13
   completed_phases: 11
   total_plans: 54
-  completed_plans: 51
+  completed_plans: 52
   percent: 0
 ---
 
@@ -26,9 +26,9 @@ See: .planning/PROJECT.md (updated 2026-04-15)
 ## Current Position
 
 Phase: 12 (re-run-release-gate) — EXECUTING
-Plan: 5 of 6
+Plan: 6 of 6
 Status: Ready to execute
-Last activity: 2026-04-16
+Last activity: 2026-04-17
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -108,6 +108,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 12-re-run-release-gate P02 | 3min | 2 tasks | 1 files |
 | Phase 12-re-run-release-gate P03 | 5min | 2 tasks | 2 files |
 | Phase 12-re-run-release-gate P04 | 2min | 3 tasks | 1 files |
+| Phase 12-re-run-release-gate P05 | 3min | 3 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -201,6 +202,7 @@ Recent decisions affecting current work:
 - [Phase 12-re-run-release-gate]: Version stamp deviation accepted: pipeline does not emit generated-by comment; evidence validity confirmed by content diff instead
 - [Phase 12-re-run-release-gate]: 8th gap section (Novelty/Dedup) added per D-07 discretion; sermon-adapter regression PASS with byte-identical checksums
 - [Phase 12-re-run-release-gate]: Blind reviewer ranked v1.1 (Version A) winner across all 5 quality dimensions; v1.0 acknowledged for tighter exegetical apparatus
+- [Phase 12-re-run-release-gate]: plugin.json name must match release identity (book-crafter) not dev identity for marketplace resolution
 
 ### Roadmap Evolution
 
@@ -221,6 +223,6 @@ None yet. Phase 12 is a pre-declared gate, not a blocker.
 
 ## Session Continuity
 
-Last session: 2026-04-16T21:21:42.143Z
-Stopped at: Completed 12-04-PLAN.md
+Last session: 2026-04-17T05:31:53.423Z
+Stopped at: Completed 12-05-PLAN.md
 Resume file: None
