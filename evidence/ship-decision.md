@@ -66,9 +66,12 @@
 
 ## Decision
 
-**Decision:** [TO BE FILLED BY DAVID]
+**Decision:** SHIP
 
-**Notes:** [TO BE FILLED BY DAVID]
+**Decided by:** David
+**Date:** 2026-04-17
+
+**Notes:** All 7 gates passed. David's explicit approval recorded. All evidence reviewed -- 8/8 gaps improved, blind reviewer preferred v1.1 across all dimensions, sermon adapter regression clean, fresh-install smoke test passed, README capability language finalised.
 
 ---
-*This decision blocks `git tag v1.1.0`. No tag will be applied without an explicit "ship" recorded above.*
+*GATE-08 satisfied. `git tag v1.1.0` is now unblocked.*
