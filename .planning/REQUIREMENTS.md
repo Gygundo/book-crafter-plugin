@@ -236,8 +236,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 - [x] **GATE-05**: Sermon-adapter regression check — `sources-adapted/` byte-diff against pre-change baseline (must be unchanged)
 - [x] **GATE-06**: Fresh-install smoke-test — dev plugin removed, cache cleared, marketplace install via README commands, fixture brief run, .docx verified
 - [x] **GATE-07**: README capability language finalised against comparison evidence (no "bestseller quality" claim without matching evidence rows)
-- [ ] **GATE-08**: David's explicit "ship / don't ship" call recorded in `evidence/ship-decision.md`
-- [ ] **GATE-09**: `git tag v1.1.0` applied and pushed — blocked on GATE-03 + GATE-08
+- [x] **GATE-08**: David's explicit "ship / don't ship" call recorded in `evidence/ship-decision.md`
+- [x] **GATE-09**: `git tag v1.1.0` applied and pushed — blocked on GATE-03 + GATE-08
 
 ### Decisions locked before roadmap
 
@@ -302,8 +302,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | GATE-05 | Phase 12 | Complete |
 | GATE-06 | Phase 12 | Complete |
 | GATE-07 | Phase 12 | Complete |
-| GATE-08 | Phase 12 | Pending |
-| GATE-09 | Phase 12 | Pending |
+| GATE-08 | Phase 12 | Complete |
+| GATE-09 | Phase 12 | Complete |
 
 **v1.1 Coverage:**
 - v1.1 requirements: 36 total (17 CRAFT + 10 PKG + 9 GATE)

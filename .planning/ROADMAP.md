@@ -175,7 +175,7 @@ Plans:
 
 - [x] **Phase 10: Writing Quality v2** — Seven countable craft rules, extracted/extended captivation rubric, voice profile subtractive audit, `--fresh` orchestrator mode, version stamps, per-chapter diagnostic report (completed 2026-04-15)
 - [x] **Phase 11: Distribution Packaging** — Marketplace.json, plugin.json v1.1.0 metadata, recipient README, LICENSE, CHANGELOG, fixture, release.sh with whitelist zip, sample skill (completed 2026-04-16)
-- [ ] **Phase 12: Re-run + Release Gate** — Frozen baseline, `--fresh` re-run, seven-gap comparison, external review, sermon-adapter regression check, fresh-install smoke-test, ship decision, git tag
+- [x] **Phase 12: Re-run + Release Gate** — Frozen baseline, `--fresh` re-run, seven-gap comparison, external review, sermon-adapter regression check, fresh-install smoke-test, ship decision, git tag (completed 2026-04-17)
 
 ### Phase 10: Writing Quality v2
 **Goal:** Generated chapters read as bestseller-quality prose — scene-first openers, disciplined Greek density, one dominant central image, an author vulnerability beat, and zero pulpit seams — enforced by procedural, countable rules rather than aspirational guidance.
@@ -274,7 +274,7 @@ Plans:
 
 **Anti-pattern reminder (from PITFALLS.md):** Phase 12 is the structural prevention against Phase 7's failure. Do NOT skip the re-run ("the rules look good, ship it") — Phase 7 shipped on that reasoning and produced the Eternally Secure Ch1 evidence this milestone exists to fix. Do NOT allow the README to claim capabilities that the comparison file does not substantiate (README overclaiming, Pitfall 22). Do NOT allow `git tag v1.1.0` to be applied before GATE-08 — the ship decision is David's explicit call, not an implicit "all plans green" inference. Phase 11 cannot mark complete until Phase 12 signs off.
 
-**Plans:** 5/6 plans executed
+**Plans:** 6/6 plans complete
 
 Plans:
 - [x] 12-01-PLAN.md — Freeze Ch1 baseline + capture sources-adapted checksums
@@ -282,7 +282,7 @@ Plans:
 - [x] 12-03-PLAN.md — Seven-gap comparison + sermon-adapter regression check
 - [x] 12-04-PLAN.md — External blind review (fresh Claude session, randomised A/B)
 - [x] 12-05-PLAN.md — README finalisation + GitHub push + fresh-install smoke test
-- [ ] 12-06-PLAN.md — Ship decision (HARD GATE) + git tag v1.1.0
+- [x] 12-06-PLAN.md — Ship decision (HARD GATE) + git tag v1.1.0
 
 ### v1.1 Progress
 
@@ -292,7 +292,7 @@ Plans:
 |-------|----------------|--------|-----------|
 | 10. Writing Quality v2 | 9/9 | Complete    | 2026-04-15 |
 | 11. Distribution Packaging | 6/6 | Complete    | 2026-04-16 |
-| 12. Re-run + Release Gate | 5/6 | In Progress|  |
+| 12. Re-run + Release Gate | 6/6 | Complete   | 2026-04-17 |
 
 ### v1.1 Coverage
 
