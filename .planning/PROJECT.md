@@ -27,6 +27,15 @@ Every chapter must read like it was written by a bestselling author — hooks th
 - [x] Three-pass editing pipeline (voice+theological, flow/transitions, cross-chapter validation) with rolling window for large books — Validated in Phase 04
 - [x] Review gate with approve/revise/read options, chapter-level revision workflow with one-hop adjacency checks, version management — Validated in Phase 04
 
+### Validated (Phase 13)
+
+- [x] ONE canonical captivation score surface — editor emits schema v2 YAML, sample reads YAML, rubric is single source of truth — Validated in Phase 13
+- [x] Editor Pass 3 §4.4.5 Novelty/Dedup Audit (Tier 1 + Tier 2) with rewrite_targets.yaml emit — Validated in Phase 13
+- [x] Rubric gains novelty_variation as 8th component (0-2), total range now [0, 16] — Validated in Phase 13
+- [x] Writer anti-loop clause (no 6+ word phrase reuse, spent vulnerability seeds, distinct motif vehicles) — Validated in Phase 13
+- [x] Enricher anti-loop clause (foreword generation) + post-enricher novelty gate (Stage 4.6) — Validated in Phase 13
+- [x] Fixture rewritten to motif family + 3 distinct vehicles; proof run passes all gates with 0 repeated_spans — Validated in Phase 13
+
 ### Validated (Phase 12)
 
 - [x] Seven-gap before/after comparison with quoted paragraphs proving v1.1 rules improve output — Validated in Phase 12
