@@ -27,6 +27,15 @@ Every chapter must read like it was written by a bestselling author — hooks th
 - [x] Three-pass editing pipeline (voice+theological, flow/transitions, cross-chapter validation) with rolling window for large books — Validated in Phase 04
 - [x] Review gate with approve/revise/read options, chapter-level revision workflow with one-hop adjacency checks, version management — Validated in Phase 04
 
+### Validated (Phase 12)
+
+- [x] Seven-gap before/after comparison with quoted paragraphs proving v1.1 rules improve output — Validated in Phase 12
+- [x] External blind review ranking v1.1 output as winner across all quality dimensions — Validated in Phase 12
+- [x] Sermon-adapter regression zero (byte-identical checksums) — Validated in Phase 12
+- [x] Fresh-install smoke test PASS (captivation 14/16, novelty_dedup pass) from marketplace — Validated in Phase 12
+- [x] README capability language evidence-anchored (no overclaiming) — Validated in Phase 12
+- [x] David's explicit SHIP decision recorded, git tag v1.1.0 applied and pushed — Validated in Phase 12
+
 ### Validated (Phase 11)
 
 - [x] Marketplace manifest, plugin.json v1.1.0 metadata, recipient README with 3-command install block, LICENSE, CHANGELOG — Validated in Phase 11
@@ -128,4 +137,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-16 — Phase 11 (Distribution Packaging) complete; all 5 SCs verified, 3 gates green (validate, release.sh, sample PASS 16/16), threshold recalibrated 10→11*
+*Last updated: 2026-04-17 — Phase 12 (Re-run + Release Gate) complete; all 9 gates PASS, v1.1.0 tagged and shipped. Plugin.json name mismatch caught and fixed during smoke test.*
