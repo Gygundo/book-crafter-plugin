@@ -331,7 +331,7 @@ Plans:
 - [x] 13-08-PLAN.md — Orchestrator Mode 7 (--rewrite-targets)
 - [x] 13-09-PLAN.md — Sample skill YAML reader (structured gate replaces prose grep)
 - [x] 13-10-PLAN.md — Fixture brief and Book DNA rewrite (motif family, 3 vehicles, refrain)
-- [ ] 13-11-PLAN.md — SC-6 proof run (FAILED — 4 repeated_spans, foreword-to-ch01 bleed)
+- [x] 13-11-PLAN.md — SC-6 proof run (FAILED — 4 repeated_spans, foreword-to-ch01 bleed → triggered gap closure)
 - [x] 13-12-PLAN.md — Gap closure: enricher Anti-Loop Clause (foreword generation branch)
 - [x] 13-13-PLAN.md — Gap closure: post-enricher novelty gate (orchestrator Stage 4.6)
-- [ ] 13-14-PLAN.md — Gap closure: SC-6 proof re-run after fixes
+- [x] 13-14-PLAN.md — Gap closure: SC-6 proof re-run after fixes (PASSED — 0 repeated_spans, human approved)
