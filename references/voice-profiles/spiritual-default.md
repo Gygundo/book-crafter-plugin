@@ -34,9 +34,12 @@ Bold, direct, revelation-driven -- but wrapped in story. Like a bestselling auth
 - Academic hedging ("some scholars believe", "it could possibly mean", "there is a view that")
 - Religious cliches ("God won't give you more than you can handle", "everything happens for a reason")
 - Passive voice when active voice is possible
-- Em dashes -- use regular hyphens with spaces or restructure the sentence
+- Em dashes (— or spaced –) -- use regular hyphens with spaces or restructure the sentence. **Now deterministically enforced by CRAFT-18.**
 - "3 steps to..." or any numbered-steps framing
 - "There are [N] reasons why..."
+- **AI-ism phrases (deterministic CRAFT-18 gate):** delve/delves/delving, deep dive, dive into, dives into, diving into, tapestry, a testament to, stands as a testament, in today's fast-paced world, in today's world, in an era of, in a world where, game-changer, game changing, transformative power, it is important to note, it's important to note, it is worth noting, it's worth noting, at the end of the day, let's unpack, let us unpack, let's explore, let us explore, in conclusion, embark on, embarking on, the landscape of, navigating the complexities, elevate your, unlock the secrets, supercharge, a powerful reminder, moreover, furthermore, additionally.
+- **Negation-pivot overuse (CRAFT-18):** Maximum ONE per chapter of "not just/merely/simply", "more than just", "not only...but also", "it's not about...it's about" patterns. More than one produces AI-generation cadence.
+- **Emoji** in any author prose or heading.
 
 ## Emphasis Techniques
 

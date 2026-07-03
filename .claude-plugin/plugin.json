@@ -1,6 +1,6 @@
 {
   "name": "book-crafter",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Writes structured non-fiction books with enforced craft rules. Theological voice profile default, custom voice support, professional .docx output.",
   "author": {
     "name": "David",

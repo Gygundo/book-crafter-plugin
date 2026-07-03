@@ -50,7 +50,7 @@ A chapter that scores 9/14 on the rubric looks like this (bestseller-track — t
 
 **Opening paragraph (paraphrased, scene-first, concrete, central image seeded in zones, vulnerability foreshadowed):**
 
-> The light from Sarah's phone made her kitchen look like a hospital corridor — cold, blue, too bright for 2am. She had read John 10 four times. The fourth read was the worst, because by then the words had stopped meaning anything. She set the phone face-down on the counter, and the sound of it hitting the laminate was louder than it should have been.
+> The light from Sarah's phone made her kitchen look like a hospital corridor - cold, blue, too bright for 2am. She had read John 10 four times. The fourth read was the worst, because by then the words had stopped meaning anything. She set the phone face-down on the counter, and the sound of it hitting the laminate was louder than it should have been.
 >
 > *But what if the gift hadn't been given to her?*
 >

@@ -14,6 +14,7 @@
 | CRAFT-06 | ≥2 concrete reader-moments per chapter, sourced from voice profile Reader Moments section | LLM judgment | flag-only |
 | CRAFT-07 | ≥2 italicised/blockquote reader-thought lines per chapter | deterministic regex | flag-only |
 | CRAFT-08 | Concrete:abstract noun ratio ≥1:1 over any 4-paragraph window | LLM judgment with lexicon hints | flag-only |
+| CRAFT-18 | AI-slop scan: no em dashes, ≤1 negation-pivot per chapter, banned AI-ism phrase list, no emoji | deterministic | auto-revise |
 
 ## CRAFT-01 — Scene-First Opener
 
@@ -113,15 +114,43 @@ Detection: case-insensitive, word-boundary, FIRST word(s) of paragraph only. Mid
 
 **Enforcement:** LLM judgment with lexicon hints. Flag-only.
 
+## CRAFT-18 — AI-Slop Scan
+
+**Rule:** Deterministic gate that blocks AI voice leaking through in four dimensions. Blockquote lines (scripture and reader-thought lines) are exempt from all four checks.
+
+**1. Em-dash ban:** The em dash character (—) and the spaced en-dash ( – ) are banned in author prose and headings. Use a spaced hyphen ( - ) or restructure the sentence. This codifies the guidance in `references/voice-profiles/spiritual-default.md § Avoid` as a deterministic gate rather than a style suggestion.
+
+**2. Negation-pivot cap — max ONE per chapter:**
+
+```
+/(is not|isn't|was not|wasn't|are not|aren't|does not|doesn't)\s+(just|merely|simply)/i
+/\bnot\s+(just|merely|simply)\s/i
+/\bmore than just\b/i
+/\bnot only\b[^.!?\n]{0,80}\bbut also\b/i
+/\bit('|i)s not about\b[^.!?\n]{0,80}\bit('|i)s about\b/i
+```
+
+Overlapping matches count as ONE pivot (e.g. "is not just" matches the first two patterns but is a single pivot). More than one negation-pivot per chapter produces the "not just X but Y" pivoting cadence that signals AI generation.
+
+**3. Banned AI-ism phrase list** (kept in sync with `scripts/craft-check.js` SLOP_PHRASES constant):
+
+delve/delves/delving, deep dive, dive into, dives into, diving into, tapestry, a testament to, stands as a testament, in today's fast-paced world, in today's world, in an era of, in a world where, game-changer, game changing, transformative power, it is important to note, it's important to note, it is worth noting, it's worth noting, at the end of the day, let's unpack, let us unpack, let's explore, let us explore, in conclusion, embark on, embarking on, the landscape of, navigating the complexities, elevate your, unlock the secrets, supercharge, a powerful reminder, moreover, furthermore, additionally.
+
+**4. Emoji ban:** No emoji in author prose or headings.
+
+**Deliberately NOT banned:** "the power of", "journey", antithesis constructions that do not use the pivot words above. No theological false positives.
+
+**Failure mode:** Any sub-check fail → auto-revise. Blockquote lines (lines starting with `>`) are exempt from all four checks. This means KJV uses of "furthermore" inside scripture quotations are safe.
+
 ## Cross-Rule Integration
 
-- Deterministic checks (CRAFT-01/02/05/07/15) run via `node ${CLAUDE_PLUGIN_ROOT}/scripts/craft-check.js [chapter-path]` at editor Pass 1 start.
+- Deterministic checks (CRAFT-01/02/05/07/15/18) run via `node ${CLAUDE_PLUGIN_ROOT}/scripts/craft-check.js [chapter-path]` at editor Pass 1 start.
 - Judgment checks (CRAFT-03/04/06/08 + CRAFT-01 scene quality) run as LLM sub-sections in editor Pass 1 and Pass 2.
-- Auto-revise rules: CRAFT-01 (missing provenance), CRAFT-02 (transliterated overflow), CRAFT-05 (pulpit seam).
+- Auto-revise rules: CRAFT-01 (missing provenance), CRAFT-02 (transliterated overflow), CRAFT-05 (pulpit seam), CRAFT-18 (AI-slop hit).
 - Flag-only rules: CRAFT-03, CRAFT-04, CRAFT-06, CRAFT-07, CRAFT-08.
 - Revision cap: 2 per chapter. Divergent improvement (score decreases) → accept previous revision and stop.
 
 ## Maintenance
 
-- Changing this file also requires updating: `scripts/craft-check.js` (if regex or lexicon changes), writer SKILL.md and editor SKILL.md (if rule text they cite drifts).
-- Target file size: ≤200 lines. Prune ruthlessly.
+- Changing this file also requires updating: `scripts/craft-check.js` (if regex or lexicon changes — CRAFT-18 SLOP_PHRASES must stay in sync), writer SKILL.md and editor SKILL.md (if rule text they cite drifts).
+- Target file size: ≤250 lines. Prune ruthlessly.

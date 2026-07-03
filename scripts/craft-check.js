@@ -18,6 +18,96 @@ const PROVENANCE_REGEX = /^<!-- provenance: (.+):(\d+) -->$/;
 const VERSION_STAMP_REGEX = /^<!-- generated-by: book-crafter v\d+\.\d+\.\d+ -->$/m;
 const READER_THOUGHT_REGEX = /(?:^>\s*\*"|^\*")[^"*]{5,200}\?["*]/gm;
 
+// CRAFT-18 — AI-slop scan (kept in sync with references/bestseller-craft-rules.md § CRAFT-18)
+const EM_DASH_RE         = /—| – /;
+const NEGATION_PIVOT_RES = [
+  /\b(is not|isn't|was not|wasn't|are not|aren't|does not|doesn't)\s+(just|merely|simply)\b/gi,
+  /\bnot\s+(just|merely|simply)\s/gi,
+  /\bmore than just\b/gi,
+  /\bnot only\b[^.!?\n]{0,80}\bbut also\b/gi,
+  /\bit('|i)s not about\b[^.!?\n]{0,80}\bit('|i)s about\b/gi
+];
+const SLOP_PHRASES = [
+  'delve', 'delves', 'delving', 'deep dive', 'dive into', 'dives into', 'diving into',
+  'tapestry', 'a testament to', 'stands as a testament',
+  "in today's fast-paced world", "in today's world", 'in an era of', 'in a world where',
+  'game-changer', 'game changing', 'transformative power',
+  'it is important to note', "it's important to note", 'it is worth noting', "it's worth noting",
+  'at the end of the day', "let's unpack", 'let us unpack', "let's explore", 'let us explore',
+  'in conclusion', 'embark on', 'embarking on', 'the landscape of',
+  'navigating the complexities', 'elevate your', 'unlock the secrets', 'supercharge',
+  'a powerful reminder', 'moreover', 'furthermore', 'additionally'
+];
+const SLOP_RE  = new RegExp('\\b(' + SLOP_PHRASES.map(p => p.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|') + ')\\b', 'i');
+const EMOJI_RE = /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}]/u;
+
+// ---------------------------------------------------------------------------
+// Text utilities (used by CRAFT-18)
+// ---------------------------------------------------------------------------
+
+function getBodyText(content) {
+  return content
+    .replace(/<!--\s*METADATA[\s\S]*?-->/gi, '')
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/^#.*$/gm, '');
+}
+
+function getAuthorProseText(content) {
+  return getBodyText(content)
+    .split('\n')
+    .filter(l => { const t = l.trim(); return t && !t.startsWith('>') && !t.startsWith('#'); })
+    .join(' ');
+}
+
+// ---------------------------------------------------------------------------
+// CRAFT-18 — AI-slop scan
+// ---------------------------------------------------------------------------
+
+function checkCraft18(content) {
+  // Author prose + headings, blockquotes excluded (scripture may legitimately
+  // contain "furthermore" or an em dash; a quoted translation is exempt).
+  const nonQuote = getBodyText(content)
+    .split('\n')
+    .filter(l => !l.trim().startsWith('>'))
+    .join('\n');
+  const prose = getAuthorProseText(content);
+
+  const emDash = EM_DASH_RE.test(nonQuote);
+
+  // Count pivots with overlap dedup — "is not just" matches two patterns
+  // but is ONE pivot.
+  const pivotRanges = [];
+  const pivotSamples = [];
+  for (const re of NEGATION_PIVOT_RES) {
+    for (const m of prose.matchAll(re)) {
+      const start = m.index, end = m.index + m[0].length;
+      if (pivotRanges.some(([s, e]) => start < e && end > s)) continue;
+      pivotRanges.push([start, end]);
+      if (pivotSamples.length < 3) pivotSamples.push(m[0].slice(0, 60));
+    }
+  }
+  const pivotCount = pivotRanges.length;
+
+  const slopMatch  = prose.match(SLOP_RE);
+  const emojiMatch = EMOJI_RE.test(nonQuote);
+
+  const pass = !emDash && pivotCount <= 1 && !slopMatch && !emojiMatch;
+  return {
+    pass,
+    evidence: [
+      `em_dash: ${emDash ? 'FAIL' : 'OK'}`,
+      `negation_pivots: ${pivotCount} (cap 1${pivotCount > 1 ? ' - FAIL' : ''})${pivotSamples.length ? ' [' + pivotSamples.join(' | ') + ']' : ''}`,
+      `slop_phrase: ${slopMatch ? 'FAIL: "' + slopMatch[0] + '"' : 'OK'}`,
+      `emoji: ${emojiMatch ? 'FAIL' : 'OK'}`
+    ].join('; '),
+    em_dash: emDash,
+    negation_pivot_count: pivotCount,
+    slop_phrase: slopMatch ? slopMatch[0] : null,
+    emoji: emojiMatch,
+    citations: []
+  };
+}
+
 function checkCraft01(content, chapterPath) {
   const firstLine = content.split('\n')[0];
   const match = firstLine.match(PROVENANCE_REGEX);
@@ -116,7 +206,8 @@ function main() {
       'CRAFT-02': checkCraft02(content),
       'CRAFT-05': checkCraft05(content),
       'CRAFT-07': checkCraft07(content),
-      'CRAFT-15': checkCraft15(content)
+      'CRAFT-15': checkCraft15(content),
+      'CRAFT-18': checkCraft18(content)
     }
   };
   console.log(JSON.stringify(result, null, 2));

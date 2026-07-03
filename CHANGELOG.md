@@ -5,6 +5,21 @@ All notable changes to Book Crafter will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2026-07-03
+
+### Added
+- CRAFT-18 AI-slop scan: deterministic auto-revise gate blocking em dashes in author prose, negation-pivot overuse (cap 1 per chapter), 30-phrase AI-ism ban list (delve, furthermore, embark on, etc.), and emoji. Blockquote lines (scripture, reader-thought) are exempt. Mirrors DAG-09 from the sibling dag-book-crafter-plugin.
+- `scripts/craft-check.js` — EM_DASH_RE, NEGATION_PIVOT_RES, SLOP_PHRASES/SLOP_RE, EMOJI_RE constants plus `checkCraft18()` with overlap-dedup pivot counting and `getBodyText`/`getAuthorProseText` helpers.
+- 7 CRAFT-18 unit tests in `scripts/test-craft-check.js` covering all failure modes and exemptions.
+- CRAFT-18 spec section in `references/bestseller-craft-rules.md` (rule summary, full section, Cross-Rule Integration update).
+- CRAFT-18 AI-ism list and negation-pivot cap note in `references/voice-profiles/spiritual-default.md`.
+- CRAFT-18 anti-pattern bullets in `skills/writer/SKILL.md` § 9.
+- CRAFT-18 row in `skills/editor/SKILL.md` § 2.0 enforcement table.
+
+### Changed
+- `fixtures/phase10/known-good/ch01-draft.md` — replaced em dash in author prose with spaced hyphen (required for CRAFT-18 gate).
+- `references/bestseller-calibration.md` — replaced em dash in Score Level 9 exemplar prose with spaced hyphen.
+
 ## [1.1.1] - 2026-04-17
 
 ### Added

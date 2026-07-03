@@ -10,7 +10,7 @@ The Greek word for grace is *charis*, and it carries a weight the English word n
 
 Three weeks earlier, she had stood in this same kitchen and said the words aloud for the first time. I am not okay. The cup had trembled in her hands. So had her voice.
 
-There is a power in honesty that the polished version of ourselves can never touch. Paul called this kind of power *dunamis* — a strength that arrives precisely when our own runs out.
+There is a power in honesty that the polished version of ourselves can never touch. Paul called this kind of power *dunamis* - a strength that arrives precisely when our own runs out.
 
 > *"If God already knows, why is it so hard to say it out loud?"*
 

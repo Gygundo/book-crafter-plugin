@@ -67,7 +67,7 @@ mkdir -p [project_directory]/edited [project_directory]/reports
 
 **Purpose:** Normalise each chapter's voice against the profile. This pass runs FIRST because subsequent passes need voice-normalised text.
 
-**Requirements addressed:** EDIT-01 (voice consistency), EDIT-03 (theological guardrails), CRAFT-01, CRAFT-02, CRAFT-05, CRAFT-07, CRAFT-15
+**Requirements addressed:** EDIT-01 (voice consistency), EDIT-03 (theological guardrails), CRAFT-01, CRAFT-02, CRAFT-05, CRAFT-07, CRAFT-15, CRAFT-18
 
 For each chapter (parallel via subagents if 16+ chapters, sequential otherwise):
 
@@ -107,12 +107,13 @@ node ${CLAUDE_PLUGIN_ROOT}/scripts/craft-check.js [project_directory]/drafts/ch[
 | CRAFT-05 | pulpit-seam phrase at chapter or paragraph start | **Auto-revise** — request writer rewrite of the specific paragraph(s) only (run §2.10 LLM override first) |
 | CRAFT-07 | <2 italicised/blockquote reader-thought lines | **Flag only** — add to diagnostic report. Do not auto-revise. |
 | CRAFT-15 | missing `<!-- generated-by: book-crafter vX.Y.Z -->` stamp | **Auto-fix** — prepend the stamp to the chapter (do not round-trip to writer) |
+| CRAFT-18 | em dash in prose, >1 negation-pivot, banned AI-ism phrase, or emoji | **Auto-revise** — request writer rewrite of affected sentence(s). Blockquote lines (scripture, reader-thought) are exempt. |
 
 **Revision request contract:** when auto-revising, write the writer instruction to `[project_directory]/revisions/ch[NN]-request.md` with fields `reason`, `failed_check`, `scope` (opener / paragraph-range / full-chapter), `evidence`, `citations`. The orchestrator (Plan 10-09, CRAFT-17) routes the request to the writer.
 
 **Revision cap:** All revision requests respect the 2-revision-per-chapter cap wired in Plan 10-09 (CRAFT-17). On exhaustion, keep the highest-scoring revision by captivation rubric total, append a flag to the diagnostic report with line citations, and continue — do not halt the pipeline.
 
-**Rule reference:** `${CLAUDE_PLUGIN_ROOT}/references/bestseller-craft-rules.md` — CRAFT-01, CRAFT-02, CRAFT-05, CRAFT-07, CRAFT-15.
+**Rule reference:** `${CLAUDE_PLUGIN_ROOT}/references/bestseller-craft-rules.md` — CRAFT-01, CRAFT-02, CRAFT-05, CRAFT-07, CRAFT-15, CRAFT-18.
 
 ### 2.1 Vocabulary Audit
 
@@ -223,6 +224,7 @@ craft_check:
   CRAFT-05: pass
   CRAFT-07: fail (1 reader-thought line; flagged)
   CRAFT-15: pass
+  CRAFT-18: pass
   CRAFT-08: fail (window p12-p15 ratio 0.6; flagged)
 changes_made: [count]
 severity: clean | minor | significant
@@ -661,7 +663,7 @@ After Pass 3 cross-chapter validation completes, assemble the per-chapter bestse
 node ${CLAUDE_PLUGIN_ROOT}/scripts/craft-check.js [project_directory]/edited/ch[NN]-final.md
 ```
 
-Parse the JSON output. The JSON shape is `{chapter_id, checks: {CRAFT-XX: {pass, evidence, citations}}}` per Plan 10-01. The deterministic checks covered are CRAFT-01 (provenance presence), CRAFT-02 (Greek/Hebrew density), CRAFT-05 (pulpit-seam), CRAFT-07 (reader-thought lines), and CRAFT-15 (version stamp).
+Parse the JSON output. The JSON shape is `{chapter_id, checks: {CRAFT-XX: {pass, evidence, citations}}}` per Plan 10-01. The deterministic checks covered are CRAFT-01 (provenance presence), CRAFT-02 (Greek/Hebrew density), CRAFT-05 (pulpit-seam), CRAFT-07 (reader-thought lines), CRAFT-15 (version stamp), and CRAFT-18 (AI-slop scan).
 
 **Step 2 — Gather Pass 2 judgment results.** Read each chapter's `<!-- VOICE AUDIT -->` metadata block from `edited/ch[NN]-final.md`. Extract the `craft_pass2:` block (written by Pass 2 §3.3, §3.7, §3.8, §3.9 and the §2.12 carry-through). It supplies the LLM judgment results for CRAFT-03 (central image), CRAFT-04 (vulnerability beat), CRAFT-06 (reader moments), and CRAFT-08 (concrete:abstract ratio carries from Pass 1 §2.12 via the merged `craft_check` block).
 

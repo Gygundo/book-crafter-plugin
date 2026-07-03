@@ -320,6 +320,144 @@ test('novelty: scripture blockquote cross-file does NOT flag', () => {
   );
 });
 
+// ---------------------------------------------------------------------------
+// CRAFT-18 — AI-slop scan
+// ---------------------------------------------------------------------------
+
+// Minimal content that passes CRAFT-02/05/07/15 (CRAFT-01 will fail because
+// provenance path cannot resolve from a temp dir, but CRAFT-18 tests only
+// assert on result.checks['CRAFT-18']).
+const CRAFT18_CLEAN = `<!-- provenance: fixtures/phase10/known-good/ch01-draft.md:1 -->
+<!-- generated-by: book-crafter v1.2.0 -->
+# Chapter 1: Test
+
+Sarah sat by the window at 6am, watching steam curl from her mug.
+
+*"But what if this is not enough for me right now?"*
+
+Three weeks earlier, she had stood and said the words aloud. The cup had trembled.
+
+*"Why is it so hard to say it out loud?"*
+
+The morning light shifted. Tomorrow would still be tomorrow. That is where change begins.
+`;
+
+function craft18TmpFile(content) {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'craft18-'));
+  const file = path.join(dir, 'ch01.md');
+  fs.writeFileSync(file, content);
+  return { file, cleanup: () => fs.rmSync(dir, { recursive: true, force: true }) };
+}
+
+test('CRAFT-18: em dash in author prose fails', () => {
+  const content = CRAFT18_CLEAN.replace(
+    'Sarah sat by the window at 6am, watching steam curl from her mug.',
+    'Sarah sat by the window at 6am - watching steam curl from her mug - the kind that rises slow.'
+  ).replace(
+    'The cup had trembled.',
+    'Paul called this kind of power *dunamis* — a strength that arrives when our own runs out.'
+  );
+  const { file, cleanup } = craft18TmpFile(content);
+  try {
+    const { result } = runChecker(file);
+    const c = result.checks && result.checks['CRAFT-18'];
+    assert.ok(c, 'CRAFT-18 check must be present');
+    assert.equal(c.pass, false, 'em dash in prose should fail CRAFT-18');
+    assert.equal(c.em_dash, true, 'em_dash field should be true');
+  } finally { cleanup(); }
+});
+
+test('CRAFT-18: em dash inside a scripture blockquote is exempt', () => {
+  const content = CRAFT18_CLEAN + `
+> *Be STRONG AND OF A GOOD COURAGE — be not afraid.*
+> -- Joshua 1:9
+`;
+  const { file, cleanup } = craft18TmpFile(content);
+  try {
+    const { result } = runChecker(file);
+    const c = result.checks && result.checks['CRAFT-18'];
+    assert.ok(c, 'CRAFT-18 check must be present');
+    assert.equal(c.em_dash, false, 'em dash inside blockquote must not fire em_dash flag');
+    // slop/emoji still need to pass for overall pass; CRAFT-18 may still fail CRAFT-01
+    assert.equal(c.pass, true, 'blockquote em dash should leave CRAFT-18 passing');
+  } finally { cleanup(); }
+});
+
+test('CRAFT-18: single negation-pivot passes (cap 1)', () => {
+  const content = CRAFT18_CLEAN.replace(
+    'Sarah sat by the window at 6am, watching steam curl from her mug.',
+    'Faith is not just a feeling you wait for. Sarah sat by the window at 6am, watching steam curl from her mug.'
+  );
+  const { file, cleanup } = craft18TmpFile(content);
+  try {
+    const { result } = runChecker(file);
+    const c = result.checks && result.checks['CRAFT-18'];
+    assert.ok(c, 'CRAFT-18 check must be present');
+    assert.equal(c.negation_pivot_count, 1, 'one pivot should count as 1');
+    assert.equal(c.pass, true, 'single negation-pivot should pass');
+  } finally { cleanup(); }
+});
+
+test('CRAFT-18: two negation-pivots fail (over cap)', () => {
+  const content = CRAFT18_CLEAN.replace(
+    'Sarah sat by the window at 6am, watching steam curl from her mug.',
+    'Faith is not just a feeling. Prayer is more than just words you recite. Sarah sat by the window at 6am.'
+  );
+  const { file, cleanup } = craft18TmpFile(content);
+  try {
+    const { result } = runChecker(file);
+    const c = result.checks && result.checks['CRAFT-18'];
+    assert.ok(c, 'CRAFT-18 check must be present');
+    assert.ok(c.negation_pivot_count >= 2, 'two pivots should count as >= 2');
+    assert.equal(c.pass, false, 'two negation-pivots should fail CRAFT-18');
+  } finally { cleanup(); }
+});
+
+test('CRAFT-18: banned AI-ism ("delve") fails', () => {
+  const content = CRAFT18_CLEAN.replace(
+    'Sarah sat by the window at 6am, watching steam curl from her mug.',
+    'We will now delve into what the Bible says. Sarah sat by the window at 6am.'
+  );
+  const { file, cleanup } = craft18TmpFile(content);
+  try {
+    const { result } = runChecker(file);
+    const c = result.checks && result.checks['CRAFT-18'];
+    assert.ok(c, 'CRAFT-18 check must be present');
+    assert.equal(c.pass, false, '"delve" should fail CRAFT-18');
+    assert.ok(c.slop_phrase && c.slop_phrase.toLowerCase().includes('delve'), 'slop_phrase should identify "delve"');
+  } finally { cleanup(); }
+});
+
+test('CRAFT-18: "furthermore" inside scripture blockquote is exempt', () => {
+  const content = CRAFT18_CLEAN + `
+> *FURTHERMORE David the king said unto ALL THE CONGREGATION, be strong.*
+> -- 1 Chronicles 28:20
+`;
+  const { file, cleanup } = craft18TmpFile(content);
+  try {
+    const { result } = runChecker(file);
+    const c = result.checks && result.checks['CRAFT-18'];
+    assert.ok(c, 'CRAFT-18 check must be present');
+    assert.equal(c.slop_phrase, null, '"furthermore" in blockquote must not fire slop flag');
+    assert.equal(c.pass, true, '"furthermore" inside blockquote should leave CRAFT-18 passing');
+  } finally { cleanup(); }
+});
+
+test('CRAFT-18: "the power of" is NOT flagged (no theological false positive)', () => {
+  const content = CRAFT18_CLEAN.replace(
+    'Sarah sat by the window at 6am, watching steam curl from her mug.',
+    'The power of God is available to you today. Sarah sat by the window at 6am.'
+  );
+  const { file, cleanup } = craft18TmpFile(content);
+  try {
+    const { result } = runChecker(file);
+    const c = result.checks && result.checks['CRAFT-18'];
+    assert.ok(c, 'CRAFT-18 check must be present');
+    assert.equal(c.pass, true, '"the power of" should NOT trigger CRAFT-18');
+    assert.equal(c.slop_phrase, null, '"the power of" must not appear as slop_phrase');
+  } finally { cleanup(); }
+});
+
 test('novelty: --dna flag with no refrains block still runs without error', () => {
   // A book-dna.md lacking a `refrains:` key must not crash the CLI —
   // exit code 0 (clean) or 1 (flag:true) is acceptable, but not 2 (crash).
